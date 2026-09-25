@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     Flex,
@@ -9,7 +9,10 @@ import {
     Text,
     Image,
     Badge,
+    Button,
+    Collapse,
 } from '@chakra-ui/react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { ACTIVE_MEMBERS, type TeamMember } from '../teamData';
 import { getAssetPath } from '@/lib/basePath';
 
@@ -18,11 +21,16 @@ interface LeadershipBentoSectionProps {
 }
 
 export default function LeadershipBentoSection({ onSelectMember }: LeadershipBentoSectionProps) {
+    const [isExpanded, setIsExpanded] = useState(false);
+
     const director = ACTIVE_MEMBERS.find((m) => m.name.includes('Franco')) || ACTIVE_MEMBERS[0];
     const kimRay = ACTIVE_MEMBERS.find((m) => m.name.includes('Kimberly')) || ACTIVE_MEMBERS[1];
     const anibal = ACTIVE_MEMBERS.find((m) => m.name.includes('Anibal')) || ACTIVE_MEMBERS[0];
     const taylor = ACTIVE_MEMBERS.find((m) => m.name.includes('Taylor')) || ACTIVE_MEMBERS[0];
     const nick = ACTIVE_MEMBERS.find((m) => m.name.includes('Nicholas')) || ACTIVE_MEMBERS[0];
+
+    const featuredNames = [director.name, anibal.name, kimRay.name, taylor.name, nick.name];
+    const remainingMembers = ACTIVE_MEMBERS.filter((m) => !featuredNames.includes(m.name));
 
     return (
         <Box mb={{ base: '56px', md: '80px' }}>
@@ -461,6 +469,155 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
                     </Flex>
                 </Box>
             </Grid>
+
+            {/* COLLAPSIBLE REMAINING TEAM MEMBERS */}
+            <Collapse in={isExpanded} animateOpacity>
+                <Box pt="20px">
+                    <Grid
+                        templateColumns={{
+                            base: '1fr',
+                            md: 'repeat(2, 1fr)',
+                            lg: 'repeat(4, 1fr)',
+                        }}
+                        gap={{ base: '16px', md: '20px' }}
+                    >
+                        {remainingMembers.map((member) => (
+                            <Box
+                                key={member.name}
+                                role="group"
+                                borderRadius="16px"
+                                overflow="hidden"
+                                position="relative"
+                                bg="#162032"
+                                border="1px solid rgba(255, 255, 255, 0.1)"
+                                boxShadow="0 15px 35px rgba(0, 0, 0, 0.35)"
+                                p={{ base: '22px 18px', md: '26px 22px' }}
+                                cursor="pointer"
+                                onClick={() => onSelectMember(member)}
+                                transition="all 0.2s ease"
+                                _hover={{
+                                    borderColor: '#2693D8',
+                                    boxShadow: '0 15px 35px rgba(0, 0, 0, 0.5)',
+                                    transform: 'translateY(-2px)',
+                                }}
+                                display="flex"
+                                flexDirection="column"
+                                justifyContent="space-between"
+                            >
+                                <Box>
+                                    <Flex alignItems="center" gap="12px" mb="12px">
+                                        <Box
+                                            w="56px"
+                                            h="56px"
+                                            borderRadius="12px"
+                                            overflow="hidden"
+                                            border="1px solid rgba(255, 255, 255, 0.12)"
+                                            bg="radial-gradient(circle, #3d4452 0%, #242831 100%)"
+                                            flexShrink={0}
+                                        >
+                                            <Image
+                                                src={member.avatar}
+                                                alt={member.name}
+                                                w="100%"
+                                                h="100%"
+                                                objectFit="cover"
+                                                filter="grayscale(100%)"
+                                                transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
+                                                _groupHover={{ filter: 'grayscale(0%)', transform: 'scale(1.06)' }}
+                                                fallbackSrc={getAssetPath('/img/team/person.png')}
+                                            />
+                                        </Box>
+                                        <Box minW={0}>
+                                            {member.expertise && member.expertise[0] && (
+                                                <Badge
+                                                    bg="rgba(38, 147, 216, 0.15)"
+                                                    color="#2693D8"
+                                                    border="1px solid rgba(38, 147, 216, 0.35)"
+                                                    fontSize="9.5px"
+                                                    px="6px"
+                                                    py="1px"
+                                                    borderRadius="4px"
+                                                    noOfLines={1}
+                                                    display="inline-block"
+                                                    maxW="100%"
+                                                >
+                                                    {member.expertise[0]}
+                                                </Badge>
+                                            )}
+                                            <Heading as="h4" fontSize="17px" fontWeight={800} color="white" mt="3px" noOfLines={1}>
+                                                {member.name}
+                                            </Heading>
+                                            <Text fontSize="12px" color="#2693D8" fontWeight={600} noOfLines={1}>
+                                                {member.title}
+                                            </Text>
+                                        </Box>
+                                    </Flex>
+
+                                    <Text fontSize="12.5px" color="#cbd5e1" lineHeight="1.55" noOfLines={4}>
+                                        {member.bio}
+                                    </Text>
+                                </Box>
+
+                                {member.expertise && member.expertise.length > 1 && (
+                                    <Flex wrap="wrap" gap="5px" mt="14px" pt="10px" borderTop="1px solid rgba(255, 255, 255, 0.06)">
+                                        {member.expertise.slice(1, 4).map((exp) => (
+                                            <Badge
+                                                key={exp}
+                                                bg="rgba(255, 255, 255, 0.05)"
+                                                color="#cbd5e1"
+                                                border="1px solid rgba(255, 255, 255, 0.08)"
+                                                fontSize="9.5px"
+                                            >
+                                                {exp}
+                                            </Badge>
+                                        ))}
+                                    </Flex>
+                                )}
+                            </Box>
+                        ))}
+                    </Grid>
+                </Box>
+            </Collapse>
+
+            {/* READ MORE / SHOW LESS TOGGLE BUTTON */}
+            {remainingMembers.length > 0 && (
+                <Flex justify="center" mt="28px">
+                    <Button
+                        onClick={() => setIsExpanded(!isExpanded)}
+                        bg="rgba(15, 23, 42, 0.75)"
+                        border="1px solid"
+                        borderColor={isExpanded ? '#2693D8' : 'rgba(255, 255, 255, 0.18)'}
+                        color="white"
+                        h="44px"
+                        px="26px"
+                        borderRadius="10px"
+                        fontSize="14px"
+                        fontWeight={700}
+                        letterSpacing="0.02em"
+                        backdropFilter="blur(10px)"
+                        boxShadow="0 4px 20px rgba(0, 0, 0, 0.35)"
+                        rightIcon={
+                            isExpanded ? (
+                                <ChevronUp size={16} color="#2693D8" />
+                            ) : (
+                                <ChevronDown size={16} color="#2693D8" />
+                            )
+                        }
+                        transition="all 0.25s ease"
+                        _hover={{
+                            bg: 'rgba(38, 147, 216, 0.15)',
+                            borderColor: '#2693D8',
+                            boxShadow: '0 0 25px rgba(38, 147, 216, 0.45)',
+                            transform: 'translateY(-2px)',
+                        }}
+                        _active={{
+                            transform: 'translateY(0)',
+                        }}
+                    >
+                        {isExpanded ? 'Show Less' : `Read More (${remainingMembers.length} More Members)`}
+                    </Button>
+                </Flex>
+            )}
         </Box>
     );
 }

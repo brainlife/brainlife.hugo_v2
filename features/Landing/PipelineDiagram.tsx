@@ -2,10 +2,11 @@
 
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
+import type { StaticImageData } from 'next/image';
 import logo from '@/assets/logo.svg';
 import { getAssetPath } from '@/lib/basePath';
 
-const rawLogoSrc = typeof logo === 'string' ? logo : (logo as any)?.src || '/logo.svg';
+const rawLogoSrc = typeof logo === 'string' ? logo : (logo as StaticImageData)?.src || '/logo.svg';
 const logoSrc = getAssetPath(rawLogoSrc);
 
 

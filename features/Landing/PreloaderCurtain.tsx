@@ -3,10 +3,11 @@
 import { useEffect, useState } from 'react';
 import { Box, Text, Image } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { StaticImageData } from 'next/image';
 import logo from '@/assets/logo.svg';
 import { getAssetPath } from '@/lib/basePath';
 
-const rawLogoSrc = typeof logo === 'string' ? logo : (logo as any)?.src || '/logo.svg';
+const rawLogoSrc = typeof logo === 'string' ? logo : (logo as StaticImageData)?.src || '/logo.svg';
 const logoSrc = getAssetPath(rawLogoSrc);
 
 
