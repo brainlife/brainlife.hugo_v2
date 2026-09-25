@@ -44,7 +44,7 @@ const GitHubIcon = () => (
 
 
 export default function TeamPage() {
-    const [selectedCategory, setSelectedCategory] = useState<string>('all');
+    const [selectedCategory, setSelectedCategory] = useState<string>('active');
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [inspectedMember, setInspectedMember] = useState<TeamMember | null>(null);
     const { isOpen, onOpen, onClose } = useDisclosure();
