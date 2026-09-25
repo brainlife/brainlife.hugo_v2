@@ -63,6 +63,7 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
             >
                 {/* 1. HERO BENTO TILE: FRANCO PESTILLI (Span 8 cols) */}
                 <Box
+                    role="group"
                     gridColumn={{ base: 'span 1', lg: 'span 8' }}
                     borderRadius="16px"
                     overflow="hidden"
@@ -95,7 +96,7 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
                                 borderRadius="14px"
                                 overflow="hidden"
                                 border="1px solid rgba(38, 147, 216, 0.35)"
-                                bg="#0e1626"
+                                bg="radial-gradient(circle, #3d4452 0%, #242831 100%)"
                             >
                                 <Image
                                     src={director.avatar}
@@ -103,6 +104,9 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
                                     w="100%"
                                     h="100%"
                                     objectFit="cover"
+                                    filter="grayscale(100%)"
+                                    transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
+                                    _groupHover={{ filter: 'grayscale(0%)', transform: 'scale(1.05)' }}
                                     fallbackSrc={getAssetPath('/img/team/person.png')}
                                 />
                             </Box>
@@ -178,6 +182,7 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
 
                 {/* 2. BENTO TILE: ANIBAL SOLON HEINSFELD (Span 4 cols) */}
                 <Box
+                    role="group"
                     gridColumn={{ base: 'span 1', lg: 'span 4' }}
                     borderRadius="16px"
                     overflow="hidden"
@@ -206,10 +211,20 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
                                 borderRadius="12px"
                                 overflow="hidden"
                                 border="1px solid rgba(255, 255, 255, 0.12)"
-                                bg="#0e1626"
+                                bg="radial-gradient(circle, #3d4452 0%, #242831 100%)"
                                 flexShrink={0}
                             >
-                                <Image src={anibal.avatar} alt={anibal.name} w="100%" h="100%" objectFit="cover" />
+                                <Image
+                                    src={anibal.avatar}
+                                    alt={anibal.name}
+                                    w="100%"
+                                    h="100%"
+                                    objectFit="cover"
+                                    filter="grayscale(100%)"
+                                    transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
+                                    _groupHover={{ filter: 'grayscale(0%)', transform: 'scale(1.06)' }}
+                                    fallbackSrc={getAssetPath('/img/team/person.png')}
+                                />
                             </Box>
                             <Box>
                                 <Badge bg="rgba(38, 147, 216, 0.15)" color="#2693D8" border="1px solid rgba(38, 147, 216, 0.35)" fontSize="9.5px" px="6px" py="1px" borderRadius="4px">
@@ -238,6 +253,7 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
 
                 {/* 3. BENTO TILE: KIMBERLY RAY (Span 4 cols) */}
                 <Box
+                    role="group"
                     gridColumn={{ base: 'span 1', lg: 'span 4' }}
                     borderRadius="16px"
                     overflow="hidden"
@@ -266,10 +282,20 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
                                 borderRadius="12px"
                                 overflow="hidden"
                                 border="1px solid rgba(255, 255, 255, 0.12)"
-                                bg="#0e1626"
+                                bg="radial-gradient(circle, #3d4452 0%, #242831 100%)"
                                 flexShrink={0}
                             >
-                                <Image src={kimRay.avatar} alt={kimRay.name} w="100%" h="100%" objectFit="cover" />
+                                <Image
+                                    src={kimRay.avatar}
+                                    alt={kimRay.name}
+                                    w="100%"
+                                    h="100%"
+                                    objectFit="cover"
+                                    filter="grayscale(100%)"
+                                    transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
+                                    _groupHover={{ filter: 'grayscale(0%)', transform: 'scale(1.06)' }}
+                                    fallbackSrc={getAssetPath('/img/team/person.png')}
+                                />
                             </Box>
                             <Box>
                                 <Badge bg="rgba(38, 147, 216, 0.15)" color="#2693D8" border="1px solid rgba(38, 147, 216, 0.35)" fontSize="9.5px" px="6px" py="1px" borderRadius="4px">
@@ -297,6 +323,7 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
 
                 {/* 4. BENTO TILE: TAYLOR GRAFFT (Span 4 cols) */}
                 <Box
+                    role="group"
                     gridColumn={{ base: 'span 1', lg: 'span 4' }}
                     borderRadius="16px"
                     overflow="hidden"
@@ -325,10 +352,20 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
                                 borderRadius="12px"
                                 overflow="hidden"
                                 border="1px solid rgba(255, 255, 255, 0.12)"
-                                bg="#0e1626"
+                                bg="radial-gradient(circle, #3d4452 0%, #242831 100%)"
                                 flexShrink={0}
                             >
-                                <Image src={taylor.avatar} alt={taylor.name} w="100%" h="100%" objectFit="cover" />
+                                <Image
+                                    src={taylor.avatar}
+                                    alt={taylor.name}
+                                    w="100%"
+                                    h="100%"
+                                    objectFit="cover"
+                                    filter="grayscale(100%)"
+                                    transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
+                                    _groupHover={{ filter: 'grayscale(0%)', transform: 'scale(1.06)' }}
+                                    fallbackSrc={getAssetPath('/img/team/person.png')}
+                                />
                             </Box>
                             <Box>
                                 <Badge bg="rgba(38, 147, 216, 0.15)" color="#2693D8" border="1px solid rgba(38, 147, 216, 0.35)" fontSize="9.5px" px="6px" py="1px" borderRadius="4px">
@@ -356,6 +393,7 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
 
                 {/* 5. BENTO TILE: NICHOLAS LEE (Span 4 cols) */}
                 <Box
+                    role="group"
                     gridColumn={{ base: 'span 1', lg: 'span 4' }}
                     borderRadius="16px"
                     overflow="hidden"
@@ -384,10 +422,20 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
                                 borderRadius="12px"
                                 overflow="hidden"
                                 border="1px solid rgba(255, 255, 255, 0.12)"
-                                bg="#0e1626"
+                                bg="radial-gradient(circle, #3d4452 0%, #242831 100%)"
                                 flexShrink={0}
                             >
-                                <Image src={nick.avatar} alt={nick.name} w="100%" h="100%" objectFit="cover" />
+                                <Image
+                                    src={nick.avatar}
+                                    alt={nick.name}
+                                    w="100%"
+                                    h="100%"
+                                    objectFit="cover"
+                                    filter="grayscale(100%)"
+                                    transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
+                                    _groupHover={{ filter: 'grayscale(0%)', transform: 'scale(1.06)' }}
+                                    fallbackSrc={getAssetPath('/img/team/person.png')}
+                                />
                             </Box>
                             <Box>
                                 <Badge bg="rgba(38, 147, 216, 0.15)" color="#2693D8" border="1px solid rgba(38, 147, 216, 0.35)" fontSize="9.5px" px="6px" py="1px" borderRadius="4px">

@@ -163,7 +163,7 @@ export default function AlumniCareerSection({ onSelectMember }: AlumniCareerSect
                                         borderRadius="10px"
                                         overflow="hidden"
                                         border="1px solid rgba(255, 255, 255, 0.12)"
-                                        bg="#0e1626"
+                                        bg="radial-gradient(circle, #3d4452 0%, #242831 100%)"
                                         flexShrink={0}
                                     >
                                         <Image
@@ -172,6 +172,9 @@ export default function AlumniCareerSection({ onSelectMember }: AlumniCareerSect
                                             w="100%"
                                             h="100%"
                                             objectFit="cover"
+                                            filter="grayscale(100%)"
+                                            transition="filter 0.3s ease, transform 0.3s ease"
+                                            _groupHover={{ filter: 'grayscale(0%)', transform: 'scale(1.05)' }}
                                             fallbackSrc={getAssetPath('/img/team/person.png')}
                                         />
                                     </Box>

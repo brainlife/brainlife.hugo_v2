@@ -63,7 +63,7 @@ export default function CircularPortraitItem({ member, onSelect }: CircularPortr
                         ? '0 10px 25px rgba(0, 0, 0, 0.6)'
                         : '0 4px 14px rgba(0, 0, 0, 0.4)'
                 }
-                bg="#0e1626"
+                bg="radial-gradient(circle, #3d4452 0%, #242831 100%)"
                 flexShrink={0}
                 transition="border-color 0.25s ease, box-shadow 0.25s ease"
             >
@@ -74,7 +74,8 @@ export default function CircularPortraitItem({ member, onSelect }: CircularPortr
                     h="100%"
                     objectFit="cover"
                     fallbackSrc={getAssetPath('/img/team/person.png')}
-                    transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+                    filter={isHovered ? 'grayscale(0%)' : 'grayscale(100%)'}
+                    transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
                     transform={isHovered ? 'scale(1.06)' : 'scale(1)'}
                 />
             </Box>

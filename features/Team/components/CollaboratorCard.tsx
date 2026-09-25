@@ -73,7 +73,7 @@ export default function CollaboratorCard({ member, onSelect }: CollaboratorCardP
                     border="2px solid"
                     borderColor={isHovered ? '#2693D8' : 'rgba(38, 147, 216, 0.3)'}
                     boxShadow="0 4px 14px rgba(0,0,0,0.5)"
-                    bg="#0e1626"
+                    bg="radial-gradient(circle, #3d4452 0%, #242831 100%)"
                     transition="all 0.25s ease"
                 >
                     <Image
@@ -83,7 +83,8 @@ export default function CollaboratorCard({ member, onSelect }: CollaboratorCardP
                         h="100%"
                         objectFit="cover"
                         fallbackSrc={getAssetPath('/img/team/person.png')}
-                        transition="transform 0.35s ease"
+                        filter={isHovered ? 'grayscale(0%)' : 'grayscale(100%)'}
+                        transition="transform 0.35s ease, filter 0.3s ease"
                         transform={isHovered ? 'scale(1.06)' : 'scale(1)'}
                     />
                 </Box>
