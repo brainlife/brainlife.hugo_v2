@@ -10,8 +10,9 @@ import {
     Badge,
     Image,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { ALUMNI, type TeamMember } from '../teamData';
+import { getAssetPath } from '@/lib/basePath';
+import { motion } from 'framer-motion';
 
 const MotionBox = motion.create(Box);
 
@@ -165,7 +166,14 @@ export default function AlumniCareerSection({ onSelectMember }: AlumniCareerSect
                                         bg="#0e1626"
                                         flexShrink={0}
                                     >
-                                        <Image src={item.avatar} alt={item.name} w="100%" h="100%" objectFit="cover" />
+                                        <Image
+                                            src={getAssetPath(item.avatar)}
+                                            alt={item.name}
+                                            w="100%"
+                                            h="100%"
+                                            objectFit="cover"
+                                            fallbackSrc={getAssetPath('/img/team/person.png')}
+                                        />
                                     </Box>
                                     <Box minW={0}>
                                         <Badge

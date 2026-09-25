@@ -14,38 +14,39 @@ import {
 } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 
 const CULTURE_PHOTOS = [
     {
         id: 'franco-tree',
-        src: '/img/team/franco-brainlife-tree.jpg',
+        src: getAssetPath('/img/team/franco-brainlife-tree.jpg'),
         alt: 'Dr. Franco Pestilli holding the physical 3D Brainlife Tree emblem',
     },
     {
         id: 'tree-sculpture',
-        src: '/img/team/brainlife-tree-sculpture.jpg',
+        src: getAssetPath('/img/team/brainlife-tree-sculpture.jpg'),
         alt: 'The 3D-printed Brainlife Brain-Tree sculpture in the lab meeting space',
     },
     {
         id: 'hackathon',
-        src: '/img/team/lab-culture-1.jpg',
+        src: getAssetPath('/img/team/lab-culture-1.jpg'),
         alt: 'Brainlife collaborative team sprint and hackathon',
     },
     {
         id: 'mentorship',
-        src: '/img/team/lab-culture-2.jpg',
+        src: getAssetPath('/img/team/lab-culture-2.jpg'),
         alt: 'Pestilli lab students and postdocs collaborating',
     },
     {
         id: 'conference',
-        src: '/img/users/poster-blaire-porter.jpg',
+        src: getAssetPath('/img/users/poster-blaire-porter.jpg'),
         alt: 'Dr. Blaire Porter presenting conference findings',
     },
     {
         id: 'team',
-        src: '/img/team/all.jpg',
+        src: getAssetPath('/img/team/all.jpg'),
         alt: 'The global Brainlife team and consortium',
     },
 ];

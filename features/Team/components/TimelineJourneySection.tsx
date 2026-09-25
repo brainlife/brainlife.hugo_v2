@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 const MotionFlex = motion.create(Flex);
@@ -124,7 +125,7 @@ export default function TimelineJourneySection() {
                 <Flex direction="column" justify="center" align="center" mb={{ base: '28px', md: '40px' }}>
                     <HStack spacing="12px" align="center" mb="6px">
                         <Image
-                            src="/logo.svg"
+                            src={getAssetPath('/logo.svg')}
                             alt="Brainlife Logo"
                             w={{ base: '38px', md: '44px' }}
                             h={{ base: '38px', md: '44px' }}
@@ -187,7 +188,7 @@ export default function TimelineJourneySection() {
                                 bg="#0e1626"
                             >
                                 <Image
-                                    src={currentSlide.image}
+                                    src={getAssetPath(currentSlide.image)}
                                     alt={currentSlide.title}
                                     w="100%"
                                     h="100%"

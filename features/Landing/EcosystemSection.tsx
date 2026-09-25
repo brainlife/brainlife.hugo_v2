@@ -5,9 +5,11 @@ import { Box, Flex, Text, Heading } from '@chakra-ui/react';
 import { Network, Database, FileText, Play, Eye, BookOpen, LucideIcon } from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 import logo from '@/assets/logo.svg';
+import { getAssetPath } from '@/lib/basePath';
 import { motion, type Variants } from 'framer-motion';
 
-const logoSrc = typeof logo === 'string' ? logo : (logo as StaticImageData)?.src || '/logo.svg';
+const rawLogoSrc = typeof logo === 'string' ? logo : (logo as StaticImageData)?.src || '/logo.svg';
+const logoSrc = getAssetPath(rawLogoSrc);
 
 const MotionBox = motion.create(Box);
 

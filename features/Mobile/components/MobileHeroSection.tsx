@@ -20,6 +20,7 @@ import {
     Zap,
     CheckCircle2,
 } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 
@@ -232,7 +233,7 @@ export default function MobileHeroSection() {
                             maxW={{ base: '260px', sm: '320px', md: '360px' }}
                         >
                             <Image
-                                src="/img/brainlifemobile/hero_phone.png"
+                                src={getAssetPath('/img/brainlifemobile/hero_phone.png')}
                                 alt="Brainlife Mobile App on iPhone mockup"
                                 w="100%"
                                 h="auto"

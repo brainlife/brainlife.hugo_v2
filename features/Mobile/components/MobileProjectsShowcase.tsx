@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FolderGit2, Layers, Search, Eye, Share2, Shield, Sparkles } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 
@@ -279,7 +280,7 @@ export default function MobileProjectsShowcase() {
                                 whileHover={{ y: -6, scale: 1.01 }}
                             >
                                 <Image
-                                    src={activeTab.image}
+                                    src={getAssetPath(activeTab.image)}
                                     alt={activeTab.title}
                                     w="100%"
                                     h="auto"

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Box, Heading, Text, Image } from '@chakra-ui/react';
 import type { TeamMember } from '../teamData';
+import { getAssetPath } from '@/lib/basePath';
 
 interface CircularPortraitItemProps {
     member: TeamMember;
@@ -72,7 +73,7 @@ export default function CircularPortraitItem({ member, onSelect }: CircularPortr
                     w="100%"
                     h="100%"
                     objectFit="cover"
-                    fallbackSrc="/img/team/person.png"
+                    fallbackSrc={getAssetPath('/img/team/person.png')}
                     transition="transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
                     transform={isHovered ? 'scale(1.06)' : 'scale(1)'}
                 />

@@ -7,9 +7,12 @@ import { Bell, Activity, CheckCircle2, Shield, ArrowUpRight, Smartphone } from '
 import type { StaticImageData } from 'next/image';
 import logo from '@/assets/logo.svg';
 import mobileHandImg from '@/assets/landing/brainlife_mobile_hand.png';
+import { getAssetPath } from '@/lib/basePath';
 
-const logoSrc = typeof logo === 'string' ? logo : (logo as StaticImageData)?.src || '/logo.svg';
-const mobileHandImgSrc = typeof mobileHandImg === 'string' ? mobileHandImg : (mobileHandImg as StaticImageData)?.src || '/assets/landing/brainlife_mobile_hand.png';
+const rawLogoSrc = typeof logo === 'string' ? logo : (logo as StaticImageData)?.src || '/logo.svg';
+const logoSrc = getAssetPath(rawLogoSrc);
+const rawMobileHandImgSrc = typeof mobileHandImg === 'string' ? mobileHandImg : (mobileHandImg as StaticImageData)?.src || '/assets/landing/brainlife_mobile_hand.png';
+const mobileHandImgSrc = getAssetPath(rawMobileHandImgSrc);
 
 
 const MotionBox = motion.create(Box);

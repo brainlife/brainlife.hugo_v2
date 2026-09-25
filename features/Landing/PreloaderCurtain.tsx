@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import { Box, Text, Image } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.svg';
+import { getAssetPath } from '@/lib/basePath';
 
-const logoSrc = typeof logo === 'string' ? logo : (logo as any)?.src || '/logo.svg';
+const rawLogoSrc = typeof logo === 'string' ? logo : (logo as any)?.src || '/logo.svg';
+const logoSrc = getAssetPath(rawLogoSrc);
 
 
 const MotionBox = motion.create(Box);

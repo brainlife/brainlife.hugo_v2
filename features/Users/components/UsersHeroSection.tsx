@@ -23,6 +23,7 @@ import {
     CheckCircle2,
     Zap,
 } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 import { redirectToBrainlifeLogin } from '@/contexts/AuthContext.helpers';
 
 const MotionBox = motion.create(Box);
@@ -395,14 +396,14 @@ export default function UsersHeroSection() {
                             justifyContent="center"
                         >
                             <Image
-                                src={activePersona.heroImage}
+                                src={getAssetPath(activePersona.heroImage)}
                                 alt={activePersona.roleTitle}
                                 w="100%"
                                 h="auto"
                                 maxH={{ base: '420px', sm: '520px', md: '600px', lg: '680px', xl: '760px' }}
                                 objectFit="contain"
                                 filter="drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5))"
-                                fallbackSrc="/img/users/work-at-home.png"
+                                fallbackSrc={getAssetPath('/img/users/work-at-home.png')}
                                 transition="transform 0.3s ease"
                                 _hover={{ transform: 'translateY(-4px)' }}
                             />

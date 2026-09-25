@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { LayoutDashboard, Database, RefreshCw, Cpu, Layers } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 
@@ -112,7 +113,7 @@ export default function MobileResearchHubSection() {
                             whileHover={{ y: -8, scale: 1.01 }}
                         >
                             <Image
-                                src="/img/brainlifemobile/homepage_phones.png"
+                                src={getAssetPath('/img/brainlifemobile/homepage_phones.png')}
                                 alt="Brainlife Mobile Research Hub Multi-Screen Interface"
                                 w="100%"
                                 h="auto"

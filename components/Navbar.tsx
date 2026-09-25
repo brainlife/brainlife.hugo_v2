@@ -23,8 +23,10 @@ import {
 import { Menu, ExternalLink } from 'lucide-react';
 import logo from '@/assets/logo.svg';
 import { redirectToBrainlifeLogin } from '@/contexts/AuthContext.helpers';
+import { getAssetPath } from '@/lib/basePath';
 
-const logoSrc = typeof logo === 'string' ? logo : (logo as any)?.src || '/logo.svg';
+const rawLogoSrc = typeof logo === 'string' ? logo : (logo as any)?.src || '/logo.svg';
+const logoSrc = getAssetPath(rawLogoSrc);
 
 interface NavItem {
     label: string;

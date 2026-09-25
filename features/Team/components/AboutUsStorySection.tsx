@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 
@@ -261,7 +262,7 @@ function InteractiveStatCard({ item }: { item: StatItem }) {
                     >
                         {/* Slide Background Image */}
                         <Image
-                            src={activeSlide.image}
+                            src={getAssetPath(activeSlide.image)}
                             alt={activeSlide.title}
                             w="100%"
                             h="100%"
@@ -506,7 +507,7 @@ export default function AboutUsStorySection() {
                             transition={{ duration: 0.3 }}
                         >
                             <Image
-                                src="/img/about/about-3.jpg"
+                                src={getAssetPath('/img/about/about-3.jpg')}
                                 alt="Brainlife sprint and whiteboard discussion"
                                 w="100%"
                                 h="100%"
@@ -530,7 +531,7 @@ export default function AboutUsStorySection() {
                             transition={{ duration: 0.3 }}
                         >
                             <Image
-                                src="/img/team/franco-brainlife-tree.jpg"
+                                src={getAssetPath('/img/team/franco-brainlife-tree.jpg')}
                                 alt="Dr. Franco Pestilli holding the Brainlife 3D brain-tree emblem"
                                 w="100%"
                                 h="100%"
@@ -554,7 +555,7 @@ export default function AboutUsStorySection() {
                             transition={{ duration: 0.3 }}
                         >
                             <Image
-                                src="/img/about/about-2.jpg"
+                                src={getAssetPath('/img/about/about-2.jpg')}
                                 alt="Collaborative pair working on neuroimaging pipelines"
                                 w="100%"
                                 h="100%"

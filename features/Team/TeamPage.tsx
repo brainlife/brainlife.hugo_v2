@@ -34,6 +34,7 @@ import {
     ALUMNI,
     type TeamMember,
 } from './teamData';
+import { getAssetPath } from '@/lib/basePath';
 
 const GitHubIcon = () => (
     <svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor">
@@ -127,7 +128,7 @@ export default function TeamPage() {
                     zIndex={0}
                 >
                     <Image
-                        src="/img/team/all.jpg"
+                        src={getAssetPath('/img/team/all.jpg')}
                         alt="Brainlife Team Background"
                         w="100%"
                         h="100%"

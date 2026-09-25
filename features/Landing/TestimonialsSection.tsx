@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 const MotionFlex = motion.create(Flex);
@@ -411,7 +412,7 @@ export default function TestimonialsSection() {
                                                     boxShadow="0 4px 14px rgba(0, 0, 0, 0.6)"
                                                 >
                                                     <Image
-                                                        src={item.image}
+                                                        src={getAssetPath(item.image)}
                                                         alt={item.name}
                                                         w="100%"
                                                         h="100%"
@@ -498,7 +499,7 @@ export default function TestimonialsSection() {
                             <h3>{item.name}</h3>
                             <p>{item.role}</p>
                             <blockquote>{item.content}</blockquote>
-                            <Image src={item.image} alt={item.name} />
+                            <Image src={getAssetPath(item.image)} alt={item.name} />
                         </li>
                     ))}
                 </ul>

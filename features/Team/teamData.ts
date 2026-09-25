@@ -1,3 +1,5 @@
+import { getAssetPath } from '@/lib/basePath';
+
 export interface TeamMember {
     name: string;
     title: string;
@@ -8,7 +10,13 @@ export interface TeamMember {
     institution?: string;
 }
 
-export const ACTIVE_MEMBERS: TeamMember[] = [
+const formatMembers = (list: TeamMember[]): TeamMember[] =>
+    list.map(m => ({
+        ...m,
+        avatar: getAssetPath(m.avatar),
+    }));
+
+export const ACTIVE_MEMBERS: TeamMember[] = formatMembers([
     {
         name: 'Franco Pestilli',
         title: 'Founder and Director',
@@ -112,9 +120,9 @@ export const ACTIVE_MEMBERS: TeamMember[] = [
         avatar: '/img/team/tippany.png',
         expertise: ['Databases', 'Agentic AI', 'Data Engineering', 'Cloud Storage'],
     },
-];
+]);
 
-export const COLLABORATORS: TeamMember[] = [
+export const COLLABORATORS: TeamMember[] = formatMembers([
     {
         name: 'Sarah Heilbronner',
         title: 'Assistant Professor',
@@ -235,11 +243,11 @@ export const COLLABORATORS: TeamMember[] = [
         avatar: '/img/team/yarik.jpg',
         expertise: ['DataLad', 'Debian / NeuroDebian', 'Distributed Data Infrastructure'],
     },
-];
+]);
 
 export const CONTRIBUTORS: TeamMember[] = [];
 
-export const ALUMNI: TeamMember[] = [
+export const ALUMNI: TeamMember[] = formatMembers([
     {
         name: 'Daniel Levitas',
         title: 'Software Developer',
@@ -538,4 +546,4 @@ export const ALUMNI: TeamMember[] = [
         avatar: '/img/team/Alisha_Flexwala.png',
         expertise: ['Neuroscience Research', 'Data Curation', 'Open Science'],
     },
-];
+]);

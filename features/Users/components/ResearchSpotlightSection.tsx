@@ -23,6 +23,7 @@ import {
     Microscope,
     ExternalLink,
 } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 
@@ -85,7 +86,7 @@ export default function ResearchSpotlightSection() {
                             maxH={{ base: '480px', lg: '560px' }}
                         >
                             <Image
-                                src="/img/users/poster-blaire-porter.jpg"
+                                src={getAssetPath('/img/users/poster-blaire-porter.jpg')}
                                 alt="Dr. Blaire Porter presenting her ezBIDS & Brainlife.io powered research poster"
                                 w="100%"
                                 h="100%"

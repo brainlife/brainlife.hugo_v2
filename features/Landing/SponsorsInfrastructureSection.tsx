@@ -23,6 +23,7 @@ import {
     Sparkles,
     MoveHorizontal,
 } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 interface InfrastructureCard {
     id: string;
@@ -174,7 +175,7 @@ function CardComponent({ card }: { card: InfrastructureCard }) {
             {/* PREVIEW IMAGE WITH TAG */}
             <Box position="relative" h={{ base: '160px', sm: '190px' }} w="100%" overflow="hidden" bg="#080c14">
                 <Image
-                    src={card.image}
+                    src={getAssetPath(card.image)}
                     alt={card.title}
                     w="100%"
                     h="100%"
@@ -473,7 +474,7 @@ export default function SponsorsInfrastructureSection() {
                                 maxH="32px"
                             >
                                 <Image
-                                    src={sp.src}
+                                    src={getAssetPath(sp.src)}
                                     alt={sp.name}
                                     maxH={{ base: '24px', md: '30px' }}
                                     maxW={{ base: '90px', md: '120px' }}

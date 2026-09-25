@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Box, Flex, Heading, Text, Image, Badge } from '@chakra-ui/react';
 import { ArrowUpRight, Sparkles, Building2 } from 'lucide-react';
 import type { TeamMember } from '../teamData';
+import { getAssetPath } from '@/lib/basePath';
 
 interface CollaboratorCardProps {
     member: TeamMember;
@@ -81,7 +82,7 @@ export default function CollaboratorCard({ member, onSelect }: CollaboratorCardP
                         w="100%"
                         h="100%"
                         objectFit="cover"
-                        fallbackSrc="/img/team/person.png"
+                        fallbackSrc={getAssetPath('/img/team/person.png')}
                         transition="transform 0.35s ease"
                         transform={isHovered ? 'scale(1.06)' : 'scale(1)'}
                     />

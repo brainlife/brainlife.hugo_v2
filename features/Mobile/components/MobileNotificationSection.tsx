@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { Bell, CheckCircle, AlertCircle, Share2, Sparkles, Clock } from 'lucide-react';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 
@@ -170,7 +171,7 @@ export default function MobileNotificationSection() {
                             whileHover={{ y: -8, scale: 1.01 }}
                         >
                             <Image
-                                src="/img/brainlifemobile/notification_researcher.png"
+                                src={getAssetPath('/img/brainlifemobile/notification_researcher.png')}
                                 alt="Brainlife Mobile Real-Time Notifications in Lab"
                                 w="100%"
                                 h="100%"

@@ -3,8 +3,10 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
 import logo from '@/assets/logo.svg';
+import { getAssetPath } from '@/lib/basePath';
 
-const logoSrc = typeof logo === 'string' ? logo : (logo as any)?.src || '/logo.svg';
+const rawLogoSrc = typeof logo === 'string' ? logo : (logo as any)?.src || '/logo.svg';
+const logoSrc = getAssetPath(rawLogoSrc);
 
 
 type Node = {

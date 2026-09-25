@@ -11,6 +11,7 @@ import {
     Badge,
 } from '@chakra-ui/react';
 import { ACTIVE_MEMBERS, type TeamMember } from '../teamData';
+import { getAssetPath } from '@/lib/basePath';
 
 interface LeadershipBentoSectionProps {
     onSelectMember: (member: TeamMember) => void;
@@ -102,7 +103,7 @@ export default function LeadershipBentoSection({ onSelectMember }: LeadershipBen
                                     w="100%"
                                     h="100%"
                                     objectFit="cover"
-                                    fallbackSrc="/img/team/person.png"
+                                    fallbackSrc={getAssetPath('/img/team/person.png')}
                                 />
                             </Box>
                         </Box>

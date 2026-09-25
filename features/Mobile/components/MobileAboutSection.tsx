@@ -12,6 +12,7 @@ import {
     HStack,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
 
@@ -46,7 +47,7 @@ export default function MobileAboutSection() {
                             }}
                         >
                             <Image
-                                src="/logo.svg"
+                                src={getAssetPath('/logo.svg')}
                                 alt="Brainlife Emblem"
                                 w={{ base: '46px', sm: '54px', md: '60px' }}
                                 h={{ base: '46px', sm: '54px', md: '60px' }}
@@ -115,7 +116,7 @@ export default function MobileAboutSection() {
                             transition={{ duration: 0.2 }}
                         >
                             <Image
-                                src="/img/about/about-2.jpg"
+                                src={getAssetPath('/img/about/about-2.jpg')}
                                 alt="Researchers collaborating on Brainlife workflows"
                                 w="100%"
                                 h="100%"

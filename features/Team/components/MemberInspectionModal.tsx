@@ -32,6 +32,7 @@ import {
     Brain,
 } from 'lucide-react';
 import type { TeamMember } from '../teamData';
+import { getAssetPath } from '@/lib/basePath';
 
 interface MemberInspectionModalProps {
     isOpen: boolean;
@@ -88,12 +89,12 @@ export default function MemberInspectionModal({
                                 bg="#0e1626"
                             >
                                 <Image
-                                    src={member.avatar}
+                                    src={getAssetPath(member.avatar)}
                                     alt={member.name}
                                     w="100%"
                                     h="100%"
                                     objectFit="cover"
-                                    fallbackSrc="/img/team/person.png"
+                                    fallbackSrc={getAssetPath('/img/team/person.png')}
                                 />
                             </Box>
                             {/* Indicator */}
