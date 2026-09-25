@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:assets": "node scripts/verify-assets.mjs",
+    "test": "npm run test:assets"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",

@@ -41,6 +41,11 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: npx next build
 
+      - name: Verify static assets
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: npm run test:assets
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
