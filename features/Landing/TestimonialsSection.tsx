@@ -11,8 +11,8 @@ import {
     IconButton,
     Badge,
 } from '@chakra-ui/react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Quote, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getAssetPath } from '@/lib/basePath';
 
 const MotionBox = motion.create(Box);
@@ -57,28 +57,52 @@ const TESTIMONIALS: Testimonial[] = [
     },
 ];
 
+// Repeating the set 4 times creates an infinite cyclic buffer that completely eliminates the end-of-track gap
+const REPEATED_TESTIMONIALS = [
+    ...TESTIMONIALS,
+    ...TESTIMONIALS,
+    ...TESTIMONIALS,
+    ...TESTIMONIALS,
+];
+
 export default function TestimonialsSection() {
-    const [activeIndex, setActiveIndex] = useState(0);
+    // Start in the second batch so there are always cards both behind and ahead
+    const [virtualIndex, setVirtualIndex] = useState(TESTIMONIALS.length);
+    const [isTransitioning, setIsTransitioning] = useState(true);
     const [isHovered, setIsHovered] = useState(false);
 
-    const activeItem = TESTIMONIALS[activeIndex];
+    const realIndex = virtualIndex % TESTIMONIALS.length;
+    const activeItem = TESTIMONIALS[realIndex];
 
     const nextSlide = () => {
-        setActiveIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+        setIsTransitioning(true);
+        setVirtualIndex((prev) => prev + 1);
     };
 
     const prevSlide = () => {
-        setActiveIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+        setIsTransitioning(true);
+        setVirtualIndex((prev) => prev - 1);
     };
 
-    // Auto-advance every 7.5 seconds when not interacting
+    // Auto-advance dynamically every 4.5s; pauses when hovering cards
     useEffect(() => {
         if (isHovered) return;
         const interval = setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % TESTIMONIALS.length);
-        }, 7500);
+            setIsTransitioning(true);
+            setVirtualIndex((prev) => prev + 1);
+        }, 4500);
         return () => clearInterval(interval);
-    }, [isHovered]);
+    }, [isHovered, virtualIndex]);
+
+    // Re-enable smooth transitions after seamless instantaneous snap
+    useEffect(() => {
+        if (!isTransitioning) {
+            const raf = requestAnimationFrame(() => {
+                setIsTransitioning(true);
+            });
+            return () => cancelAnimationFrame(raf);
+        }
+    }, [isTransitioning]);
 
     return (
         <Box
@@ -90,8 +114,6 @@ export default function TestimonialsSection() {
             overflow="hidden"
             bg="linear-gradient(180deg, rgba(8, 12, 22, 0.4) 0%, rgba(18, 24, 42, 0.9) 50%, rgba(8, 12, 22, 0.4) 100%)"
             borderTop="1px solid rgba(255, 255, 255, 0.06)"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
         >
             {/* Ambient Background Glows */}
             <Box
@@ -164,7 +186,7 @@ export default function TestimonialsSection() {
                         position="relative"
                         minH={{ base: 'auto', lg: '480px' }}
                     >
-                        {/* LEFT COLUMN: ACTIVE TESTIMONIAL INFO (FLOATING CARD OVERLAY ON SUBSEQUENT SLIDES) */}
+                        {/* LEFT COLUMN: ACTIVE TESTIMONIAL INFO (FLOATING CARD OVERLAY) */}
                         <Box
                             w={{ base: '100%', lg: '380px', xl: '420px' }}
                             flexShrink={0}
@@ -182,21 +204,21 @@ export default function TestimonialsSection() {
                                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                                 bg={{
                                     base: 'rgba(10, 14, 24, 0.88)',
-                                    lg: activeIndex > 0 ? 'rgba(8, 12, 22, 0.92)' : 'transparent',
+                                    lg: realIndex > 0 ? 'rgba(8, 12, 22, 0.92)' : 'transparent',
                                 }}
                                 backdropFilter={{
                                     base: 'blur(20px)',
-                                    lg: activeIndex > 0 ? 'blur(24px)' : 'none',
+                                    lg: realIndex > 0 ? 'blur(24px)' : 'none',
                                 }}
                                 border={{
                                     base: '1px solid rgba(255, 255, 255, 0.1)',
-                                    lg: activeIndex > 0 ? '1px solid rgba(255, 255, 255, 0.14)' : 'none',
+                                    lg: realIndex > 0 ? '1px solid rgba(255, 255, 255, 0.14)' : 'none',
                                 }}
                                 borderRadius="24px"
                                 p={{ base: '24px', md: '32px' }}
                                 boxShadow={{
                                     base: '0 20px 40px rgba(0, 0, 0, 0.5)',
-                                    lg: activeIndex > 0 ? '0 25px 60px rgba(0, 0, 0, 0.8)' : 'none',
+                                    lg: realIndex > 0 ? '0 25px 60px rgba(0, 0, 0, 0.8)' : 'none',
                                 }}
                             >
                                 <Heading
@@ -236,42 +258,85 @@ export default function TestimonialsSection() {
                                     &ldquo;{activeItem.content}&rdquo;
                                 </Text>
 
-                                {/* PILL PAGINATION BARS */}
-                                <Flex align="center" gap="8px" position="relative">
-                                    {TESTIMONIALS.map((item, idx) => {
-                                        const isActive = activeIndex === idx;
-                                        return (
-                                            <Box
-                                                key={item.id}
-                                                as="button"
-                                                onClick={() => setActiveIndex(idx)}
-                                                aria-label={`Go to slide ${idx + 1}`}
-                                                w={{ base: '32px', md: '42px' }}
-                                                h="5px"
-                                                borderRadius="full"
-                                                bg={isActive ? 'transparent' : 'rgba(255, 255, 255, 0.22)'}
-                                                position="relative"
-                                                overflow="hidden"
-                                                cursor="pointer"
-                                                transition="all 0.3s ease"
-                                                _hover={{
-                                                    bg: isActive ? 'transparent' : 'rgba(255, 255, 255, 0.45)',
-                                                }}
-                                            >
-                                                {isActive && (
-                                                    <MotionBox
-                                                        layoutId="activeTestimonialPill"
-                                                        position="absolute"
-                                                        inset={0}
-                                                        borderRadius="full"
-                                                        bg="#24eba3"
-                                                        boxShadow="0 0 12px rgba(36, 235, 163, 0.8)"
-                                                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                                                    />
-                                                )}
-                                            </Box>
-                                        );
-                                    })}
+                                {/* PILL PAGINATION BARS & INTEGRATED ARROW CONTROLS */}
+                                <Flex align="center" justify="space-between" mt="12px" pt="4px">
+                                    <Flex align="center" gap="8px" position="relative">
+                                        {TESTIMONIALS.map((item, idx) => {
+                                            const isPillActive = realIndex === idx;
+                                            return (
+                                                <Box
+                                                    key={item.id}
+                                                    as="button"
+                                                    onClick={() => {
+                                                        setIsTransitioning(true);
+                                                        setVirtualIndex(TESTIMONIALS.length + idx);
+                                                    }}
+                                                    aria-label={`Go to slide ${idx + 1}`}
+                                                    w={{ base: '32px', md: '42px' }}
+                                                    h="5px"
+                                                    borderRadius="full"
+                                                    bg={isPillActive ? 'transparent' : 'rgba(255, 255, 255, 0.22)'}
+                                                    position="relative"
+                                                    overflow="hidden"
+                                                    cursor="pointer"
+                                                    transition="all 0.3s ease"
+                                                    _hover={{
+                                                        bg: isPillActive ? 'transparent' : 'rgba(255, 255, 255, 0.45)',
+                                                    }}
+                                                >
+                                                    {isPillActive && (
+                                                        <MotionBox
+                                                            layoutId="activeTestimonialPill"
+                                                            position="absolute"
+                                                            inset={0}
+                                                            borderRadius="full"
+                                                            bg="#24eba3"
+                                                            boxShadow="0 0 12px rgba(36, 235, 163, 0.8)"
+                                                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                                                        />
+                                                    )}
+                                                </Box>
+                                            );
+                                        })}
+                                    </Flex>
+
+                                    {/* PREV / NEXT CONTROLS */}
+                                    <Flex align="center" gap="8px">
+                                        <IconButton
+                                            aria-label="Previous testimonial"
+                                            icon={<ChevronLeft size={18} />}
+                                            onClick={prevSlide}
+                                            size="sm"
+                                            borderRadius="full"
+                                            bg="rgba(255, 255, 255, 0.08)"
+                                            color="white"
+                                            border="1px solid rgba(255, 255, 255, 0.16)"
+                                            _hover={{
+                                                bg: 'rgba(36, 235, 163, 0.2)',
+                                                borderColor: '#24eba3',
+                                                transform: 'scale(1.08)',
+                                            }}
+                                            _active={{ transform: 'scale(0.95)' }}
+                                            transition="all 0.2s ease"
+                                        />
+                                        <IconButton
+                                            aria-label="Next testimonial"
+                                            icon={<ChevronRight size={18} />}
+                                            onClick={nextSlide}
+                                            size="sm"
+                                            borderRadius="full"
+                                            bg="rgba(255, 255, 255, 0.08)"
+                                            color="white"
+                                            border="1px solid rgba(255, 255, 255, 0.16)"
+                                            _hover={{
+                                                bg: 'rgba(36, 235, 163, 0.2)',
+                                                borderColor: '#24eba3',
+                                                transform: 'scale(1.08)',
+                                            }}
+                                            _active={{ transform: 'scale(0.95)' }}
+                                            transition="all 0.2s ease"
+                                        />
+                                    </Flex>
                                 </Flex>
                             </MotionBox>
                         </Box>
@@ -286,26 +351,40 @@ export default function TestimonialsSection() {
                         >
                             <MotionFlex
                                 animate={{
-                                    x: `calc(-${activeIndex} * (clamp(280px, 50vw, 720px) + 28px))`,
+                                    x: `calc(-${virtualIndex} * (clamp(280px, 50vw, 720px) + 28px))`,
                                 }}
-                                transition={{
-                                    duration: 0.65,
-                                    ease: [0.16, 1, 0.3, 1],
+                                transition={
+                                    isTransitioning
+                                        ? { duration: 0.65, ease: [0.16, 1, 0.3, 1] }
+                                        : { duration: 0 }
+                                }
+                                onAnimationComplete={() => {
+                                    // Seamless infinite modulo wrap without any visible flash
+                                    if (virtualIndex >= 2 * TESTIMONIALS.length) {
+                                        setIsTransitioning(false);
+                                        setVirtualIndex((prev) => prev - TESTIMONIALS.length);
+                                    } else if (virtualIndex < TESTIMONIALS.length) {
+                                        setIsTransitioning(false);
+                                        setVirtualIndex((prev) => prev + TESTIMONIALS.length);
+                                    }
                                 }}
                                 gap={{ base: '16px', md: '28px' }}
                                 align="center"
                                 w="max-content"
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseLeave={() => setIsHovered(false)}
                             >
-                                {TESTIMONIALS.map((item, idx) => {
-                                    const isActive = activeIndex === idx;
-                                    const isPrev = idx < activeIndex;
+                                {REPEATED_TESTIMONIALS.map((item, idx) => {
+                                    const isActive = virtualIndex === idx;
+                                    const isPrev = idx < virtualIndex;
 
                                     return (
                                         <Box
-                                            key={item.id}
+                                            key={`${item.id}-${idx}`}
                                             onClick={() => {
                                                 if (!isActive) {
-                                                    setActiveIndex(idx);
+                                                    setIsTransitioning(true);
+                                                    setVirtualIndex(idx);
                                                 }
                                             }}
                                             cursor="pointer"
@@ -448,44 +527,6 @@ export default function TestimonialsSection() {
                                 })}
                             </MotionFlex>
                         </Box>
-                    </Flex>
-
-                    {/* MOBILE ARROW CONTROLS */}
-                    <Flex
-                        display={{ base: 'flex', lg: 'none' }}
-                        justify="flex-end"
-                        gap="12px"
-                        mt="24px"
-                        px="8px"
-                    >
-                        <IconButton
-                            aria-label="Previous testimonial"
-                            icon={<ChevronLeft size={22} />}
-                            onClick={prevSlide}
-                            isDisabled={activeIndex === 0}
-                            borderRadius="full"
-                            w="48px"
-                            h="48px"
-                            bg="rgba(255, 255, 255, 0.1)"
-                            color="white"
-                            border="1px solid rgba(255, 255, 255, 0.15)"
-                            _hover={{ bg: 'rgba(255, 255, 255, 0.2)' }}
-                            _disabled={{ opacity: 0.4, cursor: 'not-allowed' }}
-                        />
-                        <IconButton
-                            aria-label="Next testimonial"
-                            icon={<ChevronRight size={22} />}
-                            onClick={nextSlide}
-                            isDisabled={activeIndex === TESTIMONIALS.length - 1}
-                            borderRadius="full"
-                            w="48px"
-                            h="48px"
-                            bg="rgba(255, 255, 255, 0.1)"
-                            color="white"
-                            border="1px solid rgba(255, 255, 255, 0.15)"
-                            _hover={{ bg: 'rgba(255, 255, 255, 0.2)' }}
-                            _disabled={{ opacity: 0.4, cursor: 'not-allowed' }}
-                        />
                     </Flex>
                 </Box>
             </Container>

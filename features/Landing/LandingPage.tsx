@@ -631,17 +631,11 @@ export default function LandingPage() {
             {/* expanding showreel section */}
             <ExpandingReelSection />
 
-            {/* product studio showcase */}
-            {/* <ProductShowcaseSection /> */}
-
             {/* pinned horizontal pipeline track */}
             <HorizontalPipelineSection />
 
             {/* products we are proud of */}
             <ProudProductsSection />
-
-            {/* scroll-ticked 3d brain tractography section */}
-            {/* <ScrollTractographySection /> */}
 
             {/* ecosystem & interoperability */}
             <EcosystemSection />
