@@ -22,7 +22,6 @@ import {
 } from '@chakra-ui/react';
 import { Menu, ExternalLink } from 'lucide-react';
 import logo from '@/assets/logo.svg';
-import { redirectToBrainlifeLogin } from '@/contexts/AuthContext.helpers';
 import { getAssetPath } from '@/lib/basePath';
 
 const rawLogoSrc = typeof logo === 'string' ? logo : (logo as any)?.src || '/logo.svg';
@@ -151,7 +150,8 @@ export default function Navbar() {
 
                         {/* Signature Framed PORTAL Button */}
                         <Button
-                            onClick={redirectToBrainlifeLogin}
+                            as="a"
+                            href="https://brainlife.io/projects"
                             variant="outline"
                             borderColor="rgba(255, 255, 255, 0.8)"
                             borderWidth="1.5px"
@@ -173,6 +173,7 @@ export default function Navbar() {
                                 color: 'white',
                                 boxShadow: '0 0 20px rgba(38, 147, 216, 0.5)',
                                 transform: 'translateY(-1px)',
+                                textDecoration: 'none',
                             }}
                             _active={{
                                 transform: 'scale(0.98)',
@@ -185,7 +186,8 @@ export default function Navbar() {
                     {/* Mobile Hamburger Menu Toggle */}
                     <Flex display={{ base: 'flex', lg: 'none' }} alignItems="center" gap="12px">
                         <Button
-                            onClick={redirectToBrainlifeLogin}
+                            as="a"
+                            href="https://brainlife.io/projects"
                             variant="outline"
                             borderColor="rgba(255, 255, 255, 0.7)"
                             borderWidth="1.5px"
@@ -198,6 +200,12 @@ export default function Navbar() {
                             fontWeight={800}
                             letterSpacing="0.06em"
                             textTransform="uppercase"
+                            _hover={{
+                                bg: '#2693D8',
+                                borderColor: '#2693D8',
+                                color: 'white',
+                                textDecoration: 'none',
+                            }}
                         >
                             PORTAL
                         </Button>
@@ -260,11 +268,10 @@ export default function Navbar() {
 
                             <Box pt="16px">
                                 <Button
+                                    as="a"
+                                    href="https://brainlife.io/projects"
                                     w="100%"
-                                    onClick={() => {
-                                        onClose();
-                                        redirectToBrainlifeLogin();
-                                    }}
+                                    onClick={onClose}
                                     bg="#2693D8"
                                     color="white"
                                     h="44px"
@@ -273,9 +280,9 @@ export default function Navbar() {
                                     fontSize="14px"
                                     letterSpacing="0.08em"
                                     textTransform="uppercase"
-                                    _hover={{ bg: '#1d74ae' }}
+                                    _hover={{ bg: '#1d74ae', textDecoration: 'none' }}
                                 >
-                                    PORTAL / SIGN IN
+                                    PORTAL / PROJECTS
                                 </Button>
                             </Box>
                         </VStack>
