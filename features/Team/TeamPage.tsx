@@ -278,7 +278,7 @@ export default function TeamPage() {
                                         lineHeight="1"
                                         fontFamily="'Work Sans', sans-serif"
                                     >
-                                        63
+                                        {totalCount}
                                     </Text>
                                     <Text
                                         fontSize="11px"
@@ -302,7 +302,7 @@ export default function TeamPage() {
                                         lineHeight="1"
                                         fontFamily="'Work Sans', sans-serif"
                                     >
-                                        12
+                                        {ACTIVE_MEMBERS.length}
                                     </Text>
                                     <Text
                                         fontSize="11px"
@@ -312,7 +312,7 @@ export default function TeamPage() {
                                         textTransform="uppercase"
                                         mt="4px"
                                     >
-                                        core team
+                                        team
                                     </Text>
                                 </Box>
 
@@ -326,7 +326,7 @@ export default function TeamPage() {
                                         lineHeight="1"
                                         fontFamily="'Work Sans', sans-serif"
                                     >
-                                        16
+                                        {COLLABORATORS.length}
                                     </Text>
                                     <Text
                                         fontSize="11px"
@@ -345,7 +345,7 @@ export default function TeamPage() {
                                 color="rgba(255, 255, 255, 0.55)"
                                 fontFamily="'Work Sans', sans-serif"
                             >
-                                35 alumni worldwide across industry and academia
+                                {ALUMNI.length} alumni worldwide across industry and academia
                             </Text>
                         </Box>
                     </Box>
@@ -370,7 +370,7 @@ export default function TeamPage() {
                             backdropFilter="blur(12px)"
                             boxShadow="0 8px 24px rgba(0, 0, 0, 0.6)"
                         >
-                            PESTILLI LAB &amp; BRAINLIFE CORE · 63 MEMBERS &amp; ALUMNI
+                            PESTILLI LAB &amp; BRAINLIFE CORE · {totalCount} MEMBERS &amp; ALUMNI
                         </Badge>
                     </Box>
                 </Container>

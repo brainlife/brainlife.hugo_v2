@@ -97,7 +97,7 @@ export const ACTIVE_MEMBERS: TeamMember[] = formatMembers([
     {
         name: 'Taylor Grafft',
         title: 'Software Engineer',
-        institution: 'Brainlife Core Team',
+        institution: 'Brainlife Team',
         bio: 'Taylor focuses on data engineering, cloud infrastructure, DevOps, and Slurm HPC integrations for the brainlife.io ecosystem.',
         url: 'https://www.linkedin.com/in/taylorgrafft',
         avatar: '/img/team/taylor_grafft.jpg',
@@ -106,7 +106,7 @@ export const ACTIVE_MEMBERS: TeamMember[] = formatMembers([
     {
         name: 'Nicholas Lee',
         title: 'Software Engineer',
-        institution: 'Brainlife Core Team',
+        institution: 'Brainlife Team',
         bio: 'Nicholas specializes in front end architecture, user experience design, Next.js, and interactive workflows to make cloud computing intuitive for researchers.',
         url: 'https://www.linkedin.com/in/n-a-lee/',
         avatar: '/img/team/nick_lee.jpg',
@@ -115,10 +115,18 @@ export const ACTIVE_MEMBERS: TeamMember[] = formatMembers([
     {
         name: 'Tiffany Hong',
         title: 'Data Engineer',
-        institution: 'Brainlife Core Team',
+        institution: 'Brainlife Team',
         bio: 'Tiffany is a Data Engineer focused on database architectures, automated data pipelines, and agentic AI workflows.',
         avatar: '/img/team/tippany.png',
         expertise: ['Databases', 'Agentic AI', 'Data Engineering', 'Cloud Storage'],
+    },
+    {
+        name: 'Patrick Filima',
+        title: 'Software Engineer',
+        institution: 'Brainlife Team',
+        bio: 'Patrick specializes in front end architecture, interactive data interfaces, and cloud-native user workflows for the brainlife.io ecosystem.',
+        avatar: '/img/team/person.png',
+        expertise: ['Front End', 'Next.js & React', 'Interactive Workflows', 'Cloud UI'],
     },
 ]);
 
