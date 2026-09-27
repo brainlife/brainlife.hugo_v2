@@ -14,7 +14,7 @@ import {
     HStack,
     VStack,
 } from '@chakra-ui/react';
-import { ExternalLink, Mail, Heart } from 'lucide-react';
+import { ExternalLink, Mail } from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 import logo from '@/assets/logo.svg';
 import { getAssetPath } from '@/lib/basePath';
@@ -34,15 +34,21 @@ const XTwitterIcon = () => (
     </svg>
 );
 
+const SlackIcon = () => (
+    <svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor">
+        <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" />
+    </svg>
+);
+
 const FOOTER_COLUMNS = [
     {
         title: 'Platform',
         links: [
             { label: 'Apps & Pipelines', href: 'https://brainlife.io/apps', isExternal: true },
             { label: 'Public Datasets', href: 'https://brainlife.io/datasets', isExternal: true },
+            { label: 'Projects Portal', href: 'https://brainlife.io/projects', isExternal: true },
             { label: 'ezBIDS Tool', href: 'https://brainlife.io/ezbids/', isExternal: true },
             { label: 'Brainlife Mobile', href: '/mobile', isExternal: false },
-            { label: 'Sign In / Register', href: 'https://brainlife.io/auth', isExternal: true },
         ],
     },
     {
@@ -51,28 +57,28 @@ const FOOTER_COLUMNS = [
             { label: 'About Brainlife', href: '/about', isExternal: false },
             { label: 'Team & Alumni', href: '/about', isExternal: false },
             { label: 'Users & Impact', href: '/users', isExternal: false },
+            { label: 'Publications', href: 'https://brainlife.io/docs/user/publication/', isExternal: true },
             { label: 'Pestilli Lab', href: 'https://liberalarts.utexas.edu/psychology/faculty/fp4834', isExternal: true },
-            { label: 'Publications & Citations', href: 'https://brainlife.io/docs/user/cite/', isExternal: true },
         ],
     },
     {
-        title: 'Resources',
+        title: 'Documentation',
         links: [
-            { label: 'Documentation', href: 'https://brainlife.io/docs/', isExternal: true },
-            { label: 'Computational Provenance', href: 'https://brainlife.io/docs/user/provenance/', isExternal: true },
+            { label: 'Documentation Home', href: 'https://brainlife.io/docs/', isExternal: true },
+            { label: 'Tutorials', href: 'https://brainlife.io/docs/tutorial/introduction-to-brainlife/', isExternal: true },
             { label: 'Supported Data Types', href: 'https://brainlife.io/docs/user/datatypes/', isExternal: true },
-            { label: 'API & Developer Specs', href: 'https://brainlife.io/docs/technical/', isExternal: true },
-            { label: 'System Status', href: 'https://status.brainlife.io', isExternal: true },
+            { label: 'CLI Guide', href: 'https://brainlife.io/docs/cli/install/', isExternal: true },
+            { label: 'Developing Apps', href: 'https://brainlife.io/docs/apps/introduction/', isExternal: true },
         ],
     },
     {
-        title: 'Support & Code',
+        title: 'Connect & Support',
         links: [
             { label: 'GitHub Organization', href: 'https://github.com/brainlife', isExternal: true },
-            { label: 'User Community Forum', href: 'https://brainlife.io/docs/user/support/', isExternal: true },
-            { label: 'Contact Support', href: 'mailto:support@brainlife.io', isExternal: true },
-            { label: 'Privacy Policy', href: 'https://brainlife.io/docs/technical/privacy/', isExternal: true },
-            { label: 'Terms of Use', href: 'https://brainlife.io/docs/technical/terms/', isExternal: true },
+            { label: 'Slack Community', href: 'https://brainlife.slack.com', isExternal: true },
+            { label: 'Contact Us', href: 'https://brainlife.io/docs/contact/', isExternal: true },
+            { label: 'Careers', href: 'https://brainlife.io/docs/careers/jobs/', isExternal: true },
+            { label: 'Privacy Policy', href: 'https://brainlife.io/docs/privacy/', isExternal: true },
         ],
     },
 ];
@@ -206,9 +212,9 @@ export default function Footer() {
                                 <GitHubIcon />
                             </Link>
                             <Link
-                                href="https://x.com/brainlifeio"
+                                href="https://twitter.com/BrainLifeio"
                                 isExternal
-                                aria-label="Brainlife on X / Twitter"
+                                aria-label="Brainlife on Twitter"
                                 p="8px"
                                 borderRadius="8px"
                                 bg="rgba(255, 255, 255, 0.05)"
@@ -223,6 +229,25 @@ export default function Footer() {
                                 }}
                             >
                                 <XTwitterIcon />
+                            </Link>
+                            <Link
+                                href="https://brainlife.slack.com"
+                                isExternal
+                                aria-label="Brainlife Slack"
+                                p="8px"
+                                borderRadius="8px"
+                                bg="rgba(255, 255, 255, 0.05)"
+                                border="1px solid rgba(255, 255, 255, 0.1)"
+                                color="rgba(255, 255, 255, 0.75)"
+                                transition="all 0.2s ease"
+                                _hover={{
+                                    bg: 'rgba(38, 147, 216, 0.2)',
+                                    color: 'white',
+                                    borderColor: 'rgba(38, 147, 216, 0.5)',
+                                    transform: 'translateY(-2px)',
+                                }}
+                            >
+                                <SlackIcon />
                             </Link>
                             <Link
                                 href="mailto:support@brainlife.io"
@@ -319,47 +344,7 @@ export default function Footer() {
                     </Grid>
                 </Grid>
 
-                {/* Funding & Acknowledgement Ribbon */}
-                {/* <Box
-                    pt="24px"
-                    pb="24px"
-                    borderTop="1px solid rgba(255, 255, 255, 0.06)"
-                    borderBottom="1px solid rgba(255, 255, 255, 0.06)"
-                    mb="24px"
-                >
-                    <Text
-                        fontSize="12px"
-                        color="rgba(255, 255, 255, 0.45)"
-                        lineHeight="1.6"
-                        textAlign={{ base: 'left', md: 'center' }}
-                        fontFamily="'Work Sans', sans-serif"
-                    >
-                        Brainlife is publicly supported by the{' '}
-                        <Text as="span" color="rgba(255, 255, 255, 0.75)" fontWeight="600">
-                            National Science Foundation (NSF)
-                        </Text>
-                        ,{' '}
-                        <Text as="span" color="rgba(255, 255, 255, 0.75)" fontWeight="600">
-                            National Institutes of Health (NIH)
-                        </Text>
-                        ,{' '}
-                        <Text as="span" color="rgba(255, 255, 255, 0.75)" fontWeight="600">
-                            Department of Defense (DoD)
-                        </Text>
-                        , and the{' '}
-                        <Text as="span" color="rgba(255, 255, 255, 0.75)" fontWeight="600">
-                            Kavli Foundation
-                        </Text>
-                        . Built with{' '}
-                        <Heart
-                            size={12}
-                            color="#e53e3e"
-                            fill="#e53e3e"
-                            style={{ display: 'inline', verticalAlign: 'middle' }}
-                        />{' '}
-                        for open scientific reproducibility.
-                    </Text>
-                </Box> */}
+             
 
                 {/* Bottom Bar: Copyright & Rights */}
                 <Flex
@@ -376,7 +361,7 @@ export default function Footer() {
                         © Pestillilab. All rights reserved.
                     </Text>
 
-                    <HStack spacing="20px" fontSize="12.5px" color="rgba(255, 255, 255, 0.5)">
+                    <HStack spacing="16px" fontSize="12.5px" color="rgba(255, 255, 255, 0.5)" wrap="wrap">
                         <Link
                             href="https://brainlife.io/docs/privacy/"
                             isExternal
@@ -386,14 +371,20 @@ export default function Footer() {
                         </Link>
                         <Text>•</Text>
                         <Link
-                            href="https://brainlife.io/docs/technical/terms/"
+                            href="https://brainlife.io/docs/aup/"
                             isExternal
                             _hover={{ color: 'white', textDecoration: 'none' }}
                         >
-                            Terms of Service
+                            Acceptable Use (AUP)
                         </Link>
-                       
-                     
+                        <Text>•</Text>
+                        <Link
+                            href="https://brainlife.io/docs/contact/"
+                            isExternal
+                            _hover={{ color: 'white', textDecoration: 'none' }}
+                        >
+                            Contact Us
+                        </Link>
                     </HStack>
                 </Flex>
             </Container>
