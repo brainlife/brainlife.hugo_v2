@@ -1,8 +1,17 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import NextLink from 'next/link';
 import { Box, Flex, Text, Heading } from '@chakra-ui/react';
-import { Network, Database, FileText, Play, Eye, BookOpen, LucideIcon } from 'lucide-react';
+import {
+    Layers,
+    Server,
+    Cloud,
+    Archive,
+    Eye,
+    ArrowUpRight,
+    LucideIcon,
+} from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 import logo from '@/assets/logo.svg';
 import { getAssetPath } from '@/lib/basePath';
@@ -12,6 +21,23 @@ const rawLogoSrc = typeof logo === 'string' ? logo : (logo as StaticImageData)?.
 const logoSrc = getAssetPath(rawLogoSrc);
 
 const MotionBox = motion.create(Box);
+
+// Custom GitHub SVG icon with identical stroke and sizing
+const GithubIcon = ({ size = 20, color = 'currentColor' }: { size?: number; color?: string }) => (
+    <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+    >
+        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+        <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+);
 
 const parentVariants: Variants = {
     hidden: {},
@@ -50,77 +76,125 @@ const nodeVariants: Variants = {
 };
 
 interface NodeProps {
-    icon: LucideIcon;
+    icon: LucideIcon | React.ComponentType<{ size?: number; color?: string }>;
     title: string;
     description: string;
     accentColor?: string;
+    href: string;
+    isExternal?: boolean;
 }
 
-const EcosystemNode = ({ icon: IconComponent, title, description, accentColor = '#5cc5d8' }: NodeProps) => (
-    <Flex
-        direction="row"
-        alignItems="flex-start"
-        gap="16px"
-        maxW="290px"
-        position="relative"
-        zIndex={5}
-        transition="transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-        _hover={{ transform: 'translateY(-3px)' }}
-        textAlign="left"
-        role="group"
-    >
-        {/* Icon Circle */}
+const EcosystemNode = ({
+    icon: IconComponent,
+    title,
+    description,
+    accentColor = '#5cc5d8',
+    href,
+    isExternal = false,
+}: NodeProps) => {
+    const isInternal = href.startsWith('/');
+
+    const cardContent = (
         <Flex
-            alignItems="center"
-            justifyContent="center"
-            w="48px"
-            h="48px"
-            borderRadius="full"
-            bg="rgba(15, 23, 42, 0.75)"
-            border="1px solid rgba(255, 255, 255, 0.12)"
-            backdropFilter="blur(12px)"
-            boxShadow="0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
-            flexShrink={0}
+            as="div"
+            direction="row"
+            alignItems="flex-start"
+            gap="14px"
+            maxW="295px"
+            position="relative"
+            zIndex={5}
             transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
-            _groupHover={{
-                bg: 'rgba(15, 23, 42, 0.95)',
-                borderColor: accentColor,
-                boxShadow: `0 0 25px ${accentColor}60, inset 0 1px 0 rgba(255, 255, 255, 0.3)`,
-            }}
+            _hover={{ transform: 'translateY(-3px)' }}
+            textAlign="left"
+            role="group"
+            cursor="pointer"
         >
-            <IconComponent size={20} color="#f8fafc" />
-        </Flex>
-
-        {/* Text Column */}
-        <Flex direction="column" gap="4px" pt="2px">
-            {/* Title */}
-            <Text
-                fontSize="15px"
-                fontWeight="700"
-                color="white"
-                fontFamily="'Work Sans', sans-serif"
-                letterSpacing="-0.01em"
-                lineHeight="1.2"
-                transition="color 0.2s ease"
-                _groupHover={{ color: accentColor }}
+            {/* Icon Circle */}
+            <Flex
+                alignItems="center"
+                justifyContent="center"
+                w="46px"
+                h="46px"
+                borderRadius="full"
+                bg="rgba(15, 23, 42, 0.8)"
+                border="1px solid rgba(255, 255, 255, 0.12)"
+                backdropFilter="blur(12px)"
+                boxShadow="0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
+                flexShrink={0}
+                transition="all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+                _groupHover={{
+                    bg: 'rgba(15, 23, 42, 0.95)',
+                    borderColor: accentColor,
+                    boxShadow: `0 0 25px ${accentColor}60, inset 0 1px 0 rgba(255, 255, 255, 0.3)`,
+                    transform: 'scale(1.05)',
+                }}
             >
-                {title}
-            </Text>
+                <IconComponent size={20} color="#f8fafc" />
+            </Flex>
 
-            {/* Description */}
-            <Text
-                fontSize="12.5px"
-                color="rgba(248, 250, 252, 0.65)"
-                lineHeight="1.45"
-                fontFamily="'Work Sans', sans-serif"
-                transition="color 0.2s ease"
-                _groupHover={{ color: 'rgba(248, 250, 252, 0.9)' }}
-            >
-                {description}
-            </Text>
+            {/* Text Column */}
+            <Flex direction="column" gap="3px" pt="1px">
+                {/* Title + Action indicator */}
+                <Flex alignItems="center" gap="6px">
+                    <Text
+                        fontSize="14.5px"
+                        fontWeight="700"
+                        color="white"
+                        fontFamily="'Work Sans', sans-serif"
+                        letterSpacing="-0.01em"
+                        lineHeight="1.2"
+                        transition="color 0.2s ease"
+                        _groupHover={{ color: accentColor }}
+                    >
+                        {title}
+                    </Text>
+                    <Box
+                        opacity={0.4}
+                        transition="all 0.2s ease"
+                        _groupHover={{
+                            opacity: 1,
+                            transform: 'translate(2px, -2px)',
+                            color: accentColor,
+                        }}
+                    >
+                        <ArrowUpRight size={13} color="currentColor" />
+                    </Box>
+                </Flex>
+
+                {/* Description */}
+                <Text
+                    fontSize="12px"
+                    color="rgba(248, 250, 252, 0.65)"
+                    lineHeight="1.4"
+                    fontFamily="'Work Sans', sans-serif"
+                    transition="color 0.2s ease"
+                    _groupHover={{ color: 'rgba(248, 250, 252, 0.9)' }}
+                >
+                    {description}
+                </Text>
+            </Flex>
         </Flex>
-    </Flex>
-);
+    );
+
+    if (isInternal) {
+        return (
+            <NextLink href={href} style={{ textDecoration: 'none', display: 'block' }}>
+                {cardContent}
+            </NextLink>
+        );
+    }
+
+    return (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: 'none', display: 'block' }}
+        >
+            {cardContent}
+        </a>
+    );
+};
 
 export default function EcosystemSection() {
     const ringStageRef = useRef<HTMLDivElement>(null);
@@ -160,43 +234,55 @@ export default function EcosystemSection() {
 
     const leftNodes = [
         {
-            icon: Network,
-            title: 'Apps & Pipelines',
-            description: 'Run and share reproducible pipelines for a wide range of analyses.',
-            accentColor: '#5cc5d8',
+            icon: GithubIcon,
+            title: 'GitHub',
+            description: 'Explore open-source repositories, developer tools, and code.',
+            accentColor: '#cbd5e1',
+            href: 'https://github.com/brainlife',
+            isExternal: true,
         },
         {
-            icon: Database,
-            title: 'Datasets',
-            description: 'Access open neuroimaging datasets across modalities and species.',
-            accentColor: '#60a5fa',
+            icon: Layers,
+            title: 'Architecture',
+            description: 'Turnkey SaaS solution, execution engine, and cloud microservices.',
+            accentColor: '#a78bfa',
+            href: 'https://brainlife.io/docs/technical/arthitecture/',
+            isExternal: true,
         },
         {
-            icon: FileText,
-            title: 'Publications',
-            description: 'Discover research powered by Brainlife and cite with confidence.',
-            accentColor: '#34d399',
+            icon: Server,
+            title: 'Resources',
+            description: 'Free supercomputing hours across major national HPC centers.',
+            accentColor: '#38bdf8',
+            href: 'https://brainlife.io/resources',
+            isExternal: true,
         },
     ];
 
     const rightNodes = [
         {
-            icon: BookOpen,
-            title: 'Documentation',
-            description: 'Guides, API references, and best practices to help you succeed.',
-            accentColor: '#a78bfa',
+            icon: Cloud,
+            title: 'AWS S3',
+            description: 'Secure cloud storage supported by the AWS Open Data Program.',
+            accentColor: '#f59e0b',
+            href: 'https://registry.opendata.aws/apex/',
+            isExternal: true,
         },
         {
-            icon: Play,
-            title: 'Tutorials & Videos',
-            description: 'Learn with step-by-step tutorials, webinars, and workshops.',
-            accentColor: '#f59e0b',
+            icon: Archive,
+            title: 'Archiving',
+            description: 'Automated data provenance, reproducibility, and minted DOIs.',
+            accentColor: '#60a5fa',
+            href: 'https://brainlife.io/docs/user/started/',
+            isExternal: true,
         },
         {
             icon: Eye,
-            title: 'Visualization',
-            description: 'Explore results with Neuroglancer and other interactive viewers.',
+            title: 'Visualization Tools',
+            description: 'Interactive in-browser 3D viewers for neuroimaging data.',
             accentColor: '#f43f5e',
+            href: 'https://brainlife.io/docs/user/datatypes/',
+            isExternal: true,
         },
     ];
 
@@ -311,8 +397,8 @@ export default function EcosystemSection() {
                                 position="absolute"
                                 inset="250px"
                                 borderRadius="full"
-                                border="1.5px solid rgba(92, 197, 216, 0.4)"
-                                boxShadow="0 0 25px rgba(92, 197, 216, 0.25), inset 0 0 20px rgba(92, 197, 216, 0.15)"
+                                border="1.5px solid rgba(203, 213, 225, 0.4)"
+                                boxShadow="0 0 25px rgba(203, 213, 225, 0.2), inset 0 0 20px rgba(203, 213, 225, 0.1)"
                                 className="ring-spin-cw"
                             >
                                 <Box
@@ -322,8 +408,18 @@ export default function EcosystemSection() {
                                     w="10px"
                                     h="10px"
                                     borderRadius="full"
-                                    bg="#5cc5d8"
-                                    boxShadow="0 0 14px #5cc5d8, 0 0 24px #5cc5d8"
+                                    bg="#cbd5e1"
+                                    boxShadow="0 0 14px #cbd5e1, 0 0 24px #cbd5e1"
+                                />
+                                <Box
+                                    position="absolute"
+                                    bottom="-5px"
+                                    left="50%"
+                                    w="8px"
+                                    h="8px"
+                                    borderRadius="full"
+                                    bg="#f43f5e"
+                                    boxShadow="0 0 14px #f43f5e"
                                 />
                             </Box>
 
@@ -350,11 +446,11 @@ export default function EcosystemSection() {
                                     position="absolute"
                                     bottom="12%"
                                     left="12%"
-                                    w="7px"
-                                    h="7px"
+                                    w="8px"
+                                    h="8px"
                                     borderRadius="full"
-                                    bg="#34d399"
-                                    boxShadow="0 0 12px #34d399"
+                                    bg="#a78bfa"
+                                    boxShadow="0 0 12px #a78bfa"
                                 />
                             </Box>
 
@@ -363,8 +459,8 @@ export default function EcosystemSection() {
                                 position="absolute"
                                 inset="70px"
                                 borderRadius="full"
-                                border="1.5px solid rgba(167, 139, 250, 0.25)"
-                                boxShadow="0 0 40px rgba(167, 139, 250, 0.15)"
+                                border="1.5px solid rgba(56, 189, 248, 0.25)"
+                                boxShadow="0 0 40px rgba(56, 189, 248, 0.15)"
                                 className="ring-spin-cw"
                             >
                                 <Box
@@ -374,8 +470,8 @@ export default function EcosystemSection() {
                                     w="10px"
                                     h="10px"
                                     borderRadius="full"
-                                    bg="#a78bfa"
-                                    boxShadow="0 0 18px #a78bfa"
+                                    bg="#38bdf8"
+                                    boxShadow="0 0 18px #38bdf8"
                                 />
                                 <Box
                                     position="absolute"
@@ -511,35 +607,35 @@ export default function EcosystemSection() {
                         </MotionBox>
                     </Box>
 
-                    {/* 2D FLOATING CLEAN TEXT NODES (Unchanged & perfectly legible) */}
+                    {/* 2D FLOATING CLEAN TEXT NODES (Actionable & perfectly balanced) */}
                     <MotionBox variants={nodesContainerVariants}>
-                        {/* Left 1: Apps & Pipelines */}
-                        <MotionBox variants={nodeVariants} position="absolute" left="50px" top="60px">
+                        {/* Left 1: GitHub */}
+                        <MotionBox variants={nodeVariants} position="absolute" left="50px" top="55px">
                             <EcosystemNode {...leftNodes[0]} />
                         </MotionBox>
-                        {/* Left 2: Datasets */}
+                        {/* Left 2: Architecture */}
                         <MotionBox variants={nodeVariants} position="absolute" left="15px" top="260px">
                             <Box transform="translateY(-50%)">
                                 <EcosystemNode {...leftNodes[1]} />
                             </Box>
                         </MotionBox>
-                        {/* Left 3: Publications */}
-                        <MotionBox variants={nodeVariants} position="absolute" left="180px" top="400px">
+                        {/* Left 3: Resources */}
+                        <MotionBox variants={nodeVariants} position="absolute" left="170px" top="410px">
                             <EcosystemNode {...leftNodes[2]} />
                         </MotionBox>
 
-                        {/* Right 1: Documentation */}
-                        <MotionBox variants={nodeVariants} position="absolute" right="50px" top="60px">
+                        {/* Right 1: AWS S3 */}
+                        <MotionBox variants={nodeVariants} position="absolute" right="50px" top="55px">
                             <EcosystemNode {...rightNodes[0]} />
                         </MotionBox>
-                        {/* Right 2: Tutorials */}
+                        {/* Right 2: Archiving */}
                         <MotionBox variants={nodeVariants} position="absolute" right="15px" top="260px">
                             <Box transform="translateY(-50%)">
                                 <EcosystemNode {...rightNodes[1]} />
                             </Box>
                         </MotionBox>
-                        {/* Right 3: Visualization */}
-                        <MotionBox variants={nodeVariants} position="absolute" right="180px" top="400px">
+                        {/* Right 3: Visualization Tools */}
+                        <MotionBox variants={nodeVariants} position="absolute" right="170px" top="410px">
                             <EcosystemNode {...rightNodes[2]} />
                         </MotionBox>
                     </MotionBox>
