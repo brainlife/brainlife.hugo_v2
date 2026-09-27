@@ -4,6 +4,7 @@ import React from 'react';
 import NextLink from 'next/link';
 import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import UsersHeroSection from './components/UsersHeroSection';
 import ResearchSpotlightSection from './components/ResearchSpotlightSection';
 import {
@@ -15,7 +16,6 @@ import {
     Text,
     Spinner,
 } from '@chakra-ui/react';
-import { ArrowRight } from 'lucide-react';
 import { redirectToBrainlifeLogin } from '@/contexts/AuthContext.helpers';
 
 const GlobalUserMap = dynamic(() => import('./components/GlobalUserMap'), {
@@ -157,6 +157,9 @@ export default function UsersPage() {
                     </Box>
                 </Box>
             </Container>
+
+            {/* SITE FOOTER */}
+            <Footer />
         </Box>
     );
 }

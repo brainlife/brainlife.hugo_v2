@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import NextLink from 'next/link';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import CircularPortraitItem from './components/CircularPortraitItem';
 import LeadershipBentoSection from './components/LeadershipBentoSection';
 import AlumniCareerSection from './components/AlumniCareerSection';
@@ -695,6 +696,9 @@ export default function TeamPage() {
                     </Box>
                 </Box>
             </Container>
+
+            {/* SITE FOOTER */}
+            <Footer />
 
             {/* HOLOGRAPHIC MEMBER PROFILE MODAL */}
             <MemberInspectionModal

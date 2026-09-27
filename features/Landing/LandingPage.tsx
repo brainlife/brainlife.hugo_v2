@@ -3,6 +3,7 @@
 import { redirectToBrainlifeLogin } from '@/contexts/AuthContext.helpers';
 import NextLink from 'next/link';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import NewProjectModal from '@/components/NewProjectModal';
 import HeroVisualStage from './HeroVisualStage';
 import HorizontalPipelineSection from './HorizontalPipelineSection';
@@ -645,6 +646,9 @@ export default function LandingPage() {
 
             {/* testimonials showcase */}
             <TestimonialsSection />
+
+            {/* site footer */}
+            <Footer />
         </Box>
     );
 }

@@ -3,6 +3,7 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import MobileHeroSection from './components/MobileHeroSection';
 import MobileAboutSection from './components/MobileAboutSection';
 import MobileResearchHubSection from './components/MobileResearchHubSection';
@@ -47,6 +48,9 @@ export default function MobilePage() {
 
             {/* DOWNLOAD CTA BANNER */}
             <MobileDownloadCtaSection />
+
+            {/* SITE FOOTER */}
+            <Footer />
         </Box>
     );
 }
