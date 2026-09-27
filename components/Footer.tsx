@@ -58,7 +58,7 @@ const FOOTER_COLUMNS = [
             { label: 'Team & Alumni', href: '/about', isExternal: false },
             { label: 'Users & Impact', href: '/users', isExternal: false },
             { label: 'Publications', href: 'https://brainlife.io/docs/user/publication/', isExternal: true },
-            { label: 'Pestilli Lab', href: 'https://liberalarts.utexas.edu/psychology/faculty/fp4834', isExternal: true },
+            { label: 'Pestilli Lab', href: 'https://pestillilab.github.io/', isExternal: true },
         ],
     },
     {
