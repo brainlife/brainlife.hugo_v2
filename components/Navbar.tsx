@@ -152,7 +152,7 @@ export default function Navbar() {
                         {/* Signature Framed PORTAL Button */}
                         <Button
                             as="a"
-                            href="https://brainlife.io/projects"
+                            href="https://connects.brainlife.io/dashboard"
                             variant="outline"
                             borderColor="rgba(255, 255, 255, 0.8)"
                             borderWidth="1.5px"
@@ -188,7 +188,7 @@ export default function Navbar() {
                     <Flex display={{ base: 'flex', lg: 'none' }} alignItems="center" gap="12px">
                         <Button
                             as="a"
-                            href="https://brainlife.io/projects"
+                            href="https://connects.brainlife.io/dashboard"
                             variant="outline"
                             borderColor="rgba(255, 255, 255, 0.7)"
                             borderWidth="1.5px"
@@ -270,7 +270,7 @@ export default function Navbar() {
                             <Box pt="16px">
                                 <Button
                                     as="a"
-                                    href="https://brainlife.io/projects"
+                                    href="https://connects.brainlife.io/dashboard"
                                     w="100%"
                                     onClick={onClose}
                                     bg="#2693D8"

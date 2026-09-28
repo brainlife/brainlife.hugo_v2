@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Box, Flex, Image, Text, Link } from '@chakra-ui/react';
 import { keyframes } from '@emotion/react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
@@ -12,12 +12,10 @@ import {
     ArrowRight,
     Settings,
     CheckCircle2,
-    Activity,
 } from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 import axialScan from '@/assets/landing/axial.jpeg';
 import tractThumb from '@/assets/landing/tract_transparent.png';
-import tractAnim from '@/assets/landing/tractography_transparent.webp';
 import tractHighRes from '@/assets/landing/tract4_transparent.png';
 
 const getImgSrc = (img: string | StaticImageData, fallback: string): string => {
@@ -27,82 +25,7 @@ const getImgSrc = (img: string | StaticImageData, fallback: string): string => {
 
 const axialScanSrc = getImgSrc(axialScan, '/assets/landing/axial.jpeg');
 const tractThumbSrc = getImgSrc(tractThumb, '/assets/landing/tract_transparent.png');
-const tractAnimSrc = getImgSrc(tractAnim, '/assets/landing/tractography_transparent.webp');
 const tractHighResSrc = getImgSrc(tractHighRes, '/assets/landing/tract4_transparent.png');
-
-// Standard Neuroimaging Diffusion Tensor Orientation Sphere (Red = L-R, Green = A-P, Blue = S-I)
-const DiffusionOrientationSphere = () => (
-    <Flex
-        direction="column"
-        align="center"
-        bg="rgba(13, 21, 39, 0.92)"
-        border="1px solid rgba(92, 197, 216, 0.45)"
-        borderRadius="12px"
-        p="7px 10px"
-        backdropFilter="blur(16px)"
-        boxShadow="0 12px 28px rgba(0,0,0,0.7), 0 0 16px rgba(58, 111, 124, 0.25)"
-        userSelect="none"
-        transition="all 0.25s ease"
-        _hover={{
-            borderColor: '#5cc5d8',
-            boxShadow: '0 16px 32px rgba(0,0,0,0.85), 0 0 24px rgba(92, 197, 216, 0.4)',
-        }}
-    >
-        <Flex align="center" gap="8px">
-            <Box position="relative" w="40px" h="40px" flexShrink={0}>
-                <svg viewBox="0 0 100 100" width="40" height="40" style={{ overflow: 'visible' }}>
-                    <defs>
-                        <radialGradient id="dtiSphereGrad" cx="38%" cy="36%" r="62%">
-                            <stop offset="0%" stopColor="#818cf8" />
-                            <stop offset="35%" stopColor="#38bdf8" />
-                            <stop offset="65%" stopColor="#34d399" />
-                            <stop offset="85%" stopColor="#f87171" />
-                            <stop offset="100%" stopColor="#dc2626" />
-                        </radialGradient>
-                        <filter id="sphereGlow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur stdDeviation="2.5" result="blur" />
-                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                        </filter>
-                    </defs>
-                    {/* Outer calibration dashed ring */}
-                    <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(92, 197, 216, 0.35)" strokeWidth="1" strokeDasharray="3 3" />
-                    {/* Shaded 3D Sphere */}
-                    <circle cx="50" cy="50" r="37" fill="url(#dtiSphereGrad)" filter="url(#sphereGlow)" opacity="0.95" />
-                    {/* Specular highlight */}
-                    <ellipse cx="40" cy="35" rx="14" ry="9" fill="rgba(255,255,255,0.4)" transform="rotate(-25 40 35)" />
-                    {/* X-axis (Red - Left/Right) */}
-                    <line x1="50" y1="50" x2="80" y2="50" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                    <polygon points="80,47 86,50 80,53" fill="#ef4444" />
-                    {/* Z-axis (Blue - Superior/Inferior) */}
-                    <line x1="50" y1="50" x2="50" y2="20" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" />
-                    <polygon points="47,20 50,14 53,20" fill="#38bdf8" />
-                    {/* Y-axis (Green - Anterior/Posterior, oblique) */}
-                    <line x1="50" y1="50" x2="30" y2="67" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" />
-                    <polygon points="28,63 25,72 33,68" fill="#10b981" />
-                    {/* Axis labels */}
-                    <text x="89" y="53" fill="#f87171" fontSize="10" fontWeight="bold" fontFamily="sans-serif">X</text>
-                    <text x="47" y="10" fill="#7dd3fc" fontSize="10" fontWeight="bold" fontFamily="sans-serif">Z</text>
-                    <text x="16" y="78" fill="#6ee7b7" fontSize="10" fontWeight="bold" fontFamily="sans-serif">Y</text>
-                </svg>
-            </Box>
-            <Box lineHeight="1.15">
-                <Text fontSize="8.5px" fontWeight="800" color="#5cc5d8" letterSpacing="0.08em" textTransform="uppercase">
-                    dMRI Direction
-                </Text>
-                <Flex align="center" gap="4px" mt="2px">
-                    <Text fontSize="8px" fontWeight="700" color="#f87171">R: L-R</Text>
-                    <Text fontSize="7.5px" color="rgba(255,255,255,0.3)">|</Text>
-                    <Text fontSize="8px" fontWeight="700" color="#34d399">G: A-P</Text>
-                    <Text fontSize="7.5px" color="rgba(255,255,255,0.3)">|</Text>
-                    <Text fontSize="8px" fontWeight="700" color="#38bdf8">B: S-I</Text>
-                </Flex>
-                <Text fontSize="7.5px" color="rgba(255,255,255,0.5)" mt="1px">
-                    HCP / Brainlife Standard
-                </Text>
-            </Box>
-        </Flex>
-    </Flex>
-);
 
 // Official SKAI Hummingbird Vector Logo
 const SkaiIcon = ({ size = 21, color = '#5cc5d8' }: { size?: number | string; color?: string }) => (
@@ -144,8 +67,6 @@ const MotionBox = motion.create(Box);
 
 export default function HeroVisualStage() {
     const mountRef = useRef<HTMLDivElement>(null);
-    const [progressVal, setProgressVal] = useState(68);
-    const [viewMode, setViewMode] = useState<'rotation' | 'highres'>('rotation');
 
     // Mouse parallax for 2.5D tilt overlay
     const mvX = useMotionValue(0);
@@ -399,14 +320,6 @@ export default function HeroVisualStage() {
         };
     }, []);
 
-    // Progress bar tick animation
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setProgressVal((p) => (p >= 99 ? 42 : p + 1));
-        }, 1200);
-        return () => clearInterval(timer);
-    }, []);
-
     return (
         <Box
             position="relative"
@@ -502,12 +415,11 @@ export default function HeroVisualStage() {
                     justifyContent="center"
                 >
                     <Image
-                        src={viewMode === 'rotation' ? tractAnimSrc : tractHighResSrc}
-                        alt="3D Tractography Brain Streamlines"
+                        src={tractHighResSrc}
+                        alt="High-Resolution Connectome Tractography Streamlines"
                         w="100%"
                         h="auto"
                         filter="drop-shadow(0 0 35px rgba(92, 197, 216, 0.5)) drop-shadow(0 0 15px rgba(58, 111, 124, 0.3))"
-                        transition="opacity 0.3s ease"
                     />
                 </MotionBox>
             </Box>
@@ -835,111 +747,7 @@ export default function HeroVisualStage() {
                         DOI: 10.25663/pub.64 ↗
                     </Link>
                 </Flex>
-
-                {/* Streamline Display Mode Toggle Pill */}
-                <Flex
-                    align="center"
-                    justify="space-between"
-                    bg="rgba(10, 16, 30, 0.85)"
-                    p="2px 3px"
-                    borderRadius="full"
-                    border="1px solid rgba(92, 197, 216, 0.25)"
-                >
-                    <Box
-                        as="button"
-                        onClick={() => setViewMode('rotation')}
-                        flex={1}
-                        py="2px"
-                        px="6px"
-                        borderRadius="full"
-                        bg={viewMode === 'rotation' ? 'rgba(92, 197, 216, 0.25)' : 'transparent'}
-                        border={viewMode === 'rotation' ? '1px solid rgba(92, 197, 216, 0.6)' : '1px solid transparent'}
-                        color={viewMode === 'rotation' ? '#5cc5d8' : 'rgba(255,255,255,0.5)'}
-                        fontSize="9px"
-                        fontWeight="700"
-                        transition="all 0.2s ease"
-                        textAlign="center"
-                        _hover={{ color: 'white' }}
-                    >
-                        3D Orbit
-                    </Box>
-                    <Box
-                        as="button"
-                        onClick={() => setViewMode('highres')}
-                        flex={1}
-                        py="2px"
-                        px="6px"
-                        borderRadius="full"
-                        bg={viewMode === 'highres' ? 'rgba(92, 197, 216, 0.25)' : 'transparent'}
-                        border={viewMode === 'highres' ? '1px solid rgba(92, 197, 216, 0.6)' : '1px solid transparent'}
-                        color={viewMode === 'highres' ? '#5cc5d8' : 'rgba(255,255,255,0.5)'}
-                        fontSize="9px"
-                        fontWeight="700"
-                        transition="all 0.2s ease"
-                        textAlign="center"
-                        _hover={{ color: 'white' }}
-                    >
-                        High-Res
-                    </Box>
-                </Flex>
             </MotionBox>
-
-            {/* Card 3: Live Tractography Progress Pill (Bottom Left) */}
-            <Box
-                position="absolute"
-                bottom={{ base: '10%', md: '12%' }}
-                left={{ base: '10%', sm: '14%', md: '18%' }}
-                zIndex={12}
-                bg="rgba(13, 21, 39, 0.94)"
-                border="1.5px solid rgba(92, 197, 216, 0.4)"
-                borderRadius="14px"
-                p="9px 16px"
-                backdropFilter="blur(20px)"
-                boxShadow="0 15px 35px rgba(0,0,0,0.75), 0 0 25px rgba(58, 111, 124, 0.25)"
-                display="flex"
-                alignItems="center"
-                gap="12px"
-            >
-                <Flex w="26px" h="26px" borderRadius="6px" bg="rgba(92, 197, 216, 0.2)" align="center" justify="center">
-                    <Activity size={15} color="#5cc5d8" />
-                </Flex>
-
-                <Box>
-                    <Text fontSize="11px" fontWeight="600" color="rgba(255,255,255,0.85)" mb="4px">
-                        MRtrix3 ACT Tracking (Node #14)...
-                    </Text>
-                    <Box
-                        w={{ base: '100px', sm: '130px', md: '150px' }}
-                        h="4px"
-                        borderRadius="full"
-                        bg="rgba(255,255,255,0.15)"
-                        overflow="hidden"
-                    >
-                        <Box
-                            w={`${progressVal}%`}
-                            h="100%"
-                            borderRadius="full"
-                            bg="linear-gradient(90deg, #3a6f7c 0%, #5cc5d8 100%)"
-                            boxShadow="0 0 8px #5cc5d8"
-                            transition="width 0.8s ease"
-                        />
-                    </Box>
-                </Box>
-
-                <Text fontSize="11px" fontWeight="800" color="white" ml="4px">
-                    {progressVal}%
-                </Text>
-            </Box>
-
-            {/* Standard Neuroimaging Diffusion RGB Orientation Sphere HUD */}
-            <Box
-                position="absolute"
-                bottom={{ base: '12%', md: '14%' }}
-                right={{ base: '2%', sm: '4%', md: '6%' }}
-                zIndex={12}
-            >
-                <DiffusionOrientationSphere />
-            </Box>
 
             {/* Bottom-Right Step Flow Timeline */}
             <Box

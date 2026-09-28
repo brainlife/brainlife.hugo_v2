@@ -120,7 +120,7 @@ const MaskWordReveal: React.FC<MaskWordRevealProps> = ({
     highlightGradient = 'linear(to-r, #5cc5d8, #38bdf8)',
 }) => {
     const ref = React.useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: '-8% 0px' });
+    const isInView = useInView(ref, { once: true, margin: '200px 0px' });
     const words = text.split(' ');
 
     return (
@@ -190,7 +190,7 @@ interface MaskImageRevealProps {
 
 const MaskImageReveal: React.FC<MaskImageRevealProps> = ({ src, alt, delay = 0 }) => {
     const ref = React.useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: '-10% 0px' });
+    const isInView = useInView(ref, { once: true, margin: '200px 0px' });
 
     return (
         <Box ref={ref} position="relative" w="100%" h="100%" overflow="hidden" bg="#080c14">
@@ -509,13 +509,13 @@ export default function ProudProductsSection() {
                     {proudProducts.map((product, index) => (
                         <MotionBox
                             key={product.id}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.15 }}
+                            viewport={{ once: true, margin: '200px 0px' }}
                             transition={{
-                                duration: 0.6,
+                                duration: 0.5,
                                 ease: [0.16, 1, 0.3, 1],
-                                delay: index * 0.08,
+                                delay: index * 0.06,
                             }}
                         >
                             <Link
@@ -611,16 +611,15 @@ export default function ProudProductsSection() {
                                         justifyContent="space-between"
                                     >
                                         <Box>
-                                            <Box mb="6px">
-                                                <MaskWordReveal
-                                                    text={product.category}
-                                                    fontSize="10.5px"
-                                                    fontWeight="700"
-                                                    color="#5cc5d8"
-                                                    letterSpacing="0.04em"
-                                                    delay={0.2}
-                                                />
-                                            </Box>
+                                            <Text
+                                                fontSize="10.5px"
+                                                fontWeight="700"
+                                                color="#5cc5d8"
+                                                letterSpacing="0.04em"
+                                                mb="6px"
+                                            >
+                                                {product.category}
+                                            </Text>
 
                                             <Heading
                                                 as="h3"
@@ -638,13 +637,7 @@ export default function ProudProductsSection() {
                                                 transition="color 0.2s ease"
                                             >
                                                 <Box flex="1">
-                                                    <MaskWordReveal
-                                                        text={product.title}
-                                                        fontSize={{ base: '16px', sm: '17px', lg: '17.5px', xl: '19px' }}
-                                                        fontWeight={800}
-                                                        letterSpacing="-0.02em"
-                                                        delay={0.25}
-                                                    />
+                                                    {product.title}
                                                 </Box>
                                                 <Flex
                                                     w="28px"
@@ -662,16 +655,14 @@ export default function ProudProductsSection() {
                                                 </Flex>
                                             </Heading>
 
-                                            <Box mb="14px">
-                                                <MaskWordReveal
-                                                    text={product.description}
-                                                    fontSize={{ base: '12px', lg: '12.5px', xl: '13px' }}
-                                                    color="rgba(255, 255, 255, 0.7)"
-                                                    lineHeight="1.5"
-                                                    delay={0.35}
-                                                    stagger={0.015}
-                                                />
-                                            </Box>
+                                            <Text
+                                                fontSize={{ base: '12px', lg: '12.5px', xl: '13px' }}
+                                                color="rgba(255, 255, 255, 0.7)"
+                                                lineHeight="1.5"
+                                                mb="14px"
+                                            >
+                                                {product.description}
+                                            </Text>
                                         </Box>
 
                                         {/* Badges List */}

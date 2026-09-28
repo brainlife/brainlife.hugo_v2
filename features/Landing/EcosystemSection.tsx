@@ -320,7 +320,7 @@ export default function EcosystemSection() {
                 zIndex={2}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={{ once: true, margin: '200px 0px' }}
                 variants={parentVariants}
             >
                 {/* Header with Stacked Faded Watermark */}
