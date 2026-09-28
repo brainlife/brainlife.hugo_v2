@@ -29,6 +29,7 @@ import { motion, useInView } from 'framer-motion';
 import ezBidsImg from '@/assets/landing/Ezbids.png';
 import ezGovImg from '@/assets/landing/ezgov.png';
 import dicompareImg from '@/assets/landing/dicompare.png';
+import { EXTERNAL_LINKS } from '@/lib/constants';
 
 const getSrc = (img: StaticImageData | string | { src?: string } | undefined, fallback: string) =>
     (typeof img === 'string' ? img : (img as StaticImageData)?.src || fallback);
@@ -48,7 +49,7 @@ const proudProducts = [
             'Convert raw DICOM & NIfTI datasets into standardized BIDS format directly in your web browser with automated AI-assisted validation.',
         image: ezBidsImgSrc,
         badges: ['BIDS Standard', 'Zero Install', 'Automated QA'],
-        url: 'https://brainlife.io/ezbids/',
+        url: EXTERNAL_LINKS.EZBIDS,
         actionLabel: 'LAUNCH WEB APP',
     },
     {
@@ -59,7 +60,7 @@ const proudProducts = [
             'Manage dataset access permissions, data sharing agreements, IRB compliance metadata, and FAIR data publishing workflows.',
         image: ezGovImgSrc,
         badges: ['FAIR Compliance', 'Access Control', 'IRB Metadata'],
-        url: 'https://brainlife.io/',
+        url: EXTERNAL_LINKS.EZGOV,
         actionLabel: 'LAUNCH WEB APP',
     },
     {
@@ -70,7 +71,7 @@ const proudProducts = [
             'Inspect multi-subject DICOM headers side-by-side to detect acquisition protocol drift, missing sequence parameters, and vendor variations.',
         image: dicompareImgSrc,
         badges: ['DICOM Inspection', 'Protocol Diff', 'Multi-Subject QA'],
-        url: 'https://brainlife.io/',
+        url: EXTERNAL_LINKS.DICOMPARE,
         actionLabel: 'LAUNCH WEB APP',
     },
     {
@@ -81,7 +82,7 @@ const proudProducts = [
             'Converse, query open datasets, validate inputs, auto-generate Slurm pipelines, and dispatch 500+ apps on distributed GPU clusters.',
         image: '',
         badges: ['AI Copilot', 'Natural Language', 'Slurm Automation'],
-        url: 'https://brainlife.io/',
+        url: EXTERNAL_LINKS.SKAI,
         actionLabel: 'TRY AI ASSISTANT',
     },
 ];

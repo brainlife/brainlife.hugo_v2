@@ -24,6 +24,7 @@ import { Menu, ExternalLink } from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 import logo from '@/assets/logo.svg';
 import { getAssetPath } from '@/lib/basePath';
+import { EXTERNAL_LINKS } from '@/lib/constants';
 
 const rawLogoSrc = typeof logo === 'string' ? logo : (logo as StaticImageData)?.src || '/logo.svg';
 const logoSrc = getAssetPath(rawLogoSrc);
@@ -37,9 +38,9 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
     { label: 'ABOUT', href: '/about' },
-    { label: 'DOCS', href: 'https://brainlife.io/docs/', isExternal: true },
+    { label: 'DOCS', href: EXTERNAL_LINKS.DOCS, isExternal: true },
     { label: 'USERS', href: '/users' },
-    { label: 'EZBIDS', href: 'https://brainlife.io/ezbids/', isExternal: true },
+    { label: 'EZBIDS', href: EXTERNAL_LINKS.EZBIDS, isExternal: true },
     { label: 'MOBILE', href: '/mobile' },
 ];
 
@@ -152,7 +153,7 @@ export default function Navbar() {
                         {/* Signature Framed PORTAL Button */}
                         <Button
                             as="a"
-                            href="https://connects.brainlife.io/dashboard"
+                            href={EXTERNAL_LINKS.PORTAL}
                             variant="outline"
                             borderColor="rgba(255, 255, 255, 0.8)"
                             borderWidth="1.5px"
@@ -188,7 +189,7 @@ export default function Navbar() {
                     <Flex display={{ base: 'flex', lg: 'none' }} alignItems="center" gap="12px">
                         <Button
                             as="a"
-                            href="https://connects.brainlife.io/dashboard"
+                            href={EXTERNAL_LINKS.PORTAL}
                             variant="outline"
                             borderColor="rgba(255, 255, 255, 0.7)"
                             borderWidth="1.5px"
@@ -270,7 +271,7 @@ export default function Navbar() {
                             <Box pt="16px">
                                 <Button
                                     as="a"
-                                    href="https://connects.brainlife.io/dashboard"
+                                    href={EXTERNAL_LINKS.PORTAL}
                                     w="100%"
                                     onClick={onClose}
                                     bg="#2693D8"

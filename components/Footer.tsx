@@ -18,6 +18,7 @@ import { ExternalLink, Mail } from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 import logo from '@/assets/logo.svg';
 import { getAssetPath } from '@/lib/basePath';
+import { EXTERNAL_LINKS } from '@/lib/constants';
 
 const rawLogoSrc = typeof logo === 'string' ? logo : (logo as StaticImageData)?.src || '/logo.svg';
 const logoSrc = getAssetPath(rawLogoSrc);
@@ -44,10 +45,10 @@ const FOOTER_COLUMNS = [
     {
         title: 'Platform',
         links: [
-            { label: 'Apps & Pipelines', href: 'https://brainlife.io/apps', isExternal: true },
-            { label: 'Public Datasets', href: 'https://brainlife.io/datasets', isExternal: true },
-            { label: 'Projects Portal', href: 'https://brainlife.io/projects', isExternal: true },
-            { label: 'ezBIDS Tool', href: 'https://brainlife.io/ezbids/', isExternal: true },
+            { label: 'Apps & Pipelines', href: EXTERNAL_LINKS.APPS, isExternal: true },
+            { label: 'Public Datasets', href: EXTERNAL_LINKS.DATASETS, isExternal: true },
+            { label: 'Projects Portal', href: EXTERNAL_LINKS.PORTAL, isExternal: true },
+            { label: 'ezBIDS Tool', href: EXTERNAL_LINKS.EZBIDS, isExternal: true },
             { label: 'Brainlife Mobile', href: '/mobile', isExternal: false },
         ],
     },
@@ -57,28 +58,28 @@ const FOOTER_COLUMNS = [
             { label: 'About Brainlife', href: '/about', isExternal: false },
             { label: 'Team & Alumni', href: '/about', isExternal: false },
             { label: 'Users & Impact', href: '/users', isExternal: false },
-            { label: 'Publications', href: 'https://brainlife.io/docs/user/publication/', isExternal: true },
-            { label: 'Pestilli Lab', href: 'https://pestillilab.github.io/', isExternal: true },
+            { label: 'Publications', href: EXTERNAL_LINKS.PUBLICATIONS, isExternal: true },
+            { label: 'Pestilli Lab', href: EXTERNAL_LINKS.PESTILLI_LAB, isExternal: true },
         ],
     },
     {
         title: 'Documentation',
         links: [
-            { label: 'Documentation Home', href: 'https://brainlife.io/docs/', isExternal: true },
-            { label: 'Tutorials', href: 'https://brainlife.io/docs/tutorial/introduction-to-brainlife/', isExternal: true },
-            { label: 'Supported Data Types', href: 'https://brainlife.io/docs/user/datatypes/', isExternal: true },
-            { label: 'CLI Guide', href: 'https://brainlife.io/docs/cli/install/', isExternal: true },
-            { label: 'Developing Apps', href: 'https://brainlife.io/docs/apps/introduction/', isExternal: true },
+            { label: 'Documentation Home', href: EXTERNAL_LINKS.DOCS, isExternal: true },
+            { label: 'Tutorials', href: EXTERNAL_LINKS.TUTORIALS, isExternal: true },
+            { label: 'Supported Data Types', href: EXTERNAL_LINKS.DATATYPES, isExternal: true },
+            { label: 'CLI Guide', href: EXTERNAL_LINKS.CLI_GUIDE, isExternal: true },
+            { label: 'Developing Apps', href: EXTERNAL_LINKS.APP_DEV, isExternal: true },
         ],
     },
     {
         title: 'Connect & Support',
         links: [
-            { label: 'GitHub Organization', href: 'https://github.com/brainlife', isExternal: true },
-            { label: 'Slack Community', href: 'https://brainlife.slack.com', isExternal: true },
-            { label: 'Contact Us', href: 'https://brainlife.io/docs/contact/', isExternal: true },
-            { label: 'Careers', href: 'https://brainlife.io/docs/careers/jobs/', isExternal: true },
-            { label: 'Privacy Policy', href: 'https://brainlife.io/docs/privacy/', isExternal: true },
+            { label: 'GitHub Organization', href: EXTERNAL_LINKS.GITHUB, isExternal: true },
+            { label: 'Slack Community', href: EXTERNAL_LINKS.SLACK, isExternal: true },
+            { label: 'Contact Us', href: EXTERNAL_LINKS.CONTACT, isExternal: true },
+            { label: 'Careers', href: EXTERNAL_LINKS.CAREERS, isExternal: true },
+            { label: 'Privacy Policy', href: EXTERNAL_LINKS.PRIVACY, isExternal: true },
         ],
     },
 ];
@@ -356,9 +357,8 @@ export default function Footer() {
                     <Text
                         fontSize="13px"
                         color="rgba(255, 255, 255, 0.55)"
-                        fontFamily="'Work Sans', sans-serif"
                     >
-                        © Pestillilab. All rights reserved.
+                        © {currentYear} Pestillilab. All rights reserved.
                     </Text>
 
                     <HStack spacing="16px" fontSize="12.5px" color="rgba(255, 255, 255, 0.5)" wrap="wrap">
