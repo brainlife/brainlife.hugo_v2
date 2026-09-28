@@ -9,10 +9,10 @@ import {
     UploadCloud,
     Cpu,
     Eye,
-    Sparkles,
     Bell,
     Activity,
 } from 'lucide-react';
+import type { StaticImageData } from 'next/image';
 import createImg from '@/assets/landing/create.png';
 import importDataImg from '@/assets/landing/import_data.png';
 import processImg from '@/assets/landing/process.png';
@@ -25,7 +25,8 @@ if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-const getSrc = (img: any, fallback: string) => typeof img === 'string' ? img : img?.src || fallback;
+const getSrc = (img: StaticImageData | string | { src?: string } | undefined, fallback: string) =>
+    typeof img === 'string' ? img : (img as StaticImageData)?.src || fallback;
 
 const createImgSrc = getSrc(createImg, '/assets/landing/create.png');
 const importDataImgSrc = getSrc(importDataImg, '/assets/landing/import_data.png');
