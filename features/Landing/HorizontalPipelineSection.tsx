@@ -882,10 +882,10 @@ export default function HorizontalPipelineSection() {
                             />
                         ))}
                     </Flex>
-                    <Text fontSize="11px" color="rgba(255,255,255,0.5)">
+                    {/* <Text fontSize="11px" color="rgba(255,255,255,0.5)">
                         Scroll down to sweep pipeline stages (CREATE ➔ IMPORT ➔ PROCESS ➔ NOTIFY ➔ MOBILE VIZ ➔ DESKTOP
                         VIZ)
-                    </Text>
+                    </Text> */}
                 </Flex>
             </Box>
         </Box>
