@@ -366,11 +366,6 @@ export default function SponsorsInfrastructureSection() {
                         community, support scientific reproducibility, and accelerate discovery.
                     </Text>
 
-                    {/* INTERACTIVE HINT BADGE */}
-                    <Flex align="center" gap="8px" color="rgba(92, 197, 216, 0.9)" fontSize="12.5px" fontWeight={600}>
-                        <MoveHorizontal size={16} />
-                        <Text>Continuously operating compute &amp; data pipelines • Hover to inspect</Text>
-                    </Flex>
                 </Box>
             </Container>
 

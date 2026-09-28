@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Link } from '@chakra-ui/react';
 import { keyframes } from '@emotion/react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import * as THREE from 'three';
@@ -14,13 +14,95 @@ import {
     CheckCircle2,
     Activity,
 } from 'lucide-react';
+import type { StaticImageData } from 'next/image';
 import axialScan from '@/assets/landing/axial.jpeg';
 import tractThumb from '@/assets/landing/tract_transparent.png';
 import tractAnim from '@/assets/landing/tractography_transparent.webp';
+import tractHighRes from '@/assets/landing/tract4_transparent.png';
 
-const axialScanSrc = typeof axialScan === 'string' ? axialScan : (axialScan as any)?.src || '/assets/landing/axial.jpeg';
-const tractThumbSrc = typeof tractThumb === 'string' ? tractThumb : (tractThumb as any)?.src || '/assets/landing/tract_transparent.png';
-const tractAnimSrc = typeof tractAnim === 'string' ? tractAnim : (tractAnim as any)?.src || '/assets/landing/tractography_transparent.webp';
+const getImgSrc = (img: string | StaticImageData, fallback: string): string => {
+    if (typeof img === 'string') return img;
+    return img?.src || fallback;
+};
+
+const axialScanSrc = getImgSrc(axialScan, '/assets/landing/axial.jpeg');
+const tractThumbSrc = getImgSrc(tractThumb, '/assets/landing/tract_transparent.png');
+const tractAnimSrc = getImgSrc(tractAnim, '/assets/landing/tractography_transparent.webp');
+const tractHighResSrc = getImgSrc(tractHighRes, '/assets/landing/tract4_transparent.png');
+
+// Standard Neuroimaging Diffusion Tensor Orientation Sphere (Red = L-R, Green = A-P, Blue = S-I)
+const DiffusionOrientationSphere = () => (
+    <Flex
+        direction="column"
+        align="center"
+        bg="rgba(13, 21, 39, 0.92)"
+        border="1px solid rgba(92, 197, 216, 0.45)"
+        borderRadius="12px"
+        p="7px 10px"
+        backdropFilter="blur(16px)"
+        boxShadow="0 12px 28px rgba(0,0,0,0.7), 0 0 16px rgba(58, 111, 124, 0.25)"
+        userSelect="none"
+        transition="all 0.25s ease"
+        _hover={{
+            borderColor: '#5cc5d8',
+            boxShadow: '0 16px 32px rgba(0,0,0,0.85), 0 0 24px rgba(92, 197, 216, 0.4)',
+        }}
+    >
+        <Flex align="center" gap="8px">
+            <Box position="relative" w="40px" h="40px" flexShrink={0}>
+                <svg viewBox="0 0 100 100" width="40" height="40" style={{ overflow: 'visible' }}>
+                    <defs>
+                        <radialGradient id="dtiSphereGrad" cx="38%" cy="36%" r="62%">
+                            <stop offset="0%" stopColor="#818cf8" />
+                            <stop offset="35%" stopColor="#38bdf8" />
+                            <stop offset="65%" stopColor="#34d399" />
+                            <stop offset="85%" stopColor="#f87171" />
+                            <stop offset="100%" stopColor="#dc2626" />
+                        </radialGradient>
+                        <filter id="sphereGlow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="2.5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    {/* Outer calibration dashed ring */}
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(92, 197, 216, 0.35)" strokeWidth="1" strokeDasharray="3 3" />
+                    {/* Shaded 3D Sphere */}
+                    <circle cx="50" cy="50" r="37" fill="url(#dtiSphereGrad)" filter="url(#sphereGlow)" opacity="0.95" />
+                    {/* Specular highlight */}
+                    <ellipse cx="40" cy="35" rx="14" ry="9" fill="rgba(255,255,255,0.4)" transform="rotate(-25 40 35)" />
+                    {/* X-axis (Red - Left/Right) */}
+                    <line x1="50" y1="50" x2="80" y2="50" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <polygon points="80,47 86,50 80,53" fill="#ef4444" />
+                    {/* Z-axis (Blue - Superior/Inferior) */}
+                    <line x1="50" y1="50" x2="50" y2="20" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" />
+                    <polygon points="47,20 50,14 53,20" fill="#38bdf8" />
+                    {/* Y-axis (Green - Anterior/Posterior, oblique) */}
+                    <line x1="50" y1="50" x2="30" y2="67" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" />
+                    <polygon points="28,63 25,72 33,68" fill="#10b981" />
+                    {/* Axis labels */}
+                    <text x="89" y="53" fill="#f87171" fontSize="10" fontWeight="bold" fontFamily="sans-serif">X</text>
+                    <text x="47" y="10" fill="#7dd3fc" fontSize="10" fontWeight="bold" fontFamily="sans-serif">Z</text>
+                    <text x="16" y="78" fill="#6ee7b7" fontSize="10" fontWeight="bold" fontFamily="sans-serif">Y</text>
+                </svg>
+            </Box>
+            <Box lineHeight="1.15">
+                <Text fontSize="8.5px" fontWeight="800" color="#5cc5d8" letterSpacing="0.08em" textTransform="uppercase">
+                    dMRI Direction
+                </Text>
+                <Flex align="center" gap="4px" mt="2px">
+                    <Text fontSize="8px" fontWeight="700" color="#f87171">R: L-R</Text>
+                    <Text fontSize="7.5px" color="rgba(255,255,255,0.3)">|</Text>
+                    <Text fontSize="8px" fontWeight="700" color="#34d399">G: A-P</Text>
+                    <Text fontSize="7.5px" color="rgba(255,255,255,0.3)">|</Text>
+                    <Text fontSize="8px" fontWeight="700" color="#38bdf8">B: S-I</Text>
+                </Flex>
+                <Text fontSize="7.5px" color="rgba(255,255,255,0.5)" mt="1px">
+                    HCP / Brainlife Standard
+                </Text>
+            </Box>
+        </Flex>
+    </Flex>
+);
 
 // Official SKAI Hummingbird Vector Logo
 const SkaiIcon = ({ size = 21, color = '#5cc5d8' }: { size?: number | string; color?: string }) => (
@@ -63,6 +145,7 @@ const MotionBox = motion.create(Box);
 export default function HeroVisualStage() {
     const mountRef = useRef<HTMLDivElement>(null);
     const [progressVal, setProgressVal] = useState(68);
+    const [viewMode, setViewMode] = useState<'rotation' | 'highres'>('rotation');
 
     // Mouse parallax for 2.5D tilt overlay
     const mvX = useMotionValue(0);
@@ -165,6 +248,26 @@ export default function HeroVisualStage() {
             ringMesh.rotation.x = Math.PI / 2;
             pedestalGroup.add(ringMesh);
         });
+
+        // 8 Precision radial coordinate tick marks on outer pedestal ring
+        for (let i = 0; i < 8; i++) {
+            const angle = (i / 8) * Math.PI * 2;
+            const rInner = 2.62;
+            const rOuter = 2.78;
+            const tickPts = [
+                new THREE.Vector3(Math.cos(angle) * rInner, 0, Math.sin(angle) * rInner),
+                new THREE.Vector3(Math.cos(angle) * rOuter, 0, Math.sin(angle) * rOuter),
+            ];
+            const tickGeom = new THREE.BufferGeometry().setFromPoints(tickPts);
+            const tickMat = new THREE.LineBasicMaterial({
+                color: '#5cc5d8',
+                transparent: true,
+                opacity: 0.45,
+                blending: THREE.AdditiveBlending,
+            });
+            const tickLine = new THREE.Line(tickGeom, tickMat);
+            pedestalGroup.add(tickLine);
+        }
 
         // ----------------------------------------------------
         // 3. 3D STREAMLINE COORDINATE RINGS
@@ -354,15 +457,36 @@ export default function HeroVisualStage() {
                 overflow="hidden"
             />
 
+            {/* Subtle Scientific Telemetry Graticule (Desktop only) */}
+            <Box
+                position="absolute"
+                top={{ base: '11%', md: '13%' }}
+                left={{ base: '12%', sm: '18%', md: '21%' }}
+                zIndex={4}
+                pointerEvents="none"
+                display={{ base: 'none', sm: 'block' }}
+                opacity={0.8}
+            >
+                <Flex align="center" gap="6px">
+                    <Box w="5px" h="5px" borderRadius="full" bg="#5cc5d8" boxShadow="0 0 6px #5cc5d8" />
+                    <Text fontSize="9px" fontWeight="700" color="#5cc5d8" letterSpacing="0.08em" fontFamily="monospace">
+                        ACQ: 3T / 10.5T CONNECTOME
+                    </Text>
+                </Flex>
+                <Text fontSize="8px" color="rgba(255,255,255,0.5)" letterSpacing="0.06em" fontFamily="monospace" ml="11px">
+                    VOX: 1.25mm³ ISO | b=3000 s/mm²
+                </Text>
+            </Box>
+
             {/* ---------------------------------------------------- */}
-            {/* CENTRAL ROTATING 3D TRACTOGRAPHY BRAIN (TRANSPARENT) */}
+            {/* CENTRAL 3D TRACTOGRAPHY BRAIN (TRANSPARENT)          */}
             {/* ---------------------------------------------------- */}
             <Box
                 position="absolute"
                 top={{ base: '44%', md: '44%' }}
                 left="50%"
                 transform="translate(-50%, -50%)"
-                w={{ base: '300px', sm: '380px', md: '450px', lg: '500px' }}
+                w={{ base: '310px', sm: '390px', md: '460px', lg: '510px' }}
                 zIndex={3}
                 pointerEvents="none"
                 display="flex"
@@ -378,11 +502,12 @@ export default function HeroVisualStage() {
                     justifyContent="center"
                 >
                     <Image
-                        src={tractAnimSrc}
-                        alt="Rotating 3D Tractography Brain"
+                        src={viewMode === 'rotation' ? tractAnimSrc : tractHighResSrc}
+                        alt="3D Tractography Brain Streamlines"
                         w="100%"
                         h="auto"
                         filter="drop-shadow(0 0 35px rgba(92, 197, 216, 0.5)) drop-shadow(0 0 15px rgba(58, 111, 124, 0.3))"
+                        transition="opacity 0.3s ease"
                     />
                 </MotionBox>
             </Box>
@@ -638,64 +763,124 @@ export default function HeroVisualStage() {
                 </Flex>
             </MotionBox>
 
-            {/* Card 2: Workflow v2.4 Card (Top Right) */}
+            {/* Card 2: HCP Connectome & White Matter Atlas (Top Right) */}
             <MotionBox
                 style={{ x: tx, y: ty }}
                 position="absolute"
-                top={{ base: '4%', md: '6%' }}
+                top={{ base: '3%', md: '5%' }}
                 right={{ base: '2%', sm: '4%', md: '6%' }}
                 zIndex={12}
-                bg="rgba(13, 21, 39, 0.92)"
-                border="1.5px solid rgba(92, 197, 216, 0.4)"
+                bg="rgba(13, 21, 39, 0.94)"
+                border="1.5px solid rgba(92, 197, 216, 0.45)"
                 borderRadius="16px"
-                p="12px 18px"
+                p="12px 16px"
                 backdropFilter="blur(20px)"
                 boxShadow="0 20px 40px rgba(0,0,0,0.75), 0 0 25px rgba(58, 111, 124, 0.25)"
                 animation={`${floatCard} 6.5s ease-in-out infinite 0.5s`}
                 _hover={{
                     transform: 'translateY(-3px) scale(1.02)',
                     borderColor: '#5cc5d8',
-                    boxShadow: '0 25px 50px rgba(0,0,0,0.85), 0 0 35px rgba(92, 197, 216, 0.4)',
+                    boxShadow: '0 25px 50px rgba(0,0,0,0.85), 0 0 35px rgba(92, 197, 216, 0.45)',
                 }}
             >
                 <Flex align="center" gap="10px" mb="8px">
                     <Box
-                        w="28px"
-                        h="28px"
-                        borderRadius="7px"
+                        w="32px"
+                        h="32px"
+                        borderRadius="8px"
                         overflow="hidden"
-                        border="1px solid rgba(92, 197, 216, 0.5)"
-                        bg="#0f172a"
+                        border="1px solid rgba(92, 197, 216, 0.6)"
+                        bg="#0a0f1d"
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
                         p="2px"
                     >
-                        <Image src={tractThumbSrc} alt="HCP Tractography" w="100%" h="100%" objectFit="contain" />
+                        <Image src={tractThumbSrc} alt="HCP Connectome Atlas" w="100%" h="100%" objectFit="contain" />
                     </Box>
                     <Box>
-                        <Text fontSize="13px" fontWeight="800" color="white" lineHeight="1.2">
-                            HCP Tractography v2.4
+                        <Text fontSize="12.5px" fontWeight="800" color="white" lineHeight="1.2">
+                            HCP Connectome Atlas
                         </Text>
                         <Text fontSize="10px" fontWeight="600" color="#5cc5d8" lineHeight="1.2">
-                            ● 500k Streamlines
+                            500k Streamlines ● iFOD2 ACT
                         </Text>
                     </Box>
                 </Flex>
 
+                <Flex align="center" justify="space-between" gap="8px" mb="8px">
+                    <Flex
+                        align="center"
+                        gap="5px"
+                        bg="rgba(92, 197, 216, 0.12)"
+                        border="1px solid rgba(92, 197, 216, 0.4)"
+                        borderRadius="full"
+                        px="8px"
+                        py="2px"
+                    >
+                        <CheckCircle2 size={11} color="#5cc5d8" />
+                        <Text fontSize="10px" fontWeight="700" color="#5cc5d8">
+                            FAIR Verified
+                        </Text>
+                    </Flex>
+                    <Link
+                        href="https://brainlife.io/pub/64"
+                        isExternal
+                        fontSize="9px"
+                        fontWeight="600"
+                        color="rgba(255,255,255,0.65)"
+                        letterSpacing="0.02em"
+                        _hover={{ color: '#5cc5d8', textDecoration: 'none' }}
+                    >
+                        DOI: 10.25663/pub.64 ↗
+                    </Link>
+                </Flex>
+
+                {/* Streamline Display Mode Toggle Pill */}
                 <Flex
                     align="center"
-                    gap="6px"
-                    bg="rgba(92, 197, 216, 0.12)"
-                    border="1px solid rgba(92, 197, 216, 0.4)"
+                    justify="space-between"
+                    bg="rgba(10, 16, 30, 0.85)"
+                    p="2px 3px"
                     borderRadius="full"
-                    px="10px"
-                    py="3px"
+                    border="1px solid rgba(92, 197, 216, 0.25)"
                 >
-                    <CheckCircle2 size={12} color="#5cc5d8" />
-                    <Text fontSize="11px" fontWeight="700" color="#5cc5d8">
-                        100% FAIR Verified
-                    </Text>
+                    <Box
+                        as="button"
+                        onClick={() => setViewMode('rotation')}
+                        flex={1}
+                        py="2px"
+                        px="6px"
+                        borderRadius="full"
+                        bg={viewMode === 'rotation' ? 'rgba(92, 197, 216, 0.25)' : 'transparent'}
+                        border={viewMode === 'rotation' ? '1px solid rgba(92, 197, 216, 0.6)' : '1px solid transparent'}
+                        color={viewMode === 'rotation' ? '#5cc5d8' : 'rgba(255,255,255,0.5)'}
+                        fontSize="9px"
+                        fontWeight="700"
+                        transition="all 0.2s ease"
+                        textAlign="center"
+                        _hover={{ color: 'white' }}
+                    >
+                        3D Orbit
+                    </Box>
+                    <Box
+                        as="button"
+                        onClick={() => setViewMode('highres')}
+                        flex={1}
+                        py="2px"
+                        px="6px"
+                        borderRadius="full"
+                        bg={viewMode === 'highres' ? 'rgba(92, 197, 216, 0.25)' : 'transparent'}
+                        border={viewMode === 'highres' ? '1px solid rgba(92, 197, 216, 0.6)' : '1px solid transparent'}
+                        color={viewMode === 'highres' ? '#5cc5d8' : 'rgba(255,255,255,0.5)'}
+                        fontSize="9px"
+                        fontWeight="700"
+                        transition="all 0.2s ease"
+                        textAlign="center"
+                        _hover={{ color: 'white' }}
+                    >
+                        High-Res
+                    </Box>
                 </Flex>
             </MotionBox>
 
@@ -744,6 +929,16 @@ export default function HeroVisualStage() {
                 <Text fontSize="11px" fontWeight="800" color="white" ml="4px">
                     {progressVal}%
                 </Text>
+            </Box>
+
+            {/* Standard Neuroimaging Diffusion RGB Orientation Sphere HUD */}
+            <Box
+                position="absolute"
+                bottom={{ base: '12%', md: '14%' }}
+                right={{ base: '2%', sm: '4%', md: '6%' }}
+                zIndex={12}
+            >
+                <DiffusionOrientationSphere />
             </Box>
 
             {/* Bottom-Right Step Flow Timeline */}
