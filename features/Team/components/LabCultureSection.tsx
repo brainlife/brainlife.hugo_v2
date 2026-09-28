@@ -39,15 +39,16 @@ const CULTURE_PHOTOS = [
         src: getAssetPath('/img/team/lab-culture-2.jpg'),
         alt: 'Pestilli lab students and postdocs collaborating',
     },
+   
     {
-        id: 'conference',
-        src: getAssetPath('/img/users/poster-blaire-porter.jpg'),
-        alt: 'Dr. Blaire Porter presenting conference findings',
+        id: 'conference-1',
+        src: getAssetPath('/img/team/pestilli_lab_suna.jpeg'),
+        alt: 'Pestilli Lab conference presentation',
     },
     {
-        id: 'team',
-        src: getAssetPath('/img/team/all.jpg'),
-        alt: 'The global Brainlife team and consortium',
+        id: 'conference-2',
+        src: getAssetPath('/img/team/pestilli_lab1.jpeg'),
+        alt: 'Pestilli Lab members at conference session',
     },
 ];
 
