@@ -20,8 +20,6 @@ import {
     Eye,
     Award,
     ArrowUpRight,
-    Sparkles,
-    MoveHorizontal,
 } from 'lucide-react';
 import { getAssetPath } from '@/lib/basePath';
 
@@ -374,7 +372,7 @@ export default function SponsorsInfrastructureSection() {
                 position="relative"
                 w="100%"
                 overflow="hidden"
-                py="10px"
+                py={{ base: '20px', md: '28px' }}
             >
                 {/* Left & Right Edge Vignette Masking for Clean Ingress/Egress */}
                 <Box
@@ -398,7 +396,7 @@ export default function SponsorsInfrastructureSection() {
                     pointerEvents="none"
                 />
 
-                <Flex direction="column" gap="24px" w="100%" overflow="hidden">
+                <Flex direction="column" gap="14px" w="100%">
                     {/* TOP ROW: CONTINUOUSLY MOVES FROM RIGHT TO LEFT */}
                     <Box
                         display="flex"
@@ -407,7 +405,8 @@ export default function SponsorsInfrastructureSection() {
                         animation={`${marqueeLeft} 42s linear infinite`}
                         _hover={{ animationPlayState: 'paused' }}
                         willChange="transform"
-                        py="4px"
+                        pt="24px"
+                        pb="14px"
                     >
                         {marqueeRow1.map((card, idx) => (
                             <CardComponent key={`top-${card.id}-${idx}`} card={card} />
@@ -422,7 +421,8 @@ export default function SponsorsInfrastructureSection() {
                         animation={`${marqueeRight} 42s linear infinite`}
                         _hover={{ animationPlayState: 'paused' }}
                         willChange="transform"
-                        py="4px"
+                        pt="14px"
+                        pb="30px"
                     >
                         {marqueeRow2.map((card, idx) => (
                             <CardComponent key={`bot-${card.id}-${idx}`} card={card} />
