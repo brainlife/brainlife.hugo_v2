@@ -12,6 +12,7 @@ import ProudProductsSection from './ProudProductsSection';
 import SponsorsInfrastructureSection from './SponsorsInfrastructureSection';
 import TestimonialsSection from './TestimonialsSection';
 import EcosystemSection from './EcosystemSection';
+import Loading from '@/app/loading';
 import { Radio, Layers, ShieldCheck, Plus, LogIn } from 'lucide-react';
 import { Box, Button, Container, Flex, Stack, Text, Heading, Image, Link } from '@chakra-ui/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -323,6 +324,7 @@ const UCSFLogo = () => (
 );
 
 export default function LandingPage() {
+    const [isLoading, setIsLoading] = useState(true);
     const { scrollY } = useScroll();
     const containerRef = useRef<HTMLDivElement>(null);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -332,8 +334,17 @@ export default function LandingPage() {
         setIsNewProjectModalOpen(true);
     };
 
-    // Initialize Lenis Inertia Smooth Scroll
     useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 400);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Initialize Lenis Inertia Smooth Scroll once loaded
+    useEffect(() => {
+        if (isLoading) return;
+
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -345,9 +356,10 @@ export default function LandingPage() {
 
         lenis.on('scroll', ScrollTrigger.update);
 
-        gsap.ticker.add((time) => {
+        const tickerFn = (time: number) => {
             lenis.raf(time * 1000);
-        });
+        };
+        gsap.ticker.add(tickerFn);
 
         gsap.ticker.lagSmoothing(0);
 
@@ -356,11 +368,17 @@ export default function LandingPage() {
         };
         window.addEventListener('scroll', handleScroll);
 
+        const refreshTimer = setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 100);
+
         return () => {
+            clearTimeout(refreshTimer);
             lenis.destroy();
+            gsap.ticker.remove(tickerFn);
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [isLoading]);
 
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!containerRef.current) return;
@@ -373,6 +391,10 @@ export default function LandingPage() {
 
     // Light washes and radial glows move upward at ~10% of scroll speed
     const glowY = useTransform(scrollY, [0, 2000], [0, -200]);
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     return (
         <Box

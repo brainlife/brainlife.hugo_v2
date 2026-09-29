@@ -609,7 +609,7 @@ export default function HeroVisualStage() {
             {/* ---------------------------------------------------- */}
 
             {/* Card 1: Mini Pipeline Card (Top Left) */}
-            <MotionBox
+            <Box
                 as="a"
                 href="https://connects.brainlife.io/apps?scope=public"
                 target="_blank"
@@ -620,92 +620,96 @@ export default function HeroVisualStage() {
                         display: 'none !important',
                     },
                 }}
-                cursor="pointer"
-                role="group"
-                style={{ x: tx, y: ty }}
                 position="absolute"
                 top={{ base: '2%', md: '4%' }}
                 left={{ base: '10%', sm: '16%', md: '12%', lg: '16%' }}
                 zIndex={12}
-                bg="rgba(13, 21, 39, 0.92)"
-                border="1.5px solid rgba(92, 197, 216, 0.4)"
-                borderRadius="16px"
-                p="10px 16px"
-                backdropFilter="blur(20px)"
-                boxShadow="0 20px 40px rgba(0,0,0,0.75), 0 0 25px rgba(58, 111, 124, 0.25)"
-                animation={`${floatCard} 6s ease-in-out infinite`}
-                _hover={{
-                    textDecoration: 'none',
-                    transform: 'translateY(-3px) scale(1.02)',
-                    borderColor: '#5cc5d8',
-                    boxShadow: '0 25px 50px rgba(0,0,0,0.85), 0 0 35px rgba(92, 197, 216, 0.4)',
-                }}
+                cursor="pointer"
+                role="group"
+                _hover={{ textDecoration: 'none' }}
             >
-                <Flex align="center" gap={{ base: '10px', md: '14px' }}>
-                    {/* Step 1: BIDS dMRI */}
-                    <Flex direction="column" align="center" gap="4px">
-                        <Box
-                            w="36px"
-                            h="36px"
-                            borderRadius="8px"
-                            overflow="hidden"
-                            border="1px solid rgba(255,255,255,0.2)"
-                            bg="#0f172a"
-                        >
-                            <Image src={axialScanSrc} alt="BIDS MRI" w="100%" h="100%" objectFit="cover" />
-                        </Box>
-                        <Text fontSize="10px" fontWeight="700" color="white">
-                            dMRI
-                        </Text>
-                    </Flex>
-
-                    <ArrowRight size={13} color="rgba(255,255,255,0.5)" />
-
-                    {/* Step 2: Preprocess */}
-                    <Flex direction="column" align="center" gap="4px">
-                        <Flex
-                            w="36px"
-                            h="36px"
-                            borderRadius="8px"
-                            bg="rgba(58, 111, 124, 0.25)"
-                            border="1px solid rgba(92, 197, 216, 0.6)"
-                            align="center"
-                            justify="center"
-                        >
-                            <Settings size={16} color="#5cc5d8" />
+                <MotionBox
+                    style={{ x: tx, y: ty }}
+                    bg="rgba(13, 21, 39, 0.92)"
+                    border="1.5px solid rgba(92, 197, 216, 0.4)"
+                    borderRadius="16px"
+                    p="10px 16px"
+                    backdropFilter="blur(20px)"
+                    boxShadow="0 20px 40px rgba(0,0,0,0.75), 0 0 25px rgba(58, 111, 124, 0.25)"
+                    animation={`${floatCard} 6s ease-in-out infinite`}
+                    sx={{ transition: 'all 0.2s ease' }}
+                    _groupHover={{
+                        transform: 'translateY(-3px) scale(1.02)',
+                        borderColor: '#5cc5d8',
+                        boxShadow: '0 25px 50px rgba(0,0,0,0.85), 0 0 35px rgba(92, 197, 216, 0.4)',
+                    }}
+                >
+                    <Flex align="center" gap={{ base: '10px', md: '14px' }}>
+                        {/* Step 1: BIDS dMRI */}
+                        <Flex direction="column" align="center" gap="4px">
+                            <Box
+                                w="36px"
+                                h="36px"
+                                borderRadius="8px"
+                                overflow="hidden"
+                                border="1px solid rgba(255,255,255,0.2)"
+                                bg="#0f172a"
+                            >
+                                <Image src={axialScanSrc} alt="BIDS MRI" w="100%" h="100%" objectFit="cover" />
+                            </Box>
+                            <Text fontSize="10px" fontWeight="700" color="white">
+                                dMRI
+                            </Text>
                         </Flex>
-                        <Text fontSize="10px" fontWeight="700" color="white">
-                            MRtrix3
-                        </Text>
-                    </Flex>
 
-                    <ArrowRight size={13} color="rgba(255,255,255,0.5)" />
+                        <ArrowRight size={13} color="rgba(255,255,255,0.5)" />
 
-                    {/* Step 3: Analyze */}
-                    <Flex direction="column" align="center" gap="4px">
-                        <Box
-                            w="36px"
-                            h="36px"
-                            borderRadius="8px"
-                            overflow="hidden"
-                            border="1px solid rgba(92, 197, 216, 0.6)"
-                            bg="#0f172a"
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="center"
-                            p="2px"
-                        >
-                            <Image src={tractThumbSrc} alt="Tracts" w="100%" h="100%" objectFit="contain" />
-                        </Box>
-                        <Text fontSize="10px" fontWeight="700" color="white">
-                            Tracts
-                        </Text>
+                        {/* Step 2: Preprocess */}
+                        <Flex direction="column" align="center" gap="4px">
+                            <Flex
+                                w="36px"
+                                h="36px"
+                                borderRadius="8px"
+                                bg="rgba(58, 111, 124, 0.25)"
+                                border="1px solid rgba(92, 197, 216, 0.6)"
+                                align="center"
+                                justify="center"
+                            >
+                                <Settings size={16} color="#5cc5d8" />
+                            </Flex>
+                            <Text fontSize="10px" fontWeight="700" color="white">
+                                MRtrix3
+                            </Text>
+                        </Flex>
+
+                        <ArrowRight size={13} color="rgba(255,255,255,0.5)" />
+
+                        {/* Step 3: Analyze */}
+                        <Flex direction="column" align="center" gap="4px">
+                            <Box
+                                w="36px"
+                                h="36px"
+                                borderRadius="8px"
+                                overflow="hidden"
+                                border="1px solid rgba(92, 197, 216, 0.6)"
+                                bg="#0f172a"
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                                p="2px"
+                            >
+                                <Image src={tractThumbSrc} alt="Tracts" w="100%" h="100%" objectFit="contain" />
+                            </Box>
+                            <Text fontSize="10px" fontWeight="700" color="white">
+                                Tracts
+                            </Text>
+                        </Flex>
                     </Flex>
-                </Flex>
-            </MotionBox>
+                </MotionBox>
+            </Box>
 
             {/* Card 2: CamCAN White Matter Benchmark (Top Right) */}
-            <MotionBox
+            <Box
                 as="a"
                 href="https://brainlife.io/pub/70"
                 target="_blank"
@@ -716,79 +720,83 @@ export default function HeroVisualStage() {
                         display: 'none !important',
                     },
                 }}
-                cursor="pointer"
-                role="group"
-                style={{ x: tx, y: ty }}
                 position="absolute"
                 top={{ base: '3%', md: '5%' }}
                 right={{ base: '2%', sm: '4%', md: '4%', lg: '6%' }}
                 zIndex={12}
-                bg="rgba(13, 21, 39, 0.94)"
-                border="1.5px solid rgba(92, 197, 216, 0.45)"
-                borderRadius="16px"
-                p="12px 16px"
-                backdropFilter="blur(20px)"
-                boxShadow="0 20px 40px rgba(0,0,0,0.75), 0 0 25px rgba(58, 111, 124, 0.25)"
-                animation={`${floatCard} 6.5s ease-in-out infinite 0.5s`}
-                _hover={{
-                    textDecoration: 'none',
-                    transform: 'translateY(-3px) scale(1.02)',
-                    borderColor: '#5cc5d8',
-                    boxShadow: '0 25px 50px rgba(0,0,0,0.85), 0 0 35px rgba(92, 197, 216, 0.45)',
-                }}
+                cursor="pointer"
+                role="group"
+                _hover={{ textDecoration: 'none' }}
             >
-                <Flex align="center" gap="10px" mb="8px">
-                    <Box
-                        w="32px"
-                        h="32px"
-                        borderRadius="8px"
-                        overflow="hidden"
-                        border="1px solid rgba(92, 197, 216, 0.6)"
-                        bg="#0a0f1d"
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        p="2px"
-                    >
-                        <Image src={tractThumbSrc} alt="CamCAN Tract Benchmark" w="100%" h="100%" objectFit="contain" />
-                    </Box>
-                    <Box>
-                        <Text fontSize="12.5px" fontWeight="800" color="white" lineHeight="1.2">
-                            CamCAN Tract Benchmark
-                        </Text>
-                        <Text fontSize="10px" fontWeight="600" color="#5cc5d8" lineHeight="1.2">
-                            61 Defined Tracts ● CSD Tractography
-                        </Text>
-                    </Box>
-                </Flex>
+                <MotionBox
+                    style={{ x: tx, y: ty }}
+                    bg="rgba(13, 21, 39, 0.94)"
+                    border="1.5px solid rgba(92, 197, 216, 0.45)"
+                    borderRadius="16px"
+                    p="12px 16px"
+                    backdropFilter="blur(20px)"
+                    boxShadow="0 20px 40px rgba(0,0,0,0.75), 0 0 25px rgba(58, 111, 124, 0.25)"
+                    animation={`${floatCard} 6.5s ease-in-out infinite 0.5s`}
+                    sx={{ transition: 'all 0.2s ease' }}
+                    _groupHover={{
+                        transform: 'translateY(-3px) scale(1.02)',
+                        borderColor: '#5cc5d8',
+                        boxShadow: '0 25px 50px rgba(0,0,0,0.85), 0 0 35px rgba(92, 197, 216, 0.45)',
+                    }}
+                >
+                    <Flex align="center" gap="10px" mb="8px">
+                        <Box
+                            w="32px"
+                            h="32px"
+                            borderRadius="8px"
+                            overflow="hidden"
+                            border="1px solid rgba(92, 197, 216, 0.6)"
+                            bg="#0a0f1d"
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            p="2px"
+                        >
+                            <Image src={tractThumbSrc} alt="CamCAN Tract Benchmark" w="100%" h="100%" objectFit="contain" />
+                        </Box>
+                        <Box>
+                            <Text fontSize="12.5px" fontWeight="800" color="white" lineHeight="1.2">
+                                CamCAN Tract Benchmark
+                            </Text>
+                            <Text fontSize="10px" fontWeight="600" color="#5cc5d8" lineHeight="1.2">
+                                61 Defined Tracts ● CSD Tractography
+                            </Text>
+                        </Box>
+                    </Flex>
 
-                <Flex align="center" justify="space-between" gap="8px" mb="8px">
-                    <Flex
-                        align="center"
-                        gap="5px"
-                        bg="rgba(92, 197, 216, 0.12)"
-                        border="1px solid rgba(92, 197, 216, 0.4)"
-                        borderRadius="full"
-                        px="8px"
-                        py="2px"
-                    >
-                        <CheckCircle2 size={11} color="#5cc5d8" />
-                        <Text fontSize="10px" fontWeight="700" color="#5cc5d8">
-                            FAIR Verified
+                    <Flex align="center" justify="space-between" gap="8px" mb="8px">
+                        <Flex
+                            align="center"
+                            gap="5px"
+                            bg="rgba(92, 197, 216, 0.12)"
+                            border="1px solid rgba(92, 197, 216, 0.4)"
+                            borderRadius="full"
+                            px="8px"
+                            py="2px"
+                        >
+                            <CheckCircle2 size={11} color="#5cc5d8" />
+                            <Text fontSize="10px" fontWeight="700" color="#5cc5d8">
+                                FAIR Verified
+                            </Text>
+                        </Flex>
+                        <Text
+                            fontSize="9px"
+                            fontWeight="600"
+                            color="rgba(255,255,255,0.65)"
+                            letterSpacing="0.02em"
+                            _groupHover={{ color: '#5cc5d8' }}
+                            transition="color 0.2s ease"
+                        >
+                            DOI: 10.25663/pub.70 ↗
                         </Text>
                     </Flex>
-                    <Text
-                        fontSize="9px"
-                        fontWeight="600"
-                        color="rgba(255,255,255,0.65)"
-                        letterSpacing="0.02em"
-                        _groupHover={{ color: '#5cc5d8' }}
-                        transition="color 0.2s ease"
-                    >
-                        DOI: 10.25663/pub.70 ↗
-                    </Text>
-                </Flex>
-            </MotionBox>
+                </MotionBox>
+            </Box>
 
             {/* Bottom-Right Step Flow Timeline */}
             <Box
