@@ -675,7 +675,7 @@ export default function HeroVisualStage() {
                 </Flex>
             </MotionBox>
 
-            {/* Card 2: HCP Connectome & White Matter Atlas (Top Right) */}
+            {/* Card 2: CamCAN White Matter Benchmark (Top Right) */}
             <MotionBox
                 style={{ x: tx, y: ty }}
                 position="absolute"
@@ -708,14 +708,14 @@ export default function HeroVisualStage() {
                         justifyContent="center"
                         p="2px"
                     >
-                        <Image src={tractThumbSrc} alt="HCP Connectome Atlas" w="100%" h="100%" objectFit="contain" />
+                        <Image src={tractThumbSrc} alt="CamCAN Tract Benchmark" w="100%" h="100%" objectFit="contain" />
                     </Box>
                     <Box>
                         <Text fontSize="12.5px" fontWeight="800" color="white" lineHeight="1.2">
-                            HCP Connectome Atlas
+                            CamCAN Tract Benchmark
                         </Text>
                         <Text fontSize="10px" fontWeight="600" color="#5cc5d8" lineHeight="1.2">
-                            500k Streamlines ● iFOD2 ACT
+                            61 Defined Tracts ● CSD Tractography
                         </Text>
                     </Box>
                 </Flex>
@@ -736,7 +736,7 @@ export default function HeroVisualStage() {
                         </Text>
                     </Flex>
                     <Link
-                        href="https://brainlife.io/pub/64"
+                        href="https://brainlife.io/pub/70"
                         isExternal
                         fontSize="9px"
                         fontWeight="600"
@@ -744,7 +744,7 @@ export default function HeroVisualStage() {
                         letterSpacing="0.02em"
                         _hover={{ color: '#5cc5d8', textDecoration: 'none' }}
                     >
-                        DOI: 10.25663/pub.64 ↗
+                        DOI: 10.25663/pub.70 ↗
                     </Link>
                 </Flex>
             </MotionBox>
