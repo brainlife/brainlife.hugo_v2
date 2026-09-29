@@ -1,10 +1,9 @@
 'use client';
 
-import { redirectToBrainlifeLogin } from '@/contexts/AuthContext.helpers';
+import { EXTERNAL_LINKS } from '@/lib/constants';
 import NextLink from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import NewProjectModal from '@/components/NewProjectModal';
 import HeroVisualStage from './HeroVisualStage';
 import HorizontalPipelineSection from './HorizontalPipelineSection';
 import ExpandingReelSection from './ExpandingReelSection';
@@ -13,8 +12,8 @@ import SponsorsInfrastructureSection from './SponsorsInfrastructureSection';
 import TestimonialsSection from './TestimonialsSection';
 import EcosystemSection from './EcosystemSection';
 import Loading from '@/app/loading';
-import { Radio, Layers, ShieldCheck, Plus, LogIn } from 'lucide-react';
-import { Box, Button, Container, Flex, Stack, Text, Heading, Image, Link } from '@chakra-ui/react';
+import { Radio, Layers, ShieldCheck, ArrowUpRight, BookOpen } from 'lucide-react';
+import { Box, Button, Container, Flex, Stack, Text, Heading, Link } from '@chakra-ui/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
@@ -328,11 +327,7 @@ export default function LandingPage() {
     const { scrollY } = useScroll();
     const containerRef = useRef<HTMLDivElement>(null);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [isNewProjectModalOpen, setIsNewProjectModalOpen] = useState(false);
 
-    const handleNewProject = () => {
-        setIsNewProjectModalOpen(true);
-    };
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -549,7 +544,10 @@ export default function LandingPage() {
                         {/* Action Buttons */}
                         <Stack direction="row" spacing="16px" align="center" mb="48px" flexWrap="wrap">
                             <Button
-                                onClick={handleNewProject}
+                                as="a"
+                                href={EXTERNAL_LINKS.PORTAL}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 px="24px"
                                 py="10px"
                                 h="44px"
@@ -560,18 +558,22 @@ export default function LandingPage() {
                                 fontWeight={600}
                                 transition="all 0.2s ease"
                                 fontFamily="'Work Sans', sans-serif"
-                                leftIcon={<Plus size={16} />}
+                                rightIcon={<ArrowUpRight size={16} />}
                                 _hover={{
                                     bg: '#2d5762',
                                     boxShadow: '0 0 25px rgba(92, 197, 216, 0.4)',
                                     transform: 'translateY(-1px)',
+                                    textDecoration: 'none',
                                 }}
                             >
-                                New Project
+                                Launch Portal
                             </Button>
 
                             <Button
-                                onClick={redirectToBrainlifeLogin}
+                                as="a"
+                                href={EXTERNAL_LINKS.DOCS}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 px="24px"
                                 py="10px"
                                 h="44px"
@@ -584,21 +586,17 @@ export default function LandingPage() {
                                 fontWeight={600}
                                 transition="all 0.2s ease"
                                 fontFamily="'Work Sans', sans-serif"
-                                leftIcon={<LogIn size={16} />}
+                                leftIcon={<BookOpen size={16} />}
                                 _hover={{
                                     bg: 'rgba(255, 255, 255, 0.16)',
                                     borderColor: 'rgba(255, 255, 255, 0.35)',
                                     transform: 'translateY(-1px)',
+                                    textDecoration: 'none',
                                 }}
                             >
-                                Login
+                                Documentation
                             </Button>
                         </Stack>
-
-                        <NewProjectModal
-                            isOpen={isNewProjectModalOpen}
-                            onClose={() => setIsNewProjectModalOpen(false)}
-                        />
 
                         {/* 3 Feature Badges */}
                         <Flex gap={{ base: '20px', sm: '28px', md: '36px' }} wrap="wrap">
