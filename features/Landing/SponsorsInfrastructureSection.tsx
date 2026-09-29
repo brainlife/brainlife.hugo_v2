@@ -48,7 +48,7 @@ const INFRASTRUCTURE_CARDS: InfrastructureCard[] = [
         tag: 'NSF & TACC Supercomputing',
         badges: ['Millions of Free CPU/GPU Hours', 'Slurm HPC', 'Zero Cost'],
         linkText: 'EXPLORE COMPUTE',
-        linkUrl: 'https://brainlife.io/apps',
+        linkUrl: 'https://connects.brainlife.io/apps?scope=public',
     },
     {
         id: 'storage',
@@ -100,7 +100,7 @@ const INFRASTRUCTURE_CARDS: InfrastructureCard[] = [
         tag: 'Zero-Install Web Renderers',
         badges: ['3D Tractography', 'FreeSurfer Surfaces', 'In-Browser QA'],
         linkText: 'LAUNCH VISUALIZERS',
-        linkUrl: 'https://brainlife.io/apps',
+        linkUrl: 'https://connects.brainlife.io/apps?scope=public',
     },
     {
         id: 'public-funding',

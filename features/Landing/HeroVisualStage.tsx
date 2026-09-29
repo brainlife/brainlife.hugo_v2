@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Box, Flex, Image, Text, Link } from '@chakra-ui/react';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { keyframes } from '@emotion/react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import * as THREE from 'three';
@@ -431,7 +431,9 @@ export default function HeroVisualStage() {
             {/* Node 1: Datasets (Teal) - Top Left */}
             <Box
                 as="a"
-                href="#datasets"
+                href="https://connects.brainlife.io/public-datasets"
+                target="_blank"
+                rel="noopener noreferrer"
                 position="absolute"
                 top={{ base: '20%', md: '22%' }}
                 left={{ base: '4%', sm: '8%', md: '10%' }}
@@ -440,8 +442,9 @@ export default function HeroVisualStage() {
                 flexDirection="column"
                 alignItems="center"
                 cursor="pointer"
+                textDecoration="none"
                 transition="transform 0.25s ease"
-                _hover={{ transform: 'scale(1.12)' }}
+                _hover={{ transform: 'scale(1.12)', textDecoration: 'none' }}
             >
                 <Flex
                     w={{ base: '40px', md: '46px' }}
@@ -472,7 +475,9 @@ export default function HeroVisualStage() {
             {/* Node 2: Apps (Teal) - Bottom Left */}
             <Box
                 as="a"
-                href="#apps"
+                href="https://connects.brainlife.io/apps?scope=public"
+                target="_blank"
+                rel="noopener noreferrer"
                 position="absolute"
                 top={{ base: '60%', md: '62%' }}
                 left={{ base: '4%', sm: '8%', md: '10%' }}
@@ -481,8 +486,9 @@ export default function HeroVisualStage() {
                 flexDirection="column"
                 alignItems="center"
                 cursor="pointer"
+                textDecoration="none"
                 transition="transform 0.25s ease"
-                _hover={{ transform: 'scale(1.12)' }}
+                _hover={{ transform: 'scale(1.12)', textDecoration: 'none' }}
             >
                 <Flex
                     w={{ base: '40px', md: '46px' }}
@@ -512,6 +518,10 @@ export default function HeroVisualStage() {
 
             {/* Node 3: SKAI Assistant (Teal) - Far Right */}
             <Box
+                as="a"
+                href="https://connects.brainlife.io/skai"
+                target="_blank"
+                rel="noopener noreferrer"
                 position="absolute"
                 top={{ base: '38%', md: '40%' }}
                 right={{ base: '2%', sm: '4%', md: '6%' }}
@@ -520,8 +530,9 @@ export default function HeroVisualStage() {
                 flexDirection="column"
                 alignItems="center"
                 cursor="pointer"
+                textDecoration="none"
                 transition="transform 0.25s ease"
-                _hover={{ transform: 'scale(1.12)' }}
+                _hover={{ transform: 'scale(1.12)', textDecoration: 'none' }}
             >
                 <Flex
                     w={{ base: '40px', md: '46px' }}
@@ -551,6 +562,10 @@ export default function HeroVisualStage() {
 
             {/* Node 4: Derivatives (Teal) - Bottom Right */}
             <Box
+                as="a"
+                href="https://connects.brainlife.io/research"
+                target="_blank"
+                rel="noopener noreferrer"
                 position="absolute"
                 top={{ base: '64%', md: '66%' }}
                 right={{ base: '6%', sm: '8%', md: '10%' }}
@@ -559,8 +574,9 @@ export default function HeroVisualStage() {
                 flexDirection="column"
                 alignItems="center"
                 cursor="pointer"
+                textDecoration="none"
                 transition="transform 0.25s ease"
-                _hover={{ transform: 'scale(1.12)' }}
+                _hover={{ transform: 'scale(1.12)', textDecoration: 'none' }}
             >
                 <Flex
                     w={{ base: '40px', md: '46px' }}
@@ -594,10 +610,22 @@ export default function HeroVisualStage() {
 
             {/* Card 1: Mini Pipeline Card (Top Left) */}
             <MotionBox
+                as="a"
+                href="https://connects.brainlife.io/apps?scope=public"
+                target="_blank"
+                rel="noopener noreferrer"
+                display={{ base: 'none', xl: 'block' }}
+                sx={{
+                    '@media screen and (max-width: 1282px), screen and (max-height: 361px)': {
+                        display: 'none !important',
+                    },
+                }}
+                cursor="pointer"
+                role="group"
                 style={{ x: tx, y: ty }}
                 position="absolute"
                 top={{ base: '2%', md: '4%' }}
-                left={{ base: '10%', sm: '16%', md: '20%' }}
+                left={{ base: '10%', sm: '16%', md: '12%', lg: '16%' }}
                 zIndex={12}
                 bg="rgba(13, 21, 39, 0.92)"
                 border="1.5px solid rgba(92, 197, 216, 0.4)"
@@ -607,6 +635,7 @@ export default function HeroVisualStage() {
                 boxShadow="0 20px 40px rgba(0,0,0,0.75), 0 0 25px rgba(58, 111, 124, 0.25)"
                 animation={`${floatCard} 6s ease-in-out infinite`}
                 _hover={{
+                    textDecoration: 'none',
                     transform: 'translateY(-3px) scale(1.02)',
                     borderColor: '#5cc5d8',
                     boxShadow: '0 25px 50px rgba(0,0,0,0.85), 0 0 35px rgba(92, 197, 216, 0.4)',
@@ -677,10 +706,22 @@ export default function HeroVisualStage() {
 
             {/* Card 2: CamCAN White Matter Benchmark (Top Right) */}
             <MotionBox
+                as="a"
+                href="https://brainlife.io/pub/70"
+                target="_blank"
+                rel="noopener noreferrer"
+                display={{ base: 'none', xl: 'block' }}
+                sx={{
+                    '@media screen and (max-width: 1282px), screen and (max-height: 361px)': {
+                        display: 'none !important',
+                    },
+                }}
+                cursor="pointer"
+                role="group"
                 style={{ x: tx, y: ty }}
                 position="absolute"
                 top={{ base: '3%', md: '5%' }}
-                right={{ base: '2%', sm: '4%', md: '6%' }}
+                right={{ base: '2%', sm: '4%', md: '4%', lg: '6%' }}
                 zIndex={12}
                 bg="rgba(13, 21, 39, 0.94)"
                 border="1.5px solid rgba(92, 197, 216, 0.45)"
@@ -690,6 +731,7 @@ export default function HeroVisualStage() {
                 boxShadow="0 20px 40px rgba(0,0,0,0.75), 0 0 25px rgba(58, 111, 124, 0.25)"
                 animation={`${floatCard} 6.5s ease-in-out infinite 0.5s`}
                 _hover={{
+                    textDecoration: 'none',
                     transform: 'translateY(-3px) scale(1.02)',
                     borderColor: '#5cc5d8',
                     boxShadow: '0 25px 50px rgba(0,0,0,0.85), 0 0 35px rgba(92, 197, 216, 0.45)',
@@ -735,17 +777,16 @@ export default function HeroVisualStage() {
                             FAIR Verified
                         </Text>
                     </Flex>
-                    <Link
-                        href="https://brainlife.io/pub/70"
-                        isExternal
+                    <Text
                         fontSize="9px"
                         fontWeight="600"
                         color="rgba(255,255,255,0.65)"
                         letterSpacing="0.02em"
-                        _hover={{ color: '#5cc5d8', textDecoration: 'none' }}
+                        _groupHover={{ color: '#5cc5d8' }}
+                        transition="color 0.2s ease"
                     >
                         DOI: 10.25663/pub.70 ↗
-                    </Link>
+                    </Text>
                 </Flex>
             </MotionBox>
 

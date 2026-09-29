@@ -9,7 +9,7 @@ export const EXTERNAL_LINKS = {
     MAIN_SITE: 'https://brainlife.io',
 
     // Ecosystem Apps & Datasets
-    APPS: 'https://brainlife.io/apps',
+    APPS: 'https://connects.brainlife.io/apps?scope=public',
     DATASETS: 'https://brainlife.io/datasets',
     EZBIDS: 'https://brainlife.io/ezbids/',
     EZGOV: 'https://brainlife.io/ezgov',
