@@ -5,6 +5,11 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'Brainlife.io Open, Cloud-based Neuroimaging Analysis Platform',
     description: 'A free and open-source cloud platform for secure, reproducible neuroimaging research and high-performance computing.',
+    openGraph: {
+        title: 'Brainlife.io Open, Cloud-based Neuroimaging Analysis Platform',
+        description: 'A free and open-source cloud platform for secure, reproducible neuroimaging research and high-performance computing.',
+        images: ['/og-image.png'],
+    },
 };
 
 export default function Home() {

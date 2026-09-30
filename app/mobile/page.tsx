@@ -3,9 +3,15 @@ import ChakraProvider from '@/components/ChakraProvider';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Brainlife Mobile — Neuroimaging Research on the Go',
+    title: 'Brainlife Mobile',
     description:
         'Access your neuroimaging data, monitor supercomputing pipelines in real-time, and stay connected with your lab from iOS and Android devices.',
+    openGraph: {
+        title: 'Brainlife Mobile',
+        description:
+            'Access your neuroimaging data, monitor supercomputing pipelines in real-time, and stay connected with your lab from iOS and Android devices.',
+        images: ['/og-image.png'],
+    },
 };
 
 export default function MobilePageRoute() {
