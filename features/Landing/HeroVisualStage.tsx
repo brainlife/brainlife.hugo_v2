@@ -711,7 +711,7 @@ export default function HeroVisualStage() {
             {/* Card 2: CamCAN White Matter Benchmark (Top Right) */}
             <Box
                 as="a"
-                href="https://brainlife.io/pub/70"
+                href="https://connects.brainlife.io/publications/10.25663%2Fbrainlife.pub.70"
                 target="_blank"
                 rel="noopener noreferrer"
                 display={{ base: 'none', xl: 'block' }}
