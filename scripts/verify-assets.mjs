@@ -54,8 +54,8 @@ for (const htmlFile of htmlFiles) {
   const relHtml = path.relative(outDir, htmlFile);
   const content = fs.readFileSync(htmlFile, 'utf8');
 
-  // Match src="..." and fallbackSrc="..." for images and static assets
-  const assetRegex = /(?:src|fallbackSrc)=["']([^"']+\.(?:png|jpg|jpeg|svg|webp|ico|gif)(?:\?[^"']*)?)["']/gi;
+  // Match src="..." and fallbackSrc="..." for images and static assets, as well as href="..." for icons/manifests
+  const assetRegex = /(?:src|fallbackSrc|href)=["']([^"']+\.(?:png|jpg|jpeg|svg|webp|ico|gif|json|webmanifest)(?:\?[^"']*)?)["']/gi;
   let match;
 
   while ((match = assetRegex.exec(content)) !== null) {
@@ -78,7 +78,18 @@ for (const htmlFile of htmlFiles) {
 
     // Check for missing base path
     if (expectedBasePath && expectedBasePath !== '') {
-      if (cleanUrl.startsWith('/img/') || cleanUrl.startsWith('/assets/') || cleanUrl === '/logo.svg') {
+      if (
+        cleanUrl.startsWith('/img/') ||
+        cleanUrl.startsWith('/assets/') ||
+        cleanUrl === '/logo.svg' ||
+        cleanUrl === '/logo.png' ||
+        cleanUrl === '/favicon.ico' ||
+        cleanUrl === '/apple-icon.png' ||
+        cleanUrl === '/icon.png' ||
+        cleanUrl === '/icon-192.png' ||
+        cleanUrl === '/icon-512.png' ||
+        cleanUrl === '/manifest.json'
+      ) {
         errors.push({
           file: relHtml,
           asset: cleanUrl,
