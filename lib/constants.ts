@@ -17,7 +17,7 @@ export const EXTERNAL_LINKS = {
     SKAI: 'https://brainlife.io/',
 
     // Documentation & Publications
-    DOCS: 'https://brainlife.io/docs/',
+    DOCS: 'https://brainlife.github.io/docs-next/',
     TUTORIALS: 'https://brainlife.io/docs/tutorial/introduction-to-brainlife/',
     DATATYPES: 'https://brainlife.io/docs/user/datatypes/',
     CLI_GUIDE: 'https://brainlife.io/docs/cli/install/',
