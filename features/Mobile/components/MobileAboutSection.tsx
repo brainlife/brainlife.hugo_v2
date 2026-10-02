@@ -29,31 +29,19 @@ export default function MobileAboutSection() {
             >
                 {/* SECTION HEADER */}
                 <Box textAlign="center" mb={{ base: '48px', md: '72px' }} position="relative">
-                    {/* Brainlife Logo Icon Emblem */}
+                    {/* Brainlife Logo Icon */}
                     <Flex justify="center" align="center" mb="14px">
-                        <Box
-                            p={{ base: '12px', md: '14px' }}
-                            borderRadius="16px"
-                            bg="#162032"
-                            border="1px solid rgba(38, 147, 216, 0.3)"
-                            boxShadow="0 10px 25px rgba(0, 0, 0, 0.4)"
-                            display="inline-flex"
-                            alignItems="center"
-                            justifyContent="center"
+                        <Image
+                            src={getAssetPath('/logo.svg')}
+                            alt="Brainlife Emblem"
+                            w={{ base: '52px', sm: '60px', md: '68px' }}
+                            h={{ base: '52px', sm: '60px', md: '68px' }}
+                            objectFit="contain"
                             transition="all 0.2s ease"
                             _hover={{
-                                borderColor: '#2693D8',
                                 transform: 'translateY(-2px)',
                             }}
-                        >
-                            <Image
-                                src={getAssetPath('/logo.svg')}
-                                alt="Brainlife Emblem"
-                                w={{ base: '46px', sm: '54px', md: '60px' }}
-                                h={{ base: '46px', sm: '54px', md: '60px' }}
-                                objectFit="contain"
-                            />
-                        </Box>
+                        />
                     </Flex>
 
                     {/* Stacked Faded Watermark Title */}
