@@ -29,7 +29,6 @@ import {
     Share2,
     CheckCircle2,
     ArrowUpRight,
-    Brain,
 } from 'lucide-react';
 import type { TeamMember } from '../teamData';
 import { getAssetPath } from '@/lib/basePath';
@@ -102,12 +101,24 @@ export default function MemberInspectionModal({
                                 position="absolute"
                                 bottom="-4px"
                                 right="-4px"
-                                p="6px"
+                                w="28px"
+                                h="28px"
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
                                 borderRadius="full"
                                 bg="#0e1626"
-                                border="1px solid rgba(38, 147, 216, 0.4)"
+                                border="1px solid rgba(38, 147, 216, 0.45)"
+                                boxShadow="0 2px 8px rgba(0, 0, 0, 0.6)"
+                                p="4px"
                             >
-                                <Brain size={16} color="#2693D8" />
+                                <Image
+                                    src={getAssetPath('/logo.svg')}
+                                    alt="Brainlife emblem"
+                                    w="16px"
+                                    h="16px"
+                                    objectFit="contain"
+                                />
                             </Box>
                         </Box>
 
@@ -152,6 +163,18 @@ export default function MemberInspectionModal({
                                 {member.title}
                             </Text>
 
+                            {member.institution && (
+                                <Text
+                                    fontSize="13px"
+                                    color="#94a3b8"
+                                    fontFamily="'Work Sans', sans-serif"
+                                    mt="2px"
+                                    lineHeight="1.4"
+                                >
+                                    {member.institution}
+                                </Text>
+                            )}
+
                             {member.url && (
                                 <Link
                                     href={member.url}
@@ -172,7 +195,12 @@ export default function MemberInspectionModal({
                                     border="1px solid rgba(38, 147, 216, 0.3)"
                                     transition="all 0.2s ease"
                                 >
-                                    View Official Profile / Publications <ArrowUpRight size={14} />
+                                    {member.url.includes('linkedin.com')
+                                        ? 'LinkedIn Profile'
+                                        : member.url.includes('scholar.google')
+                                        ? 'Google Scholar Profile'
+                                        : 'View Official Profile / Publications'}{' '}
+                                    <ArrowUpRight size={14} />
                                 </Link>
                             )}
                         </Box>
@@ -203,6 +231,40 @@ export default function MemberInspectionModal({
                                 `${member.name} is an active contributor to the brainlife.io ecosystem, supporting open reproducible neuroscience research and cloud-scale analytical tools.`}
                         </Text>
                     </Box>
+
+                    {/* Expertise Badges */}
+                    {member.expertise && member.expertise.length > 0 && (
+                        <Box mb="20px">
+                            <Text
+                                fontSize="11px"
+                                fontWeight={800}
+                                color="#94a3b8"
+                                letterSpacing="0.1em"
+                                textTransform="uppercase"
+                                mb="8px"
+                                fontFamily="'Work Sans', sans-serif"
+                            >
+                                Areas of Expertise
+                            </Text>
+                            <Flex wrap="wrap" gap="8px">
+                                {member.expertise.map((item) => (
+                                    <Badge
+                                        key={item}
+                                        bg="rgba(38, 147, 216, 0.12)"
+                                        color="#7dd3fc"
+                                        border="1px solid rgba(38, 147, 216, 0.25)"
+                                        fontSize="11px"
+                                        fontWeight={600}
+                                        px="9px"
+                                        py="4px"
+                                        borderRadius="6px"
+                                    >
+                                        {item}
+                                    </Badge>
+                                ))}
+                            </Flex>
+                        </Box>
+                    )}
 
                     {/* Scientific Principles Badge Row */}
                     <Flex wrap="wrap" gap="8px" pt="6px">

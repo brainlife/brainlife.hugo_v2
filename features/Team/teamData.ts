@@ -132,6 +132,15 @@ export const ACTIVE_MEMBERS: TeamMember[] = formatMembers([
 
 export const COLLABORATORS: TeamMember[] = formatMembers([
     {
+        name: 'Franco Delogu',
+        title: 'Professor of Psychology',
+        institution: 'Lawrence Technological University',
+        bio: 'Together we collaborate on cognitive neuroscience, multisensory perception, and reproducible neuroimaging workflows.',
+        url: 'https://www.linkedin.com/in/franco-delogu-18424b83',
+        avatar: '/img/team/franco_delogu.jpg',
+        expertise: ['Cognitive Neuroscience', 'Multisensory Perception', 'Spatial Cognition'],
+    },
+    {
         name: 'Sarah Heilbronner',
         title: 'Assistant Professor',
         institution: 'University of Minnesota',
