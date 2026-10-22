@@ -167,13 +167,6 @@
   width: auto;
   display: block;
 }
-:root {
-  --lh: #005981;
-  --rh: #2ab0a0;
-}
-.lv3 .mark.light path[style*='fill:#ffffff'] {
-  fill: transparent !important;
-}
 .lv3 .fbrand {
   display: flex;
   align-items: center;
@@ -494,7 +487,7 @@ section {
     padding-block: 44px;
   }
 }
-.carousel {
+.lv3 .carousel {
   position: relative;
 }
 .lv3 .track {
@@ -872,3 +865,22 @@ section {
 .lv3 .infra-group .lbl{width:100%;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 @media (max-width:960px){.lv3 .infra-groups{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.lv3 .infra-groups{grid-template-columns:1fr}}
+
+/* brand mark tokens: hemispheres from the pair of the day, trunk/outline from the theme */
+:root { --lh: #005981; --rh: #2ab0a0; --trunk: #1d2230; --outline: #ffffff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) { --trunk: #eef3f6; } }
+:root[data-theme='dark'] { --trunk: #eef3f6; }
+.lv3 .hero .mark { --trunk: #0b1a24; }
+.lv3 .mark.light { --outline: transparent; }
+
+/* hero layout known before hydration, from data-hero set by the pick script */
+html[data-hero='field'] .lv3 .hero-grid { grid-template-columns: 1fr; align-content: end; min-height: 560px; }
+html[data-hero='ruler'] .lv3 .hero-grid { grid-template-columns: 1fr; align-content: start; min-height: 0; padding-bottom: 28px; }
+.lv3 .stage.placeholder { aspect-ratio: 4/3; }
+html[data-hero='ruler'] .lv3 .stage.placeholder { aspect-ratio: 1100/330; }
+html[data-hero='field'] .lv3 .stage.placeholder { display: none; }
+
+/* carousel controls */
+.lv3 .arrows .pausebtn { font-size: .7rem; letter-spacing: -.05em; }
+.lv3 .tool-item { flex: 0 0 min(260px, 78vw); scroll-snap-align: start; display: flex; }
+.lv3 .tool-item .tool { flex: 1 1 auto; }

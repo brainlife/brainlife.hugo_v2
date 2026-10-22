@@ -1,7 +1,7 @@
 /** Shapes shared by scripts/fetch-landing-data.mjs (writer) and features/LandingV3 (reader). */
 
 export type Art = 'em' | 'lightsheet' | 'oct' | 'tracts' | 'surface' | 'matrix' | 'fmri' | 'meg';
-export type HeroArt = 'field' | 'lens' | 'ruler';
+export type { HeroVariant as HeroArt } from './pairs';
 
 export interface Publication {
   id: string;            // slug of the DOI, used for thumbnail file names
@@ -38,6 +38,7 @@ export interface AppRecord {
 
 export interface Person { name: string; pub: string }
 
+/** `count` is the total number of publications on the API; `pubs` is the subset the page renders. */
 export interface PubsFile { fetched: string; count: number; pubs: Publication[] }
 export interface AppsFile { fetched: string; apps: AppRecord[] }
 export interface PeopleFile { fetched: string; people: Person[] }

@@ -4,6 +4,7 @@
  */
 import { EXTERNAL_LINKS } from '@/lib/constants';
 import type { Art } from './types';
+import type { HeroVariant } from './pairs';
 
 export const NAV = [
   { label: 'Apps', href: EXTERNAL_LINKS.APPS },
@@ -22,7 +23,7 @@ export const HERO = {
     field: ['Across scales', 'electron microscopy → lightsheet → PS-OCT → MRI'],
     lens: ['Across scales', 'nm → cm, read inward'],
     ruler: ['Nine orders of magnitude', 'what each instrument resolves · which viewer opens it'],
-  } as Record<'field' | 'lens' | 'ruler', [string, string]>,
+  } as Record<HeroVariant, [string, string]>,
 };
 
 /** Figures that are not derived from the data files. Confirm against the warehouse before a release. */
@@ -127,4 +128,24 @@ export const INFRASTRUCTURE = {
     { label: 'Compute', items: ['TACC', 'Jetstream2 cloud', 'EGI cloud', 'ACCESS'] },
     { label: 'Storage', items: ['AWS Open Data', 'Object storage for OME-Zarr and precomputed volumes'] },
   ],
+};
+
+/** Small UI strings that are not section copy. Kept here so every visible word is in one file. */
+export const LABELS = {
+  signIn: 'Sign in',
+  publicationsWithDois: 'publications with DOIs',
+  importFrom: 'Import from',
+  formats: 'Formats',
+  video: 'Video',
+  clip: 'clip', clips: 'clips',
+  noMedia: 'No media yet',
+  authorsOnPage: 'Authors on the publication page',
+  andMore: (n: number) => `and ${n} more`,
+  neuroglancerViews: 'Neuroglancer views',
+  publicationFallback: 'brainlife publication',
+  maintainedBy: 'Maintained by',
+  runs: 'runs', users: 'users',
+  appFallbackDesc: 'See the repository for details.',
+  appFallbackTag: 'App',
+  pause: 'Pause auto-advance', play: 'Resume auto-advance',
 };

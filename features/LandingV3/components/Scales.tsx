@@ -1,4 +1,4 @@
-import { SCALES, TILES } from '@/lib/landing/content';
+import { SCALES, TILES, LABELS } from '@/lib/landing/content';
 import Drawn from './Drawn';
 
 const AXIS_POS = ['0', '25%', '50%', '75%'];
@@ -14,7 +14,7 @@ export default function Scales() {
         <div className="tiles">
           {TILES.map((t, i) => (
             <div className="tile" key={t.art}>
-              <Drawn art={t.art} w={200} h={200} seed={100 + i} className="img" />
+              <Drawn art={t.art} w={200} h={200} seed={100 + i} className="img" eager={i < 4} />
               <div className="t">{t.title}</div><div className="s">{t.sub}</div>
             </div>
           ))}
@@ -25,8 +25,8 @@ export default function Scales() {
         </div>
       </div>
       <div className="sources">
-        <span className="lbl">Import from</span>{SCALES.importFrom.map(s => <span className="chip" key={s}>{s}</span>)}
-        <span className="lbl" style={{ marginLeft: 14 }}>Formats</span>{SCALES.formats.map(s => <span className="chip" key={s}>{s}</span>)}
+        <span className="lbl">{LABELS.importFrom}</span>{SCALES.importFrom.map(s => <span className="chip" key={s}>{s}</span>)}
+        <span className="lbl" style={{ marginLeft: 14 }}>{LABELS.formats}</span>{SCALES.formats.map(s => <span className="chip" key={s}>{s}</span>)}
       </div>
     </div></section>
   );

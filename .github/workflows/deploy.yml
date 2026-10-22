@@ -19,6 +19,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,7 +40,8 @@ jobs:
         run: npm ci
 
       - name: Install ffmpeg (video posters for publication cards)
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        continue-on-error: true
 
       - name: Refresh landing data from the brainlife API
         run: npm run landing:data

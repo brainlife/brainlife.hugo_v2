@@ -32,10 +32,12 @@ export default function Hero() {
       D.field(layer, el.clientWidth || 1180, el.clientHeight || 600, 2026, false);
     };
     draw();
-    let t: ReturnType<typeof setTimeout>;
-    const onResize = () => { clearTimeout(t); t = setTimeout(draw, 200); };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
+    // Redraw only when the width changes (mobile address-bar show/hide changes height alone).
+    let t: ReturnType<typeof setTimeout> | undefined;
+    let lastW = el.clientWidth;
+    const ro = new ResizeObserver(() => { if (el.clientWidth === lastW) return; lastW = el.clientWidth; clearTimeout(t); t = setTimeout(draw, 200); });
+    ro.observe(el);
+    return () => { ro.disconnect(); clearTimeout(t); };
   }, [variant]);
 
   const layout = variant === 'field' ? 'bleed' : variant === 'ruler' ? 'below' : 'side';
@@ -56,9 +58,9 @@ export default function Hero() {
             </div>
             {variant === 'field' && <Caption v="field" />}
           </div>
-          {variant === 'lens' && <div className="vis stage side"><Drawn art="lens" w={760} h={570} seed={31} small={false} /><Caption v="lens" /></div>}
-          {variant === 'ruler' && <div className="vis stage below"><Drawn art="ruler" w={1100} h={330} seed={0} small={false} /><Caption v="ruler" /></div>}
-          {variant === null && <div className="vis stage side" style={{ minHeight: 320 }} />}
+          {variant === 'lens' && <div className="vis stage side"><Drawn art="lens" w={760} h={570} seed={31} small={false} eager /><Caption v="lens" /></div>}
+          {variant === 'ruler' && <div className="vis stage below"><Drawn art="ruler" w={1100} h={330} seed={0} small={false} eager /><Caption v="ruler" /></div>}
+          {variant === null && <div className="vis stage side placeholder" />}
         </div>
       </div>
       <div className="stripe" />

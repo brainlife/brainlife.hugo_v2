@@ -7,7 +7,7 @@
  *   node scripts/fetch-landing-data.mjs --no-media # JSON only (fast)
  *
  * Outputs
- *   public/landing-data/pubs.json    publications with authors, DOI, tags and media
+ *   public/landing-data/pubs.json    the publications the page shows (media-rich first, then newest) + total count
  *   public/landing-data/apps.json    most-used Apps with maintainers and counts
  *   public/landing-data/people.json  authors of the most recent publications
  *   public/landing-data/media/*.jpg  content-aware 16:9 thumbnails (banners, video posters)
@@ -31,11 +31,14 @@ const PUB_SITE = 'https://connects.brainlife.io/publications/';
 
 fs.mkdirSync(mediaDir, { recursive: true });
 
+const TIMEOUT_MS = 30_000;
 async function getJSON(url) {
-  const r = await fetch(url, { headers: { accept: 'application/json' } });
+  const r = await fetch(url, { headers: { accept: 'application/json' }, signal: AbortSignal.timeout(TIMEOUT_MS) });
   if (!r.ok) throw new Error(`${r.status} ${url}`);
   return r.json();
 }
+const PAGE_CARDS = 24;            // how many publications the page can show; the rest stay on the API
+const GITHUB_REPO = /^[\w.-]+\/[\w.-]+$/;
 const enc = (o) => encodeURIComponent(JSON.stringify(o));
 const slugify = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 const name = (u) => (u && (u.fullname || u.username)) || '';
@@ -83,24 +86,32 @@ async function fitThumb(inputBuffer, outPath, ratio = 16 / 9, W = 960) {
 }
 
 async function fetchImage(url) {
-  const r = await fetch(url); if (!r.ok) throw new Error(`${r.status} ${url}`);
+  if (!/^https:\/\//.test(url)) throw new Error(`not https: ${url}`);
+  const r = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT_MS) }); if (!r.ok) throw new Error(`${r.status} ${url}`);
   return Buffer.from(await r.arrayBuffer());
 }
 function videoFrame(url, seconds = 2) {
+  if (!/^https:\/\//.test(url)) throw new Error(`not https: ${url}`);
   const tmp = path.join(mediaDir, `.frame-${Date.now()}.jpg`);
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-ss', String(seconds), '-i', url, '-frames:v', '1', '-q:v', '3', tmp], { stdio: 'ignore', timeout: 60000 });
+  // protocol whitelist: a hostile URL in the registry must not be able to read runner files
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-protocol_whitelist', 'https,tls,tcp', '-ss', String(seconds), '-i', url, '-frames:v', '1', '-q:v', '3', tmp], { stdio: 'ignore', timeout: 60000 });
   const buf = fs.readFileSync(tmp); fs.unlinkSync(tmp); return buf;
 }
 
 async function publications() {
   const list = await getJSON(`${API}/warehouse/pub?limit=500&sort=-create_date&populate=groups.apps&deref_contacts=true`);
-  const pubs = [];
-  for (const p of list.pubs.filter(p => !p.removed)) {
+  const live = list.pubs.filter(p => !p.removed && p.name);
+  const total = live.length;
+  // media-rich records first so the page always has pictures, then the most recent; cap the subset
+  const score = p => ((p.groups || []).some(g => (g.videoPlaylist || []).length) || p.bannerImage ? 1 : 0);
+  const subset = live.map((p, i) => ({ p, i })).sort((a, b) => score(b.p) - score(a.p) || a.i - b.i).slice(0, PAGE_CARDS).map(x => x.p);
+  const pubs = []; const ids = new Set();
+  for (const p of subset) {
     const groups = p.groups || [];
-    const videos = [...new Set(groups.flatMap(g => (g.videoPlaylist || []).map(v => v.url)).filter(Boolean))];
+    const videos = [...new Set(groups.flatMap(g => (g.videoPlaylist || []).map(v => v && v.url)).filter(u => typeof u === 'string' && /^https:\/\//.test(u)))];
     const viewers = groups.flatMap(g => g.viewerLinks || []).length;
     const slug = p.slug || p._id;
-    const id = slugify(p.doi || slug);
+    let id = slugify(p.doi || slug); if (ids.has(id)) id = slugify(`${id}-${slug}`); ids.add(id);
     const rec = {
       id, slug, name: p.name, doi: p.doi || '', date: (p.create_date || '').slice(0, 10), tags: p.tags || [],
       desc: (p.desc || '').replace(/\s+/g, ' ').trim().slice(0, 300),
@@ -119,7 +130,7 @@ async function publications() {
     } else if (fs.existsSync(path.join(mediaDir, `${id}.jpg`))) rec.thumb = `/landing-data/media/${id}.jpg`;
     pubs.push(rec);
   }
-  return pubs;
+  return { pubs, total };
 }
 
 async function apps() {
@@ -127,7 +138,7 @@ async function apps() {
   // one card per GitHub repo, keep the most-requested variant
   const byRepo = new Map();
   for (const a of list.apps) { const k = a.github; if (!k) continue; if (!byRepo.has(k) || (a.stats?.requested || 0) > (byRepo.get(k).stats?.requested || 0)) byRepo.set(k, a); }
-  const picked = [...byRepo.values()].slice(0, 16);
+  const picked = [...byRepo.values()].filter(a => GITHUB_REPO.test(a.github)).slice(0, 16);
   const subs = [...new Set(picked.flatMap(a => (a.admins || []).map(Number)).filter(n => !Number.isNaN(n)))];
   let profiles = [];
   try { profiles = (await getJSON(`${API}/auth/profile/list?find=${enc({ sub: { $in: subs } })}&limit=200`)).profiles || []; } catch (e) { console.warn('profiles unavailable: ' + e.message); }
@@ -157,14 +168,28 @@ function people(pubs) {
   return [...seen.values()].slice(0, 24);
 }
 
+/** Sanity checks before overwriting the committed snapshot. Thin or malformed data keeps the previous files. */
+function plausible(pubs, total, appList) {
+  const problems = [];
+  if (total < 10) problems.push(`only ${total} publications on the API`);
+  if (!pubs.some(p => p.thumb || p.video)) problems.push('no publication has media');
+  if (appList.length < 6) problems.push(`only ${appList.length} apps`);
+  if (!appList.some(a => a.runs > 0)) problems.push('no app has run counts (stats shape changed?)');
+  return problems;
+}
+
 try {
-  const pubs = await publications();
+  const { pubs, total } = await publications();
   const appList = await apps();
-  fs.writeFileSync(path.join(outDir, 'pubs.json'), JSON.stringify({ fetched: new Date().toISOString(), count: pubs.length, pubs }, null, 1));
-  fs.writeFileSync(path.join(outDir, 'apps.json'), JSON.stringify({ fetched: new Date().toISOString(), apps: appList }, null, 1));
-  fs.writeFileSync(path.join(outDir, 'people.json'), JSON.stringify({ fetched: new Date().toISOString(), people: people(pubs) }, null, 1));
-  console.log(`landing data: ${pubs.length} publications (${pubs.filter(p => p.thumb).length} with thumbnails), ${appList.length} apps`);
+  const problems = plausible(pubs, total, appList);
+  if (problems.length) throw new Error('data looks wrong: ' + problems.join('; '));
+  const fetched = new Date().toISOString();
+  fs.writeFileSync(path.join(outDir, 'pubs.json'), JSON.stringify({ fetched, count: total, pubs }, null, 1));
+  fs.writeFileSync(path.join(outDir, 'apps.json'), JSON.stringify({ fetched, apps: appList }, null, 1));
+  fs.writeFileSync(path.join(outDir, 'people.json'), JSON.stringify({ fetched, people: people(pubs) }, null, 1));
+  console.log(`landing data: ${total} publications on the API, ${pubs.length} on the page (${pubs.filter(p => p.thumb).length} with thumbnails), ${appList.length} apps`);
 } catch (e) {
-  console.error('landing data refresh failed, keeping previous files:', e.message);
+  // Never let a flaky or changed API block a deploy: the committed snapshot stays in place.
+  console.error('landing data refresh skipped, keeping previous files:', e.message);
   process.exitCode = fs.existsSync(path.join(outDir, 'pubs.json')) ? 0 : 1;
 }

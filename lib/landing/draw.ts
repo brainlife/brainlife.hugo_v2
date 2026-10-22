@@ -4,24 +4,17 @@
  * Generative drawings for the landing page.
  *
  * Two families live here, all drawn from the brand palette (PAL) and deterministic for a seed:
- *   hero visuals  — D.field (flow field across scales), D.lens (concentric scale rings), D.ruler (log-scale ruler)
+ *   hero visuals   — D.field (flow field across scales), D.lens (concentric scale rings), D.ruler (log-scale ruler)
  *   datatype tiles — D.em, D.lightsheet, D.oct, D.tracts, D.surface, D.matrix, D.fmri, D.meg
  *
  * Every drawer has the same signature: D.name(container, width, height, seed, small).
- * It appends a <canvas> or <svg> to `container` and returns nothing. `small` trims labels for tiles.
+ * It appends a <canvas> or <svg> to `container`. `small` trims labels for tile-sized output.
  *
- * Type-checking is off in this file on purpose: it is self-contained canvas/SVG code with no
- * dependencies on the rest of the app, and the loose numeric style reads better than annotations
- * would. Keep new drawers to the same signature and register them on D so <Drawn art="…"> can use them.
- *
- * To add a drawer: write D.myArt = function (el, W, H, seed, small) {…} using canvasIn()/svgIn(),
- * add 'myArt' to the Art union in features/LandingV3/types.ts, and (for a tile) to TILES in config.ts.
- */
-// @ts-nocheck
-/**
- * Generative drawings for the landing page: the three abstract hero visuals (field, lens, ruler)
- * and the stylised datatype tiles used as fallbacks when a publication or App has no media.
- * All colours come from the brand palette; everything is deterministic for a given seed.
+ * Type-checking is off here on purpose: self-contained canvas/SVG code with no app dependencies,
+ * where the loose numeric style reads better than annotations would. Components never import D
+ * directly; they go through the typed facade in lib/landing/drawers.ts, which is also where a new
+ * drawer must be registered (add it to the Art union in lib/landing/types.ts and to TILES in
+ * lib/landing/content.ts if it should appear as a tile).
  */
 export const PAL = {
   blue: '#005981',

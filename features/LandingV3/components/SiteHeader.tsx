@@ -1,6 +1,6 @@
 import { EXTERNAL_LINKS } from '@/lib/constants';
 import { getAssetPath } from '@/lib/basePath';
-import { NAV } from '@/lib/landing/content';
+import { NAV, LABELS } from '@/lib/landing/content';
 import BrandMark from './BrandMark';
 
 export default function SiteHeader() {
@@ -11,7 +11,7 @@ export default function SiteHeader() {
       </a>
       <nav className="nav" aria-label="Primary">
         {NAV.map(n => <a key={n.label} href={n.href}>{n.label}</a>)}
-        <a className="btn" href={EXTERNAL_LINKS.PORTAL}>Sign in</a>
+        <a className="btn" href={EXTERNAL_LINKS.PORTAL}>{LABELS.signIn}</a>
       </nav>
     </div>
   );

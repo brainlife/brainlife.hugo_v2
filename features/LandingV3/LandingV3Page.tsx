@@ -1,7 +1,7 @@
 'use client';
 
 import { PICK_SCRIPT } from '@/lib/landing/pairs';
-import { STATS, FUNDING_LINE } from '@/lib/landing/content';
+import { STATS, FUNDING_LINE, LABELS } from '@/lib/landing/content';
 import type { PubsFile } from '@/lib/landing/types';
 import pubsJson from '@/public/landing-data/pubs.json';
 import ReviewBar from './components/ReviewBar';
@@ -30,7 +30,7 @@ export default function LandingV3Page() {
       <Hero />
       <div className="wrap"><div className="stats">
         {STATS.slice(0, 3).map(s => <span key={s.label}><b>{s.value}</b> {s.label}</span>)}
-        <span><b>{pubs.count}</b> publications with DOIs</span>
+        <span><b>{pubs.count}</b> {LABELS.publicationsWithDois}</span>
         {STATS.slice(3).map(s => <span key={s.label}><b>{s.value}</b> {s.label}</span>)}
         <span>{FUNDING_LINE}</span>
       </div></div>

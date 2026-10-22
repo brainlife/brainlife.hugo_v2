@@ -1,11 +1,10 @@
 'use client';
 import { ECOSYSTEM, INFRASTRUCTURE, TOOL_ROLE_LABEL } from '@/lib/landing/content';
+import CarouselArrows from './CarouselArrows';
 import { useCarousel } from './useCarousel';
 
-const CARD_STEP = 276;
-
 export default function Ecosystem() {
-  const { ref, by } = useCarousel(CARD_STEP, 6000);
+  const { ref, by, playing, toggle } = useCarousel(6000);
   return (
     <section><div className="wrap">
       <div className="sec-head row">
@@ -14,18 +13,17 @@ export default function Ecosystem() {
       <div className="carousel">
         <div className="track" ref={ref} role="list">
           {ECOSYSTEM.tools.map(t => (
-            <a className={`tool role-${t.role}`} href={t.href} key={t.name} role="listitem">
-              <span className="role">{TOOL_ROLE_LABEL[t.role]}</span>
-              <b>{t.name}</b>
-              <p>{t.desc}</p>
-            </a>
+            <div role="listitem" key={t.name} className="tool-item">
+              <a className={`tool role-${t.role}`} href={t.href}>
+                <span className="role">{TOOL_ROLE_LABEL[t.role]}</span>
+                <b>{t.name}</b>
+                <p>{t.desc}</p>
+              </a>
+            </div>
           ))}
-          <div className="tool more-tools" role="listitem"><b>{ECOSYSTEM.more}</b></div>
+          <div role="listitem" className="tool-item"><div className="tool more-tools"><b>{ECOSYSTEM.more}</b></div></div>
         </div>
-        <div className="arrows">
-          <button type="button" onClick={() => by(-1)} aria-label="Previous tools">←</button>
-          <button type="button" onClick={() => by(1)} aria-label="Next tools">→</button>
-        </div>
+        <CarouselArrows by={by} playing={playing} toggle={toggle} what="tools" />
       </div>
 
       <div className="infra">

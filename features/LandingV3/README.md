@@ -21,15 +21,19 @@ publications and Apps or small deterministic drawings.
 ## How a page load works
 
 1. `LandingV3Page` renders. The first thing in it is a tiny inline script (`PICK_SCRIPT`) that runs as the
-   HTML streams in: it picks a hero variant (`#field|#lens|#ruler` in the URL pins one; the ruler is never
-   chosen on narrow screens) and a logo pair (`?pair=tealyellow` pins one), writes six CSS variables on
-   `<html>`, and stores the choice on `window.__bl`. Because this happens before paint, there is no flash.
+   HTML streams in: it picks a hero variant by weight (`HERO_WEIGHTS`, lens most often; `#field|#lens|#ruler`
+   in the URL pins one; the ruler is never chosen on narrow screens) and a logo pair (`?pair=tealyellow`
+   pins one), writes six CSS variables and `data-hero` on `<html>`, and stores the choice on `window.__bl`.
+   CSS keyed on `data-hero` lays the hero out before React hydrates, so there is no flash or layout shift.
 2. The site's accent colours are CSS variables that read those six: `--accent` on light surfaces,
    `--hero-accent` on dark. Components never reference a colour directly.
 3. Sections that depend on the random pick read `window.__bl` through `useSyncExternalStore`, so the
    server render is deterministic and the client takes over without hydration warnings.
 4. Publication and App cards shuffle on the client after hydration (`requestAnimationFrame`), media-rich
-   cards first. Cards without media draw a stylised tile chosen from their tags (`lib/landing/art.ts`).
+   cards first. Cards without media draw a stylised tile chosen from their tags (`lib/landing/art.ts`),
+   seeded from the record id so a card keeps its picture across shuffles, and drawn only when near the
+   viewport (`Drawn.tsx`). Carousels auto-advance slowly with a visible pause button, and not at all
+   under `prefers-reduced-motion`.
 
 ## How data gets in
 
@@ -40,20 +44,25 @@ publications and Apps or small deterministic drawings.
 - `/api/warehouse/app?sort=-stats.requested` — most-requested Apps, one card per GitHub repo.
 - `/api/auth/profile/list?find={sub:{$in:[…]}}` — resolves App admin ids to names and institutions.
 
+The page shows a subset (`PAGE_CARDS`, media-rich first, then newest); `count` is the API total.
 Thumbnails are made content-aware: the script finds the picture's bounding box against its background,
 crops a 16:9 window centred on it, and letterboxes on a blurred copy when the content is much wider or
-taller. If the API is down the previous files are kept and the build still succeeds. `npm test` runs
-`scripts/verify-landing-data.mjs`, which fails the build if the JSON no longer matches
-`lib/landing/types.ts` or if no publication has media.
+taller. Every request has a 30 s timeout and the job a 25-minute cap. Before overwriting the committed
+snapshot the script checks the new data is plausible (enough records, some media, run counts present);
+if the API is down or the shape changed, the previous files are kept and the deploy still succeeds.
+`npm test` runs `scripts/verify-landing-data.mjs`, which checks the JSON against `lib/landing/types.ts`,
+that ids are unique and media URLs are https, and that every logo pair's light accent meets 4.5:1.
 
 ## Common changes
 
-- **Add a logo pair**: append to `PAIRS`. Pick `accentLight` dark enough for text on `#f7f8f6`
-  (aim for 4.5:1), `accentDark` is the hemisphere colour itself.
+- **Add a logo pair**: append to `PAIRS`. `accentLight` must reach 4.5:1 on `#f7f8f6` (the verify
+  script enforces it); `accentDark` is the hemisphere colour itself.
+- **Change how often each hero appears**: `HERO_WEIGHTS` in `pairs.ts`.
 - **Pin a pair or hero for a campaign**: set `window.__bl` logic in `PICK_SCRIPT`, or link with
   `?pair=…#lens`.
-- **Add a datatype tile**: add a drawer `D.myArt` in `draw.ts`, the name to `Art` in `types.ts`, a row in
-  `TILES`, and a keyword rule in `pickArt()` if records should fall back to it.
+- **Add a datatype tile**: add a drawer `D.myArt` in `draw.ts`, register it in `drawers.ts` (the compiler
+  insists), add the name to `Art` in `types.ts`, a row in `TILES`, and a keyword rule in `pickArt()` if
+  records should fall back to it.
 - **Add a tool or infrastructure item**: edit `ECOSYSTEM.tools` or `INFRASTRUCTURE.groups` in `content.ts`.
 - **Change the stats line**: `STATS` in `content.ts`; the publications count comes from `pubs.json`.
 - **Retire a hero**: remove it from `HERO_VARIANTS`; the pick script and `Hero.tsx` key off that list.
