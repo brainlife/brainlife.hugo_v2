@@ -139,6 +139,7 @@ export const LABELS = {
   video: 'Video',
   clip: 'clip', clips: 'clips',
   noMedia: 'No media yet',
+  clipUnavailable: 'Clip unavailable here · open the publication',
   authorsOnPage: 'Authors on the publication page',
   andMore: (n: number) => `and ${n} more`,
   neuroglancerViews: 'Neuroglancer views',

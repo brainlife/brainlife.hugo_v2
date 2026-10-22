@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { getAssetPath } from '@/lib/basePath';
 import { PUBLICATIONS, LABELS } from '@/lib/landing/content';
 import { shuffled } from '@/lib/landing/art';
@@ -25,9 +25,26 @@ function authorsLine(p: Publication) {
   return p.authors.length > 8 ? `${p.authors.slice(0, 7).join(', ')} ${LABELS.andMore(p.authors.length - 7)}` : p.authors.join(', ');
 }
 
+/**
+ * The clip itself. Mutes and starts playback explicitly (React does not reflect `muted` as an attribute,
+ * which can make autoplay policies refuse) and reports a load failure so the card can fall back.
+ */
+function Clip({ src, onFail }: { src: string; onFail: () => void }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(onFail);
+  }, [src, onFail]);
+  return <video ref={ref} className="clip" src={src} muted loop playsInline preload="auto" onError={onFail} />;
+}
+
 function PubCard({ p }: { p: Publication }) {
   const [playing, setPlaying] = useState(false);
-  const toggle = () => { if (p.video) setPlaying(v => !v); };
+  const [failed, setFailed] = useState(false);
+  const toggle = () => { if (p.video && !failed) setPlaying(v => !v); };
+  const onFail = useCallback(() => { setPlaying(false); setFailed(true); }, []);
   return (
     <article className="pub" role="listitem">
       <div className="thumb" onClick={toggle}
@@ -35,10 +52,11 @@ function PubCard({ p }: { p: Publication }) {
         onKeyDown={e => { if (p.video && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggle(); } }}
         aria-label={p.video ? `${playing ? 'Stop' : 'Play'} clip from ${p.name}` : undefined} aria-pressed={p.video ? playing : undefined}>
         {p.video && <span className="vid">{LABELS.video} · {p.videos} {p.videos === 1 ? LABELS.clip : LABELS.clips}</span>}
-        {p.video && !playing && <div className="play"><i /></div>}
+        {p.video && !playing && !failed && <div className="play"><i /></div>}
+        {failed && <a className="vid vid-muted clip-fallback" href={p.url} onClick={e => e.stopPropagation()}>{LABELS.clipUnavailable}</a>}
         {p.thumb ? <img src={getAssetPath(p.thumb)} alt="" loading="lazy" decoding="async" /> : <MotifArt kind={pickMotif([p.name, ...p.tags, p.desc].join(' '))} seed={p.id} />}
         {!hasMedia(p) && <span className="vid vid-muted">{LABELS.noMedia}</span>}
-        {playing && p.video && <video className="clip" src={p.video} autoPlay muted loop playsInline />}
+        {playing && p.video && <Clip src={p.video} onFail={onFail} />}
       </div>
       <div className="body">
         <b>{p.name}</b>

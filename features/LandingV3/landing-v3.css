@@ -891,7 +891,8 @@ section {
 .lv3 .thumb[role='button'] {
   cursor: pointer;
 }
-.lv3 .vid-muted{background:rgba(238,243,246,.18);color:#eef3f6}
+.lv3 .pub .thumb .vid-muted{background:rgba(238,243,246,.18);color:#eef3f6}
+.lv3 .pub .thumb .clip-fallback{top:auto;right:auto;bottom:10px;left:10px;width:auto;height:auto;z-index:4;text-decoration:underline;text-underline-offset:3px}
 .lv3 .thumb .clip{position:absolute;inset:10px;width:calc(100% - 20px);height:calc(100% - 20px);border-radius:6px;object-fit:cover;z-index:3}
 /* tools ecosystem */
 .lv3 .tool{flex:0 0 min(260px,78vw);scroll-snap-align:start;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0;display:grid;gap:6px;align-content:start;color:var(--ink);text-decoration:none}
