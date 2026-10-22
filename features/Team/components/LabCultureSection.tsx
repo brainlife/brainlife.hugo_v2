@@ -20,26 +20,30 @@ const MotionBox = motion.create(Box);
 
 const CULTURE_PHOTOS = [
     {
-        id: 'franco-tree',
-        src: getAssetPath('/img/team/franco-brainlife-tree.jpg'),
-        alt: 'Dr. Franco Pestilli holding the physical 3D Brainlife Tree emblem',
+        id: 'culture-1',
+        src: getAssetPath('/assets/Culture/labculture1.jpg'),
+        alt: 'Brainlife team and lab members gathering outside the research facility',
     },
     {
-        id: 'tree-sculpture',
-        src: getAssetPath('/img/team/brainlife-tree-sculpture.jpg'),
-        alt: 'The 3D-printed Brainlife Brain-Tree sculpture in the lab meeting space',
+        id: 'culture-2',
+        src: getAssetPath('/assets/Culture/labculture2.jpg'),
+        alt: 'Pestilli Lab team meeting and collaborative research discussion',
     },
     {
-        id: 'hackathon',
-        src: getAssetPath('/img/team/lab-culture-1.jpg'),
-        alt: 'Brainlife collaborative team sprint and hackathon',
+        id: 'culture-3',
+        src: getAssetPath('/assets/Culture/labculture3.jpg'),
+        alt: 'Gabriele Amorosino receiving the Research Excellence Award with Dr. Franco Pestilli',
     },
     {
-        id: 'mentorship',
-        src: getAssetPath('/img/team/lab-culture-2.jpg'),
-        alt: 'Pestilli lab students and postdocs collaborating',
+        id: 'culture-4',
+        src: getAssetPath('/assets/Culture/labculture4.jpg'),
+        alt: 'Dr. Franco Pestilli and Gabriele Amorosino presenting mapping retinotopic connections research',
     },
-   
+    {
+        id: 'culture-5',
+        src: getAssetPath('/assets/Culture/labculture5.jpg'),
+        alt: 'Pestilli Lab team dinner and social gathering',
+    },
     {
         id: 'conference-1',
         src: getAssetPath('/img/team/pestilli_lab_suna.jpeg'),

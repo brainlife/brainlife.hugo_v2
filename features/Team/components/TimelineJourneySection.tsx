@@ -33,7 +33,7 @@ const TIMELINE_SLIDES: TimelineSlide[] = [
         title: 'Indiana University & NIH BRAIN Support',
         description:
             'Founded at Indiana University by Dr. Franco Pestilli with initial NIH BRAIN Initiative grant support. Brainlife set out to solve computational reproducibility by bridging supercomputing clusters with open web workflows.',
-        image: '/img/team/franco-brainlife-tree.jpg',
+        image: '/img/locations/indiana-university.jpg',
     },
     {
         year: '2018',
@@ -57,7 +57,7 @@ const TIMELINE_SLIDES: TimelineSlide[] = [
         title: 'UT Austin Expansion & 200+ Apps',
         description:
             'Expanded platform headquarters to the University of Texas at Austin Psychology & Neuroscience. Scaled the open ecosystem to over 200+ containerized Docker and Singularity neuroimaging pipelines.',
-        image: '/img/team/brainlife-tree-sculpture.jpg',
+        image: '/img/locations/ut-austin.jpg',
     },
     {
         year: '2023',
@@ -65,7 +65,7 @@ const TIMELINE_SLIDES: TimelineSlide[] = [
         title: 'Cloud JupyterLab & Permanent DOIs',
         description:
             'Introduced cloud-hosted JupyterLab kernels with direct dataset access, automated provenance DAGs, and mintable permanent DOIs for peer-reviewed reproducible neuroscience publications.',
-        image: '/img/about/about-2.jpg',
+        image: '/assets/Culture/labculture4.jpg',
     },
     {
         year: '2025+',
@@ -73,7 +73,7 @@ const TIMELINE_SLIDES: TimelineSlide[] = [
         title: 'Empowering 2,000+ Global Scientists',
         description:
             'Empowering over 2,000+ researchers across 400+ institutions worldwide. Executing millions of compute hours across MRI, MEG, EEG, and foundation brain models with zero software installation barriers.',
-        image: '/img/team/lab-culture-1.jpg',
+        image: '/assets/Culture/labculture1.jpg',
     },
 ];
 

@@ -491,7 +491,7 @@ export default function AboutUsStorySection() {
                         w="100%"
                         h={{ base: '440px', sm: '500px', md: '540px' }}
                     >
-                        {/* PHOTO 1 (Top Right - Whiteboard / Sprint Discussion) */}
+                        {/* PHOTO 1 (Top Right - Lab Culture Social & Team Dinner) */}
                         <MotionBox
                             position="absolute"
                             top="0"
@@ -507,15 +507,15 @@ export default function AboutUsStorySection() {
                             transition={{ duration: 0.3 }}
                         >
                             <Image
-                                src={getAssetPath('/img/about/about-3.jpg')}
-                                alt="Brainlife sprint and whiteboard discussion"
+                                src={getAssetPath('/assets/Culture/labculture5.jpg')}
+                                alt="Brainlife team social dinner and gathering"
                                 w="100%"
                                 h="100%"
                                 objectFit="cover"
                             />
                         </MotionBox>
 
-                        {/* PHOTO 2 (Center Left - Founder & Brainlife 3D Emblem) */}
+                        {/* PHOTO 2 (Center Left - HPC & Infrastructure Team at TACC) */}
                         <MotionBox
                             position="absolute"
                             top={{ base: '32px', sm: '44px' }}
@@ -531,15 +531,15 @@ export default function AboutUsStorySection() {
                             transition={{ duration: 0.3 }}
                         >
                             <Image
-                                src={getAssetPath('/img/team/franco-brainlife-tree.jpg')}
-                                alt="Dr. Franco Pestilli holding the Brainlife 3D brain-tree emblem"
+                                src={getAssetPath('/assets/Culture/labculture6.jpg')}
+                                alt="Brainlife engineering team at TACC supercomputing cluster"
                                 w="100%"
                                 h="100%"
                                 objectFit="cover"
                             />
                         </MotionBox>
 
-                        {/* PHOTO 3 (Bottom Right - Pair Programming & Collaboration) */}
+                        {/* PHOTO 3 (Bottom Right - Brainlife.io / BRIDGE Conference Booth) */}
                         <MotionBox
                             position="absolute"
                             bottom="0"
@@ -555,8 +555,8 @@ export default function AboutUsStorySection() {
                             transition={{ duration: 0.3 }}
                         >
                             <Image
-                                src={getAssetPath('/img/about/about-2.jpg')}
-                                alt="Collaborative pair working on neuroimaging pipelines"
+                                src={getAssetPath('/assets/Culture/labculture7.jpg')}
+                                alt="Brainlife team at the scientific conference booth"
                                 w="100%"
                                 h="100%"
                                 objectFit="cover"
