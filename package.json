@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "test:assets": "node scripts/verify-assets.mjs",
-    "test": "npm run test:assets",
-    "landing:data": "node scripts/fetch-landing-data.mjs"
+    "test": "npm run test:assets && npm run test:landing-data",
+    "landing:data": "node scripts/fetch-landing-data.mjs",
+    "test:landing-data": "node scripts/verify-landing-data.mjs"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",

@@ -27,3 +27,7 @@ export function applyPair(p: Pair) {
   r.setProperty('--lh', p.left); r.setProperty('--rh', p.right);
   r.setProperty('--accent-light', p.accentLight); r.setProperty('--accent-dark', p.accentDark); r.setProperty('--accent-dark-ink', p.accentDarkInk);
 }
+
+declare global {
+  interface Window { __bl?: { pair: Pair; hero: HeroVariant } }
+}

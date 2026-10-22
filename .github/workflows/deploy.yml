@@ -44,6 +44,9 @@ jobs:
       - name: Refresh landing data from the brainlife API
         run: npm run landing:data
 
+      - name: Verify landing data
+        run: npm run test:landing-data
+
       - name: Build with Next.js
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}

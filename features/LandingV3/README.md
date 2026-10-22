@@ -1,0 +1,93 @@
+# Landing page v3 — maintainer's guide
+
+The landing page is a static, data-driven page. Nothing on it is hand-edited HTML: copy lives in one
+file, data is fetched from the brainlife API at build time, and the pictures are either real media from
+publications and Apps or small deterministic drawings.
+
+## Where things are
+
+| What you want to change | Where |
+| --- | --- |
+| Any wording, link, list of tiles, tools or infrastructure | `lib/landing/content.ts` |
+| Logo colour pairs and the accents derived from them | `lib/landing/pairs.ts` (`PAIRS`) |
+| Which hero visuals rotate | `lib/landing/pairs.ts` (`HERO_VARIANTS`) and `features/LandingV3/components/Hero.tsx` |
+| The drawings (hero visuals, datatype tiles) | `lib/landing/draw.ts` |
+| How publications and Apps are fetched and thumbnailed | `scripts/fetch-landing-data.mjs` |
+| The data the page renders | `public/landing-data/{pubs,apps,people}.json` + `media/` (generated; a snapshot is committed) |
+| Layout and tokens | `features/LandingV3/landing-v3.css` (everything scoped under `.lv3`) |
+| Brand assets | `public/brand/` (five pairs, dark/light, a themable SVG) |
+| Section components | `features/LandingV3/components/*.tsx`, one file per section |
+
+## How a page load works
+
+1. `LandingV3Page` renders. The first thing in it is a tiny inline script (`PICK_SCRIPT`) that runs as the
+   HTML streams in: it picks a hero variant (`#field|#lens|#ruler` in the URL pins one; the ruler is never
+   chosen on narrow screens) and a logo pair (`?pair=tealyellow` pins one), writes six CSS variables on
+   `<html>`, and stores the choice on `window.__bl`. Because this happens before paint, there is no flash.
+2. The site's accent colours are CSS variables that read those six: `--accent` on light surfaces,
+   `--hero-accent` on dark. Components never reference a colour directly.
+3. Sections that depend on the random pick read `window.__bl` through `useSyncExternalStore`, so the
+   server render is deterministic and the client takes over without hydration warnings.
+4. Publication and App cards shuffle on the client after hydration (`requestAnimationFrame`), media-rich
+   cards first. Cards without media draw a stylised tile chosen from their tags (`lib/landing/art.ts`).
+
+## How data gets in
+
+`npm run landing:data` (run by the deploy workflow on every deploy and nightly) calls three endpoints:
+
+- `/api/warehouse/pub?populate=groups.apps&deref_contacts=true` — publications; media comes from
+  `bannerImage`, `groups[].videoPlaylist[]` (first frame via ffmpeg) and `groups[].viewerLinks[]` (counted).
+- `/api/warehouse/app?sort=-stats.requested` — most-requested Apps, one card per GitHub repo.
+- `/api/auth/profile/list?find={sub:{$in:[…]}}` — resolves App admin ids to names and institutions.
+
+Thumbnails are made content-aware: the script finds the picture's bounding box against its background,
+crops a 16:9 window centred on it, and letterboxes on a blurred copy when the content is much wider or
+taller. If the API is down the previous files are kept and the build still succeeds. `npm test` runs
+`scripts/verify-landing-data.mjs`, which fails the build if the JSON no longer matches
+`lib/landing/types.ts` or if no publication has media.
+
+## Common changes
+
+- **Add a logo pair**: append to `PAIRS`. Pick `accentLight` dark enough for text on `#f7f8f6`
+  (aim for 4.5:1), `accentDark` is the hemisphere colour itself.
+- **Pin a pair or hero for a campaign**: set `window.__bl` logic in `PICK_SCRIPT`, or link with
+  `?pair=…#lens`.
+- **Add a datatype tile**: add a drawer `D.myArt` in `draw.ts`, the name to `Art` in `types.ts`, a row in
+  `TILES`, and a keyword rule in `pickArt()` if records should fall back to it.
+- **Add a tool or infrastructure item**: edit `ECOSYSTEM.tools` or `INFRASTRUCTURE.groups` in `content.ts`.
+- **Change the stats line**: `STATS` in `content.ts`; the publications count comes from `pubs.json`.
+- **Retire a hero**: remove it from `HERO_VARIANTS`; the pick script and `Hero.tsx` key off that list.
+
+## Review tools
+
+Open the page with `?review=1` for a bar with "Shuffle logo pair" and "Next hero". The previous landing
+page is kept at `/legacy` until the team is happy to delete `features/Landing`.
+
+## Known limits and the plan
+
+Near term (worth doing before announcing):
+
+1. **Only a handful of publications carry media** (4 of 64 at the time of writing). The page copes with
+   placeholders, but the fix is upstream: have the publication editor ask for a banner image, and document
+   `videoPlaylist` / `viewerLinks` for authors. Every new banner shows up on the next nightly build.
+2. **Stats are hand-typed** (Apps, users, datasets). Extend `fetch-landing-data.mjs` to read counts from
+   the warehouse and write them into `pubs.json`-style files, then drop the constants.
+3. **People link to the research page**, not to profiles. The profile API gives `sub`; once a public
+   profile URL exists, store it in `people.json` and link each name.
+4. **Fonts**: the layout loads Geist from Google Fonts at build; CI must reach fonts.googleapis.com
+   (it does on GitHub Actions). If that ever breaks, switch to `next/font/local`.
+
+Medium term:
+
+5. **Real thumbnails for publications without media**: a build step that renders a representative file
+   from the published dataset (T1w, tractogram, surface, Zarr) with headless NiiVue or Neuroglancer, so
+   stylised tiles become the exception. The hook is the `thumb` field; nothing in the page changes.
+6. **A `landing` section in the datatype registry** (icon + scale) so `TILES` is generated rather than
+   listed, and new datatypes appear automatically.
+7. **Analytics on the hero and pair picks** (`window.__bl`) to learn which combinations people engage
+   with, then trim the rotation.
+8. **Localization**: all copy is already in one file; a second `content.<lang>.ts` and a switch in
+   `LandingV3Page` is the whole job.
+
+Non-goals, deliberately: no client-side API calls (static export stays fast and offline-safe), no
+generated images at page load, no brand logos of third-party tools (text chips avoid trademark questions).
