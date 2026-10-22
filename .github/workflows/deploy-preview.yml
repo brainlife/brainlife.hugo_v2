@@ -1,0 +1,72 @@
+# Staging deploy for review, meant to run in a FORK of this repository (for example
+# <you>/brainlife.hugo_v2), never in brainlife/brainlife.hugo_v2 itself: in a fork, GitHub Pages
+# serves https://<you>.github.io/brainlife.hugo_v2/ — same base path as production, so the build is
+# identical — while production (deploy.yml, main branch) is untouched.
+#
+# Safety: this workflow only deploys when the repository is NOT the production one, and only from
+# the branch under review. On the production repository it exits without doing anything.
+#
+# One-time setup in the fork: Settings → Pages → Source: "GitHub Actions". Then push the branch, or
+# run this workflow from the Actions tab (workflow_dispatch).
+
+name: Deploy preview (fork only)
+
+on:
+  push:
+    branches: ["landing-v3"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages-preview"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.repository != 'brainlife/brainlife.hugo_v2'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - id: pages
+        uses: actions/configure-pages@v5
+        with:
+          static_site_generator: next
+      - run: npm ci
+      - name: Install ffmpeg (video posters)
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        continue-on-error: true
+      - name: Refresh landing data from the brainlife API
+        run: npm run landing:data
+      - run: npm run test:landing-data
+      - name: Build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io
+          NEXT_PUBLIC_PREVIEW: "1"
+        run: npx next build
+      - env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: npm run test:assets
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    if: github.repository != 'brainlife/brainlife.hugo_v2'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

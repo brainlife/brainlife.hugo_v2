@@ -1,0 +1,267 @@
+{
+ "fetched": "2026-10-22T17:08:31.888937Z",
+ "apps": [
+  {
+   "id": "brainlife-app-freesurfer",
+   "name": "Freesurfer",
+   "repo": "brainlife/app-freesurfer",
+   "tags": [
+    "analysis",
+    "anatomy-preprocessing"
+   ],
+   "desc": "Freesurfer segments the t1w anatomical data into functionally different parts of the brain. Segmentation/parcellation can be used for downstream analyses.",
+   "runs": 774031,
+   "users": 992,
+   "maintainers": [
+    {
+     "name": "Brad Caron",
+     "institution": "The University of Texas at Austin"
+    },
+    {
+     "name": "Franco Pestilli",
+     "institution": "The University of Texas at Austin"
+    },
+    {
+     "name": "Giulia Berto",
+     "institution": "Bruno Kessler Foundation (FBK)"
+    },
+    {
+     "name": "The Brainlife Team",
+     "institution": "The University of Texas at Austin"
+    }
+   ],
+   "avatar": "https://raw.githubusercontent.com/brain-life/app-freesurfer/master/docs/fscortex.png",
+   "thumb": "/landing-data/media/app-brainlife-app-freesurfer.jpg"
+  },
+  {
+   "id": "brainlife-app-fmriprep",
+   "name": "fMRIPrep",
+   "repo": "brainlife/app-fmriprep",
+   "tags": [
+    "fmri",
+    "preprocessing"
+   ],
+   "desc": "fMRIPrep is a functional MRI preprocessing pipeline designed to provide an easily accessible, state-of-the-art interface that is robust to variations in scan acquisition.",
+   "runs": 137032,
+   "users": 351,
+   "maintainers": [
+    {
+     "name": "Brad Caron",
+     "institution": ""
+    },
+    {
+     "name": "Daniel Levitas",
+     "institution": ""
+    },
+    {
+     "name": "David Hunt",
+     "institution": "Indiana University"
+    },
+    {
+     "name": "Giulia Berto",
+     "institution": ""
+    }
+   ],
+   "avatar": null,
+   "thumb": null
+  },
+  {
+   "id": "brainlife-app-mrtrix3-preproc",
+   "name": "mrtrix3 preprocess",
+   "repo": "brainlife/app-mrtrix3-preproc",
+   "tags": [
+    "diffusion-mri",
+    "mri",
+    "tractography"
+   ],
+   "desc": "Run the recommended preprocessing procedure provided by mrtrix3.",
+   "runs": 76615,
+   "users": 165,
+   "maintainers": [
+    {
+     "name": "Brent McPherson",
+     "institution": "Indiana University"
+    },
+    {
+     "name": "Giulia Berto",
+     "institution": ""
+    },
+    {
+     "name": "Brad Caron",
+     "institution": ""
+    }
+   ],
+   "avatar": null,
+   "thumb": null
+  },
+  {
+   "id": "brainlife-app-wmaseg",
+   "name": "White Matter Anatomy Segmentation",
+   "repo": "brainlife/app-wmaSeg",
+   "tags": [
+    "analysis",
+    "tractography"
+   ],
+   "desc": "Classifies streamlines into known anatomical tracts.",
+   "runs": 48959,
+   "users": 123,
+   "maintainers": [
+    {
+     "name": "Brad Caron",
+     "institution": ""
+    },
+    {
+     "name": "Daniel Bullock",
+     "institution": "Indiana University"
+    },
+    {
+     "name": "Franco Pestilli",
+     "institution": ""
+    },
+    {
+     "name": "Giulia Berto",
+     "institution": ""
+    }
+   ],
+   "avatar": "https://raw.githubusercontent.com/brain-life/app-wmaSeg/master/wmaSeg.png",
+   "thumb": "/landing-data/media/app-brainlife-app-wmaseg.jpg"
+  },
+  {
+   "id": "faskowit-app-multiatlastt",
+   "name": "Multi-Atlas Transfer Tool",
+   "repo": "faskowit/app-multiAtlasTT",
+   "tags": [
+    "anatomy",
+    "parcellation"
+   ],
+   "desc": "brainlife.io version of maTT: transfers multiple cortical atlases onto an individual FreeSurfer surface.",
+   "runs": 145960,
+   "users": 154,
+   "maintainers": [
+    {
+     "name": "Josh Faskowitz",
+     "institution": "Indiana University"
+    },
+    {
+     "name": "Franco Pestilli",
+     "institution": ""
+    },
+    {
+     "name": "Brent McPherson",
+     "institution": ""
+    }
+   ],
+   "avatar": null,
+   "thumb": null
+  },
+  {
+   "id": "brainlife-app-fslbet",
+   "name": "FSL Brain Extraction (BET)",
+   "repo": "brainlife/app-FSLBET",
+   "tags": [
+    "anatomy-preprocessing"
+   ],
+   "desc": "Brain extraction via FSL's BET command.",
+   "runs": 47688,
+   "users": 182,
+   "maintainers": [
+    {
+     "name": "Brad Caron",
+     "institution": ""
+    },
+    {
+     "name": "Franco Pestilli",
+     "institution": ""
+    },
+    {
+     "name": "Giulia Berto",
+     "institution": ""
+    },
+    {
+     "name": "Lindsey Kitchell",
+     "institution": "Indiana University"
+    }
+   ],
+   "avatar": null,
+   "thumb": null
+  },
+  {
+   "id": "brainlife-app-hcp-acpc-alignment",
+   "name": "Align T1 to ACPC Plane (HCP-based)",
+   "repo": "brainlife/app-hcp-acpc-alignment",
+   "tags": [
+    "anatomy-preprocessing"
+   ],
+   "desc": "Aligns a T1w image to the ACPC plane using a 6 DOF alignment to the MNI152 template.",
+   "runs": 4407496,
+   "users": 223,
+   "maintainers": [
+    {
+     "name": "Brent McPherson",
+     "institution": ""
+    },
+    {
+     "name": "Brad Caron",
+     "institution": ""
+    }
+   ],
+   "avatar": null,
+   "thumb": null
+  },
+  {
+   "id": "brainlife-app-mriqc",
+   "name": "MRIQC",
+   "repo": "brainlife/app-mriqc",
+   "tags": [
+    "qa",
+    "mri"
+   ],
+   "desc": "Runs the Poldrack Lab MRIQC pipeline on anatomical and functional MRI to produce image quality metrics and reports.",
+   "runs": 39728,
+   "users": 0,
+   "maintainers": [],
+   "avatar": null,
+   "thumb": null
+  },
+  {
+   "id": "alleninstitute-ac-hpc",
+   "name": "Convert TIFF to Zarr v3",
+   "repo": "AllenInstitute/ac_hpc",
+   "tags": [
+    "microscopy",
+    "zarr"
+   ],
+   "desc": "Axonal connectomics pipeline: lightsheet TIFF stacks to chunked Zarr for Neuroglancer.",
+   "runs": 0,
+   "users": 0,
+   "maintainers": [
+    {
+     "name": "Allen Institute",
+     "institution": ""
+    }
+   ],
+   "avatar": null,
+   "thumb": null
+  },
+  {
+   "id": "jhuapl-boss-bossdb-brainlife-apps",
+   "name": "BossDB TIFF Export",
+   "repo": "jhuapl-boss/bossdb-brainlife-apps",
+   "tags": [
+    "em",
+    "bossdb"
+   ],
+   "desc": "Pull a cutout from a BossDB channel into the platform as TIFF.",
+   "runs": 0,
+   "users": 0,
+   "maintainers": [
+    {
+     "name": "JHU APL BossDB team",
+     "institution": ""
+    }
+   ],
+   "avatar": null,
+   "thumb": null
+  }
+ ]
+}
