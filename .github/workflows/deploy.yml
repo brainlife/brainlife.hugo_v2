@@ -3,6 +3,8 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches: ["main"]
+  schedule:
+    - cron: "17 6 * * *"   # nightly: pick up new publications, Apps and media
   workflow_dispatch:
 
 permissions:
@@ -35,6 +37,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install ffmpeg (video posters for publication cards)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Refresh landing data from the brainlife API
+        run: npm run landing:data
 
       - name: Build with Next.js
         env:

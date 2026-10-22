@@ -1,22 +1,16 @@
-import LandingPage from '@/features/Landing/LandingPage';
-import ChakraProvider from '@/components/ChakraProvider';
+import LandingV3Page from '@/features/LandingV3/LandingV3Page';
 import type { Metadata } from 'next';
 import { getAssetPath } from '@/lib/basePath';
 
+const title = 'brainlife.io · Brain data at every scale';
+const description = 'Open platform to analyze, share and publish brain data at every scale: electron and light microscopy, PS-OCT, MRI, fMRI, EEG and MEG. Reproducible Apps on shared supercomputers, results in the browser, publications with DOIs.';
+
 export const metadata: Metadata = {
-    title: 'Brainlife.io Open, Cloud-based Neuroimaging Analysis Platform',
-    description: 'A free and open-source cloud platform for secure, reproducible neuroimaging research and high-performance computing.',
-    openGraph: {
-        title: 'Brainlife.io Open, Cloud-based Neuroimaging Analysis Platform',
-        description: 'A free and open-source cloud platform for secure, reproducible neuroimaging research and high-performance computing.',
-        images: [getAssetPath('/og-image.png')],
-    },
+    title,
+    description,
+    openGraph: { title, description, images: [getAssetPath('/og-image.png')] },
 };
 
 export default function Home() {
-    return (
-        <ChakraProvider>
-            <LandingPage />
-        </ChakraProvider>
-    );
+    return <LandingV3Page />;
 }

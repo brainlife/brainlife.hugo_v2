@@ -1,0 +1,312 @@
+{
+ "fetched": "2026-10-22T17:08:31.888937Z",
+ "count": 64,
+ "pubs": [
+  {
+   "id": "10-25663-brainlife-pub-69",
+   "slug": "heterogeneity-white-matter",
+   "name": "Heterogeneity of white-matter organization in the human brain",
+   "doi": "10.25663/brainlife.pub.69",
+   "date": "2026-04-08",
+   "tags": [
+    "lightsheet",
+    "axonal connectomics"
+   ],
+   "desc": "A histological and imaging pipeline optimized for post-mortem human white matter that shows the 3D trajectories of densely stained large (diameter greater than ~1 μm) projection axons.",
+   "authors": [
+    "Clay Reid",
+    "Wan-Qing Yu"
+   ],
+   "institutions": [
+    "Allen Institute for Brain Science"
+   ],
+   "url": "https://connects.brainlife.io/publications/heterogeneity-white-matter",
+   "video": "https://apex-connects.s3.us-east-2.amazonaws.com/axonal_connectomics/movies/Fig%203C%20PO11%20S6.mp4",
+   "videos": 8,
+   "viewers": 9,
+   "banner": null,
+   "thumb": "/landing-data/media/10-25663-brainlife-pub-69.jpg"
+  },
+  {
+   "id": "10-25663-brainlife-pub-64",
+   "slug": "CMC",
+   "name": "Center for Mesoscale Connectomics",
+   "doi": "10.25663/brainlife.pub.64",
+   "date": "2026-02-19",
+   "tags": [
+    "tract tracing",
+    "dMRI",
+    "PS-OCT"
+   ],
+   "desc": "Multiple imaging and neuroanatomical methods across non-human primates and humans to build an accurate, fine-grained wiring diagram of the brain, starting with connections between the frontal and parietal lobes.",
+   "authors": [
+    "Shaun Warrington",
+    "Mohamed Kotb Selim",
+    "Benjamin C. Tendler",
+    "Steen Moeller",
+    "Hamza Farooq",
+    "Wenchuan Wu",
+    "Pramod Kumar Pisharady",
+    "Gregor Adriany",
+    "Ana M.G. Manea",
+    "Taylor Grafft",
+    "Noam Harel",
+    "Franco Pestilli"
+   ],
+   "institutions": [
+    "University of Minnesota",
+    "The University of Texas at Austin"
+   ],
+   "url": "https://connects.brainlife.io/publications/CMC",
+   "video": "https://apex-connects.s3.us-east-2.amazonaws.com/CMC/Derivatives/movies/tdi_sagittal.mp4",
+   "videos": 12,
+   "viewers": 10,
+   "banner": "https://mesoscale-connectivity.org/assets/img/index1.png",
+   "thumb": "/landing-data/media/10-25663-brainlife-pub-64.jpg"
+  },
+  {
+   "id": "10-25663-brainlife-pub-67",
+   "slug": "retinotopic-connectivity-template",
+   "name": "Retinotopic Connectivity Template",
+   "doi": "10.25663/brainlife.pub.67",
+   "date": "2026-03-31",
+   "tags": [
+    "dMRI",
+    "tractography"
+   ],
+   "desc": "A population-derived representation of visual white-matter connectivity constructed from diffusion tractography data in over 1,000 subjects from the Human Connectome Project.",
+   "authors": [
+    "Gabriele Amorosino",
+    "Brad Caron",
+    "Junbeom Kwon",
+    "Marisa Carrasco",
+    "Clay Reid",
+    "Christophe Lenglet",
+    "Jan Zimmermann",
+    "Essa Yacoub",
+    "Kamil Ugurbil",
+    "Sarah Heilbronner",
+    "Franco Pestilli"
+   ],
+   "institutions": [
+    "The University of Texas at Austin",
+    "NYU",
+    "Allen Institute for Brain Science",
+    "University of Minnesota"
+   ],
+   "url": "https://connects.brainlife.io/publications/retinotopic-connectivity-template",
+   "video": null,
+   "videos": 0,
+   "viewers": 0,
+   "banner": "https://lh3.googleusercontent.com/d/1oZIGAqZ0dWsPZlsQrg_SKtfhcJCb3zp9",
+   "thumb": "/landing-data/media/10-25663-brainlife-pub-67.jpg"
+  },
+  {
+   "id": "10-25663-brainlife-pub-66",
+   "slug": "EEGManyPipelines",
+   "name": "EEGManyPipelines",
+   "doi": "10.25663/brainlife.pub.66",
+   "date": "2026-02-26",
+   "tags": [
+    "EEG",
+    "behavioral data",
+    "meta-scientific"
+   ],
+   "desc": "This project contains the data that was used in the EEGManyPipelines project.",
+   "authors": [
+    "Elena Cesnaite",
+    "Andrea Vitale",
+    "Annalisa Pascarella",
+    "Mikkel C. Vinding",
+    "Johannes Algermissen",
+    "Nastassja L. Fischer",
+    "Claudia Gianelli",
+    "Darinka Trübutschek",
+    "Yu-Fang Yang",
+    "Gustav Nilsonne",
+    "Niko Busch"
+   ],
+   "institutions": [
+    "Münster University",
+    "University of Trento",
+    "University of Copenhagen",
+    "University of Zurich"
+   ],
+   "url": "https://connects.brainlife.io/publications/EEGManyPipelines",
+   "video": null,
+   "videos": 0,
+   "viewers": 0,
+   "banner": "https://raw.githubusercontent.com/EEGManyPipelines/.github/refs/heads/main/brainlife_banner.png",
+   "thumb": "/landing-data/media/10-25663-brainlife-pub-66.jpg"
+  },
+  {
+   "id": "10-25663-brainlife-pub-68",
+   "slug": "68",
+   "name": "White Matter Tract Segmentation Benchmark Dataset: Human Connectome Project Young Adult (HCP-YA)",
+   "doi": "10.25663/brainlife.pub.68",
+   "date": "2026-04-07",
+   "tags": [
+    "dMRI",
+    "tract segmentation",
+    "deep learning"
+   ],
+   "desc": "Preprocessed diffusion MRI data and white matter tract segmentation outputs for 61 anatomically defined tracts, the training and evaluation benchmark in a systematic comparison of deep learning approaches.",
+   "authors": [
+    "Junbeom Kwon",
+    "Gabriele Amorosino",
+    "Franco Pestilli"
+   ],
+   "institutions": [
+    "The University of Texas at Austin"
+   ],
+   "url": "https://connects.brainlife.io/publications/68",
+   "video": null,
+   "videos": 0,
+   "viewers": 0,
+   "banner": null,
+   "thumb": null
+  },
+  {
+   "id": "10-25663-brainlife-pub-70",
+   "slug": "70",
+   "name": "White Matter Tract Segmentation Benchmark Dataset: CamCAN",
+   "doi": "10.25663/brainlife.pub.70",
+   "date": "2026-05-10",
+   "tags": [
+    "dMRI",
+    "tract segmentation",
+    "lifespan"
+   ],
+   "desc": "Preprocessed diffusion MRI and tract segmentation outputs from the Cambridge Centre for Ageing and Neuroscience cohort, spanning the adult lifespan.",
+   "authors": [
+    "Junbeom Kwon",
+    "Gabriele Amorosino",
+    "Franco Pestilli"
+   ],
+   "institutions": [
+    "The University of Texas at Austin"
+   ],
+   "url": "https://connects.brainlife.io/publications/70",
+   "video": null,
+   "videos": 0,
+   "viewers": 0,
+   "banner": null,
+   "thumb": null
+  },
+  {
+   "id": "10-25663-brainlife-pub-73",
+   "slug": "73",
+   "name": "Longitudinal study of structural brain neuroplasticity and cognitive reserve: a case report",
+   "doi": "10.25663/brainlife.pub.73",
+   "date": "2026-09-27",
+   "tags": [
+    "neuroplasticity",
+    "freesurfer",
+    "longitudinal"
+   ],
+   "desc": "Processed morphometric brain data demonstrating longitudinal cortical thickness and subcortical volume changes between 2023 and 2026.",
+   "authors": [
+    "Marina Ermoshina"
+   ],
+   "institutions": [],
+   "url": "https://connects.brainlife.io/publications/73",
+   "video": null,
+   "videos": 0,
+   "viewers": 0,
+   "banner": null,
+   "thumb": null
+  },
+  {
+   "id": "10-25663-brainlife-pub-65",
+   "slug": "65",
+   "name": "GLIODEF Dataset",
+   "doi": "10.25663/brainlife.pub.65",
+   "date": "2026-02-20",
+   "tags": [
+    "dMRI",
+    "glioma",
+    "bundle segmentation"
+   ],
+   "desc": "A synthetic dataset for bundle segmentation in glioma patients.",
+   "authors": [
+    "Paolo Avesani"
+   ],
+   "institutions": [
+    "Bruno Kessler Foundation"
+   ],
+   "url": "https://connects.brainlife.io/publications/65",
+   "video": null,
+   "videos": 0,
+   "viewers": 0,
+   "banner": null,
+   "thumb": null
+  },
+  {
+   "id": "10-25663-brainlife-pub-71",
+   "slug": "71",
+   "name": "Brainlife MEEG pipelines",
+   "doi": "10.25663/brainlife.pub.71",
+   "date": "2026-07-01",
+   "tags": [
+    "MEG",
+    "EEG"
+   ],
+   "desc": "Demonstration publication for the MEG and EEG pipelines on brainlife.",
+   "authors": [
+    "Julia Guiomar Niso Galán",
+    "Maximilien Chaumon"
+   ],
+   "institutions": [],
+   "url": "https://connects.brainlife.io/publications/71",
+   "video": null,
+   "videos": 0,
+   "viewers": 0,
+   "banner": null,
+   "thumb": null
+  },
+  {
+   "id": "10-25663-brainlife-pub-54",
+   "slug": "54",
+   "name": "Optogenetic activation of dorsal raphe serotonin neurons induces brain-wide activation",
+   "doi": "10.25663/brainlife.pub.54",
+   "date": "2024-06-01",
+   "tags": [
+    "opto-fMRI",
+    "serotonin",
+    "optogenetics"
+   ],
+   "desc": "Brain-wide activation from serotonergic stimulation, reversed by isoflurane anaesthesia.",
+   "authors": [],
+   "institutions": [],
+   "url": "https://connects.brainlife.io/publications/54",
+   "video": null,
+   "videos": 0,
+   "viewers": 0,
+   "banner": null,
+   "thumb": null
+  },
+  {
+   "id": "10-25663-brainlife-pub-61",
+   "slug": "61",
+   "name": "A labeled Clinical-MRI dataset of Nigerian brains",
+   "doi": "10.25663/brainlife.pub.61",
+   "date": "2024-12-01",
+   "tags": [
+    "MRI",
+    "FLAIR",
+    "T1w",
+    "T2w"
+   ],
+   "desc": "Labeled clinical MRI from healthy, dementia and Parkinson’s participants, the first openly shared MRI dataset from Nigerian individuals.",
+   "authors": [],
+   "institutions": [],
+   "url": "https://connects.brainlife.io/publications/61",
+   "video": null,
+   "videos": 0,
+   "viewers": 0,
+   "banner": null,
+   "thumb": null
+  }
+ ],
+ "note": "Snapshot captured from the live API during design; scripts/fetch-landing-data.mjs replaces this file at build time."
+}
