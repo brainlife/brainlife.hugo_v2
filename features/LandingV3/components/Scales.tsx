@@ -1,5 +1,5 @@
 import { SCALES, TILES, LABELS } from '@/lib/landing/content';
-import Drawn from './Drawn';
+import MotifArt from './MotifArt';
 
 const AXIS_POS = ['0', '25%', '50%', '75%'];
 
@@ -12,9 +12,9 @@ export default function Scales() {
       </div>
       <div className="scales">
         <div className="tiles">
-          {TILES.map((t, i) => (
+          {TILES.map(t => (
             <div className="tile" key={t.art}>
-              <Drawn art={t.art} w={200} h={200} seed={100 + i} className="img" eager={i < 4} />
+              <div className="img"><MotifArt kind={t.art} seed={t.art} square /></div>
               <div className="t">{t.title}</div><div className="s">{t.sub}</div>
             </div>
           ))}

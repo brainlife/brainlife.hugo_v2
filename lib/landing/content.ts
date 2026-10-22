@@ -3,7 +3,7 @@
  * touches a component. Links come from lib/constants.ts.
  */
 import { EXTERNAL_LINKS } from '@/lib/constants';
-import type { Art } from './types';
+import type { Motif } from './motifs';
 import type { HeroVariant } from './pairs';
 
 export const NAV = [
@@ -47,7 +47,7 @@ export const SCALES = {
 };
 
 /** One tile per datatype family, ordered by the scale it measures (smallest first). */
-export const TILES: { art: Art; title: string; sub: string }[] = [
+export const TILES: { art: Motif; title: string; sub: string }[] = [
   { art: 'em', title: 'Electron microscopy', sub: 'nm · Neuroglancer' },
   { art: 'lightsheet', title: 'Lightsheet microscopy', sub: 'µm · OME-Zarr' },
   { art: 'oct', title: 'PS-OCT · tract tracing', sub: 'µm–mm · Zarr' },

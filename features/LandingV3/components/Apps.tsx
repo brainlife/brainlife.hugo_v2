@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react';
 import { getAssetPath } from '@/lib/basePath';
 import { APPS, LABELS } from '@/lib/landing/content';
-import { pickArt, shuffled, formatCount } from '@/lib/landing/art';
-import { seedFrom } from '@/lib/landing/drawers';
+import { shuffled, formatCount } from '@/lib/landing/art';
+import { pickMotif } from '@/lib/landing/motifs';
 import type { AppRecord, AppsFile } from '@/lib/landing/types';
 import appsJson from '@/public/landing-data/apps.json';
-import Drawn from './Drawn';
+import MotifArt from './MotifArt';
 import CarouselArrows from './CarouselArrows';
 import { useCarousel } from './useCarousel';
 
@@ -26,7 +26,7 @@ function AppCard({ a }: { a: AppRecord }) {
   return (
     <div className={`app ${familyColor(a)}`} role="listitem">
       <div className="athumb">
-        {a.thumb ? <img src={getAssetPath(a.thumb)} alt="" loading="lazy" decoding="async" /> : <Drawn art={pickArt(`${a.tags.join(' ')} ${a.name} ${a.desc}`)} w={300} h={150} seed={seedFrom(a.id)} />}
+        {a.thumb ? <img src={getAssetPath(a.thumb)} alt="" loading="lazy" decoding="async" /> : <MotifArt kind={pickMotif(`${a.tags.join(' ')} ${a.name} ${a.desc}`)} seed={a.id} />}
       </div>
       <span className="tag">{a.tags.slice(0, 2).join(' · ') || LABELS.appFallbackTag}</span>
       <b>{a.name}</b>

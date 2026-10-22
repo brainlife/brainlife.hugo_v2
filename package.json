@@ -10,6 +10,7 @@
     "test:assets": "node scripts/verify-assets.mjs",
     "test": "npm run test:assets && npm run test:landing-data",
     "landing:data": "node scripts/fetch-landing-data.mjs",
+    "brand:motifs": "node --experimental-strip-types scripts/export-motifs.mjs",
     "test:landing-data": "node scripts/verify-landing-data.mjs"
   },
   "dependencies": {

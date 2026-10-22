@@ -1,6 +1,5 @@
 /** Shapes shared by scripts/fetch-landing-data.mjs (writer) and features/LandingV3 (reader). */
 
-export type Art = 'em' | 'lightsheet' | 'oct' | 'tracts' | 'surface' | 'matrix' | 'fmri' | 'meg';
 export type { HeroVariant as HeroArt } from './pairs';
 
 export interface Publication {

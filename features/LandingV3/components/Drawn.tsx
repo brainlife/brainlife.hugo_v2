@@ -1,14 +1,14 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { DRAWERS } from '@/lib/landing/drawers';
-import type { Art, HeroArt } from '@/lib/landing/types';
+import type { HeroArt } from '@/lib/landing/types';
 
 /**
- * Renders one generative drawing (lib/landing/draw.ts) into a div. Decorative only.
+ * Renders one hero drawing (lib/landing/draw.ts) into a div. Decorative only.
  * Draws lazily: when the element comes within 200px of the viewport, or at once with `eager`.
  */
 export default function Drawn({ art, w, h, seed, small = true, className, eager = false }: {
-  art: Art | HeroArt; w: number; h: number; seed: number; small?: boolean; className?: string; eager?: boolean;
+  art: HeroArt; w: number; h: number; seed: number; small?: boolean; className?: string; eager?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {

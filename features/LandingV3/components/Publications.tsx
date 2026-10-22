@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react';
 import { getAssetPath } from '@/lib/basePath';
 import { PUBLICATIONS, LABELS } from '@/lib/landing/content';
-import { pickArt, shuffled } from '@/lib/landing/art';
-import { seedFrom } from '@/lib/landing/drawers';
+import { shuffled } from '@/lib/landing/art';
+import { pickMotif } from '@/lib/landing/motifs';
 import type { Publication, PubsFile } from '@/lib/landing/types';
 import pubsJson from '@/public/landing-data/pubs.json';
-import Drawn from './Drawn';
+import MotifArt from './MotifArt';
 import CarouselArrows from './CarouselArrows';
 import { useCarousel } from './useCarousel';
 
@@ -28,7 +28,6 @@ function authorsLine(p: Publication) {
 function PubCard({ p }: { p: Publication }) {
   const [playing, setPlaying] = useState(false);
   const toggle = () => { if (p.video) setPlaying(v => !v); };
-  const art = pickArt([p.name, ...p.tags, p.desc].join(' '));
   return (
     <article className="pub" role="listitem">
       <div className="thumb" onClick={toggle}
@@ -37,7 +36,7 @@ function PubCard({ p }: { p: Publication }) {
         aria-label={p.video ? `${playing ? 'Stop' : 'Play'} clip from ${p.name}` : undefined} aria-pressed={p.video ? playing : undefined}>
         {p.video && <span className="vid">{LABELS.video} · {p.videos} {p.videos === 1 ? LABELS.clip : LABELS.clips}</span>}
         {p.video && !playing && <div className="play"><i /></div>}
-        {p.thumb ? <img src={getAssetPath(p.thumb)} alt="" loading="lazy" decoding="async" /> : <Drawn art={art} w={340} h={191} seed={seedFrom(p.id)} />}
+        {p.thumb ? <img src={getAssetPath(p.thumb)} alt="" loading="lazy" decoding="async" /> : <MotifArt kind={pickMotif([p.name, ...p.tags, p.desc].join(' '))} seed={p.id} />}
         {!hasMedia(p) && <span className="vid vid-muted">{LABELS.noMedia}</span>}
         {playing && p.video && <video className="clip" src={p.video} autoPlay muted loop playsInline />}
       </div>

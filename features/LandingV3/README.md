@@ -2,7 +2,7 @@
 
 The landing page is a static, data-driven page. Nothing on it is hand-edited HTML: copy lives in one
 file, data is fetched from the brainlife API at build time, and the pictures are either real media from
-publications and Apps or small deterministic drawings.
+publications and Apps or geometric motifs in the brand colours.
 
 ## Where things are
 
@@ -11,7 +11,8 @@ publications and Apps or small deterministic drawings.
 | Any wording, link, list of tiles, tools or infrastructure | `lib/landing/content.ts` |
 | Logo colour pairs and the accents derived from them | `lib/landing/pairs.ts` (`PAIRS`) |
 | Which hero visuals rotate | `lib/landing/pairs.ts` (`HERO_VARIANTS`) and `features/LandingV3/components/Hero.tsx` |
-| The drawings (hero visuals, datatype tiles) | `lib/landing/draw.ts` |
+| The three hero drawings | `lib/landing/draw.ts` |
+| The geometric motifs (datatype tiles, fallback for cards without media) | `lib/landing/motifs.ts`; static copies in `public/brand/motifs/` via `npm run brand:motifs` |
 | How publications and Apps are fetched and thumbnailed | `scripts/fetch-landing-data.mjs` |
 | The data the page renders | `public/landing-data/{pubs,apps,people}.json` + `media/` (generated; a snapshot is committed) |
 | Layout and tokens | `features/LandingV3/landing-v3.css` (everything scoped under `.lv3`) |
@@ -30,10 +31,10 @@ publications and Apps or small deterministic drawings.
 3. Sections that depend on the random pick read `window.__bl` through `useSyncExternalStore`, so the
    server render is deterministic and the client takes over without hydration warnings.
 4. Publication and App cards shuffle on the client after hydration (`requestAnimationFrame`), media-rich
-   cards first. Cards without media draw a stylised tile chosen from their tags (`lib/landing/art.ts`),
-   seeded from the record id so a card keeps its picture across shuffles, and drawn only when near the
-   viewport (`Drawn.tsx`). Carousels auto-advance slowly with a visible pause button, and not at all
-   under `prefers-reduced-motion`.
+   cards first. Cards without media show a geometric motif chosen from their tags (`pickMotif` in
+   `motifs.ts`), rendered on the server as inline SVG in the pair's colours; the record id decides which
+   colour leads, so a card keeps its picture across shuffles. Carousels auto-advance slowly with a
+   visible pause button, and not at all under `prefers-reduced-motion`.
 
 ## How data gets in
 
@@ -60,9 +61,10 @@ that ids are unique and media URLs are https, and that every logo pair's light a
 - **Change how often each hero appears**: `HERO_WEIGHTS` in `pairs.ts`.
 - **Pin a pair or hero for a campaign**: set `window.__bl` logic in `PICK_SCRIPT`, or link with
   `?pair=…#lens`.
-- **Add a datatype tile**: add a drawer `D.myArt` in `draw.ts`, register it in `drawers.ts` (the compiler
-  insists), add the name to `Art` in `types.ts`, a row in `TILES`, and a keyword rule in `pickArt()` if
-  records should fall back to it.
+- **Add a motif**: add the name to `MOTIFS` and a drawing function to `DRAW` in `motifs.ts` (the compiler
+  insists on both), a label in `MOTIF_LABEL`, a keyword rule in `pickMotif()` so records can fall back to
+  it, and a row in `TILES` if it should appear in the scales section. Run `npm run brand:motifs` to
+  refresh the static SVGs. Keep to the house rule: one repeated flat unit, two colours, no gradients.
 - **Add a tool or infrastructure item**: edit `ECOSYSTEM.tools` or `INFRASTRUCTURE.groups` in `content.ts`.
 - **Change the stats line**: `STATS` in `content.ts`; the publications count comes from `pubs.json`.
 - **Retire a hero**: remove it from `HERO_VARIANTS`; the pick script and `Hero.tsx` key off that list.
@@ -99,4 +101,5 @@ Medium term:
    `LandingV3Page` is the whole job.
 
 Non-goals, deliberately: no client-side API calls (static export stays fast and offline-safe), no
-generated images at page load, no brand logos of third-party tools (text chips avoid trademark questions).
+generated or AI-styled imagery (motifs are plain geometry; real media comes from the records), no brand
+logos of third-party tools (text chips avoid trademark questions).
