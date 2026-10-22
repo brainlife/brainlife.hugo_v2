@@ -393,17 +393,28 @@ section {
   min-width: 0;
 }
 .lv3 .tile .img {
+  position: relative;
   aspect-ratio: 1;
   border-radius: 8px;
   overflow: hidden;
   background: #07131c;
   max-width: 100%;
 }
-.lv3 .tile .img canvas,
-.lv3 .tile .img svg {
+/* Geometric motifs (MotifArt): a constant-size icon centred on the dark ground of any box. */
+.lv3 .tile .img .motif,
+.lv3 .pub .thumb .motif,
+.lv3 .athumb .motif {
+  --motif-w: 96px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--motif-w);
+  height: calc(var(--motif-w) * 9 / 16);
+  transform: translate(-50%, -50%);
   display: block;
-  width: 100%;
-  height: 100%;
+}
+.lv3 .tile .img .motif {
+  --motif-w: 80px;
 }
 .lv3 .tile .t {
   font-size: 0.82rem;
@@ -552,14 +563,6 @@ section {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-.lv3 .pub .thumb canvas,
-.lv3 .pub .thumb svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0;
 }
 .lv3 .pub .thumb .vid {
   position: absolute;

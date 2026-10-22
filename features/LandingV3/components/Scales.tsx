@@ -14,7 +14,7 @@ export default function Scales() {
         <div className="tiles">
           {TILES.map(t => (
             <div className="tile" key={t.art}>
-              <div className="img"><MotifArt kind={t.art} seed={t.art} square /></div>
+              <div className="img"><MotifArt kind={t.art} seed={t.art} /></div>
               <div className="t">{t.title}</div><div className="s">{t.sub}</div>
             </div>
           ))}

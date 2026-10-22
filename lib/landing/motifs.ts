@@ -68,7 +68,7 @@ interface Ctx { a: string; b: string; r: () => number }
 function shape(el: string, col: string, filled: boolean): string {
   return filled
     ? el.replace('/>', ` fill="${col}" stroke="none"/>`)
-    : el.replace('/>', ` fill="none" stroke="${col}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>`);
+    : el.replace('/>', ` fill="none" stroke="${col}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>`);
 }
 
 const f1 = (n: number) => n.toFixed(1);
