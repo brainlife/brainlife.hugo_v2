@@ -71,8 +71,10 @@ that ids are unique and media URLs are https, and that every logo pair's light a
 
 ## Review tools
 
-Open the page with `?review=1` for a bar with "Shuffle logo pair" and "Next hero". The previous landing
-page is kept at `/legacy` until the team is happy to delete `features/Landing`.
+Open the page with `?review=1` for a bar with "Shuffle logo pair", "Next hero" and a feedback link. A
+staging build (`NEXT_PUBLIC_PREVIEW=1`, set by `.github/workflows/deploy-preview.yml` in a fork) shows
+that bar to everyone and is `noindex`; see `STAGING.md` for the collaborator-review setup. The previous
+landing page is kept at `/legacy` until the team is happy to delete `features/Landing`.
 
 ## Known limits and the plan
 

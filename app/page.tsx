@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     title,
     description,
     openGraph: { title, description, images: [getAssetPath('/og-image.png')] },
+    // staging deploys (NEXT_PUBLIC_PREVIEW=1) must not be indexed
+    ...(process.env.NEXT_PUBLIC_PREVIEW === '1' ? { robots: { index: false, follow: false } } : {}),
 };
 
 export default function Home() {

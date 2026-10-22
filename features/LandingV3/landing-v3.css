@@ -873,6 +873,12 @@ section {
   text-transform: uppercase;
   color: #a9bac6;
 }
+.lv3 .review .fb {
+  margin-left: auto;
+  color: var(--hero-accent);
+  font-weight: 600;
+  font-size: 0.82rem;
+}
 .lv3 .review .cur {
   color: var(--hero-accent);
   font-weight: 600;
