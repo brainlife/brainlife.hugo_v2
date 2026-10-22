@@ -15,7 +15,7 @@ export const NAV = [
 
 export const HERO = {
   eyebrow: 'Open platform · The University of Texas at Austin',
-  headline: 'Brain data at every scale. One place to analyze, share and publish it.',
+  headline: 'Brain data across scales. One place to analyze, share and publish it.',
   lede: 'Electron and light microscopy, PS-OCT, MRI, fMRI, EEG and MEG. Run reproducible analyses on shared supercomputers, look at the results in your browser, publish them with a DOI.',
   primary: { label: 'Start a project', href: EXTERNAL_LINKS.PORTAL },
   secondary: { label: 'Browse Apps and datasets', href: EXTERNAL_LINKS.APPS },

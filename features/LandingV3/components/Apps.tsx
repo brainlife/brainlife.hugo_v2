@@ -13,18 +13,9 @@ import { useCarousel } from './useCarousel';
 const data = appsJson as AppsFile;
 
 /** Top-border colour by App family, so the carousel shares the palette of the tiles. */
-const FAMILY_COLOR: [RegExp, string][] = [
-  [/microscop|zarr|lightsheet/, 'c-red'], [/\bem\b|bossdb|x-ray/, 'c-blue'],
-  [/fmri|qa|network|connectom/, 'c-orange'], [/anatomy|diffusion|tract|track/, 'c-yellow'],
-];
-const familyColor = (a: AppRecord) => {
-  const t = `${a.tags.join(' ')} ${a.name}`.toLowerCase();
-  return FAMILY_COLOR.find(([re]) => re.test(t))?.[1] ?? 'c-blue';
-};
-
 function AppCard({ a }: { a: AppRecord }) {
   return (
-    <div className={`app ${familyColor(a)}`} role="listitem">
+    <div className="app" role="listitem">
       <div className="athumb">
         {a.thumb ? <img src={getAssetPath(a.thumb)} alt="" loading="lazy" decoding="async" /> : <MotifArt kind={pickMotif(`${a.tags.join(' ')} ${a.name} ${a.desc}`)} seed={a.id} />}
       </div>
@@ -43,7 +34,7 @@ export default function Apps() {
   useEffect(() => { const id = requestAnimationFrame(() => setApps(shuffled(data.apps).slice(0, APPS.cards))); return () => cancelAnimationFrame(id); }, []);
   const { ref, by, playing, toggle } = useCarousel();
   return (
-    <section><div className="wrap">
+    <section><div className="wrap reveal">
       <div className="sec-head row">
         <div><div className="eyebrow">{APPS.eyebrow}</div><h2>{APPS.title}</h2><p>{APPS.text}</p></div>
         <a className="more" href={APPS.more.href}>{APPS.more.label}</a>

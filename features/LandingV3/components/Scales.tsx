@@ -5,7 +5,7 @@ const AXIS_POS = ['0', '25%', '50%', '75%'];
 
 export default function Scales() {
   return (
-    <section><div className="wrap">
+    <section><div className="wrap reveal">
       <div className="sec-head row">
         <div><div className="eyebrow">{SCALES.eyebrow}</div><h2>{SCALES.title}</h2><p>{SCALES.text}</p></div>
         <a className="more" href={SCALES.more.href}>{SCALES.more.label}</a>

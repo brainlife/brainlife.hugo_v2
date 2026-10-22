@@ -60,7 +60,7 @@ export default function Publications() {
   useEffect(() => { const id = requestAnimationFrame(() => setPubs(order(true))); return () => cancelAnimationFrame(id); }, []);
   const { ref, by, playing, toggle } = useCarousel();
   return (
-    <section><div className="wrap">
+    <section className="band"><div className="wrap reveal">
       <div className="sec-head row">
         <div><div className="eyebrow">{PUBLICATIONS.eyebrow}</div><h2>{PUBLICATIONS.title}</h2><p>{PUBLICATIONS.text}</p></div>
         <a className="more" href={PUBLICATIONS.moreHref}>All {data.count} publications →</a>

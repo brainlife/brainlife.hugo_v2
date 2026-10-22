@@ -6,7 +6,7 @@ import { useCarousel } from './useCarousel';
 export default function Ecosystem() {
   const { ref, by, playing, toggle } = useCarousel(6000);
   return (
-    <section><div className="wrap">
+    <section className="band"><div className="wrap reveal">
       <div className="sec-head row">
         <div><div className="eyebrow">{ECOSYSTEM.eyebrow}</div><h2>{ECOSYSTEM.title}</h2><p>{ECOSYSTEM.text}</p></div>
       </div>
