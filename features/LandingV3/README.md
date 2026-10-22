@@ -22,7 +22,7 @@ publications and Apps or geometric motifs in the brand colours.
 ## How a page load works
 
 1. `LandingV3Page` renders. The first thing in it is a tiny inline script (`PICK_SCRIPT`) that runs as the
-   HTML streams in: it picks a hero variant by weight (`HERO_WEIGHTS`, lens most often; `#field|#lens|#ruler`
+   HTML streams in: it picks a hero variant by weight (`HERO_WEIGHTS`, the flow field most often; `#field|#lens|#ruler`
    in the URL pins one; the ruler is never chosen on narrow screens) and a logo pair (`?pair=tealyellow`
    pins one), writes six CSS variables and `data-hero` on `<html>`, and stores the choice on `window.__bl`.
    CSS keyed on `data-hero` lays the hero out before React hydrates, so there is no flash or layout shift.

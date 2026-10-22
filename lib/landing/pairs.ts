@@ -16,8 +16,8 @@ export const PAIRS: Pair[] = [
   { name: 'light blue · orange', left: '#3b9fd0', right: '#e57536', accentLight: '#b84f18', accentDark: '#3b9fd0', accentDarkInk: '#0b1a24' },
 ];
 
-/** The hero visuals that rotate, with their relative weights. The ruler is skipped on narrow screens. */
-export const HERO_WEIGHTS = { lens: 4, field: 1, ruler: 1 } as const;
+/** The hero visuals that rotate, with their relative weights: field 2/3, ruler 2/9, lens 1/9. The ruler is skipped on narrow screens. */
+export const HERO_WEIGHTS = { field: 6, ruler: 2, lens: 1 } as const;
 export type HeroVariant = keyof typeof HERO_WEIGHTS;
 export const HERO_VARIANTS = Object.keys(HERO_WEIGHTS) as HeroVariant[];
 
