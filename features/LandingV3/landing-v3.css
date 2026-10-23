@@ -874,6 +874,22 @@ section {
 .lv3 .app p {
   font-size: 0.88rem;
   color: var(--muted);
+  /* registry descriptions can contain long URLs: wrap anywhere and cap at six lines */
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.lv3 .app,
+.lv3 .app b,
+.lv3 .app .who,
+.lv3 .tool,
+.lv3 .pub .body {
+  overflow-wrap: anywhere;
+}
+.lv3 .app {
+  overflow: hidden;
 }
 .lv3 .app .repo {
   font-family: var(--mono);
