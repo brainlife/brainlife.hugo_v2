@@ -6,9 +6,12 @@ import { EXTERNAL_LINKS } from '@/lib/constants';
 import type { Motif } from './motifs';
 import type { HeroVariant } from './pairs';
 
+/** Public datasets live on the connects site, not the portal's /datasets page. */
+const PUBLIC_DATASETS = 'https://connects.brainlife.io/public-datasets';
+
 export const NAV = [
   { label: 'Apps', href: EXTERNAL_LINKS.APPS },
-  { label: 'Datasets', href: EXTERNAL_LINKS.DATASETS },
+  { label: 'Datasets', href: PUBLIC_DATASETS },
   { label: 'Publications', href: 'https://connects.brainlife.io/research' },
   { label: 'Docs', href: EXTERNAL_LINKS.DOCS },
 ];
@@ -18,7 +21,7 @@ export const HERO = {
   headline: 'Brain data across scales. One place to analyze, share and publish it.',
   lede: 'Electron and light microscopy, PS-OCT, MRI, fMRI, EEG and MEG. Run reproducible analyses on shared supercomputers, look at the results in your browser, publish them with a DOI.',
   primary: { label: 'Start a project', href: EXTERNAL_LINKS.PORTAL },
-  secondary: { label: 'Browse Apps and datasets', href: EXTERNAL_LINKS.APPS },
+  secondary: { label: 'Browse Apps and Datasets', href: EXTERNAL_LINKS.APPS },
   captions: {
     field: ['Across scales', 'electron microscopy → lightsheet → PS-OCT → MRI'],
     lens: ['Across scales', 'nm → cm, read inward'],
@@ -40,7 +43,7 @@ export const SCALES = {
   eyebrow: 'Measurements across scales',
   title: 'Every representation of the brain, from synapses to systems.',
   text: 'Stylised views of the datatypes that are live on the platform today, in the order of the scale they measure. Upload your own or import from public archives; 139 datatypes keep Apps interoperable.',
-  more: { label: 'Browse public datasets →', href: EXTERNAL_LINKS.DATASETS },
+  more: { label: 'Browse public datasets →', href: PUBLIC_DATASETS },
   axis: ['nm · synapses', 'µm · cells', 'mm · circuits', 'cm · systems', 'whole brain'],
   importFrom: ['OpenNeuro', 'BossDB', 'DANDI', 'ezBIDS (DICOM → BIDS)', 'Your computer'],
   formats: ['BIDS', 'NIfTI', 'OME-Zarr 0.5', 'Neuroglancer precomputed', 'TRX', 'NWB', 'FIF'],

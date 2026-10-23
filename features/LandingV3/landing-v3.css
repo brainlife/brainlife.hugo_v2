@@ -148,8 +148,17 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-block: 16px;
+  padding-block: 14px;
   flex-wrap: wrap;
+}
+/* The header sits over the hero drawing: a translucent band keeps the links legible on every hero. */
+.lv3 .site-band {
+  position: relative;
+  z-index: 2;
+  background: rgba(7, 19, 28, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--hero-line);
 }
 .lv3 .brand {
   font-weight: 600;
@@ -180,19 +189,27 @@
 }
 .lv3 .nav {
   display: flex;
+  align-items: center;
   gap: 22px;
   flex-wrap: wrap;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 500;
 }
 .lv3 .nav a {
   color: var(--hero-ink);
-  opacity: 0.85;
+  opacity: 0.92;
+  line-height: 1;
+}
+.lv3 .nav a:hover {
+  opacity: 1;
+  color: var(--hero-accent);
 }
 .lv3 .nav .btn {
   color: var(--hero-ink);
-  border-color: rgba(238, 243, 246, 0.3);
-  padding: 7px 12px;
+  border-color: rgba(238, 243, 246, 0.35);
+  padding: 8px 14px;
+  margin-left: 6px;
+  line-height: 1;
 }
 .lv3 .hero-grid {
   position: relative;
@@ -562,7 +579,9 @@ section {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding-bottom: 8px;
+  /* room for the hover lift (translateY(-3px) + shadow) so card borders are not clipped */
+  padding: 6px 4px 14px;
+  margin: -6px -4px 0;
   scrollbar-width: none;
 }
 .lv3 .track::-webkit-scrollbar {
@@ -782,6 +801,12 @@ section {
   gap: 8px;
   margin-top: 24px;
   align-items: center;
+}
+.lv3 .sources + .sources {
+  margin-top: 10px;
+}
+.lv3 .sources .lbl {
+  min-width: 92px;
 }
 .lv3 .sources .lbl {
   font-family: var(--mono);
