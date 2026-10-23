@@ -84,10 +84,10 @@
   margin: 0;
 }
 .lv3 .wrap {
-  max-width: 1180px;
+  max-width: 1360px;
   margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-left: max(16px, min(4vw, 40px), env(safe-area-inset-left, 0px));
+  padding-right: max(16px, min(4vw, 40px), env(safe-area-inset-right, 0px));
 }
 .lv3 .mono {
   font-family: var(--mono);
@@ -148,8 +148,43 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-block: 16px;
+  padding-block: 14px;
   flex-wrap: wrap;
+}
+/* Menu button: hidden on wide screens, replaces the link row under 760px. */
+.lv3 .menu-btn {
+  display: none;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(238, 243, 246, 0.35);
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.lv3 .menu-btn span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--hero-ink);
+  border-radius: 1px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.lv3 .site.open .menu-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.lv3 .site.open .menu-btn span:nth-child(2) { opacity: 0; }
+.lv3 .site.open .menu-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* The header sits over the hero drawing: a translucent band keeps the links legible on every hero. */
+.lv3 .site-band {
+  position: relative;
+  z-index: 5; /* above the hero copy so the mobile menu panel overlays it */
+  background: rgba(7, 19, 28, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--hero-line);
 }
 .lv3 .brand {
   font-weight: 600;
@@ -180,19 +215,27 @@
 }
 .lv3 .nav {
   display: flex;
+  align-items: center;
   gap: 22px;
   flex-wrap: wrap;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 500;
 }
 .lv3 .nav a {
   color: var(--hero-ink);
-  opacity: 0.85;
+  opacity: 0.92;
+  line-height: 1;
+}
+.lv3 .nav a:hover {
+  opacity: 1;
+  color: var(--hero-accent);
 }
 .lv3 .nav .btn {
   color: var(--hero-ink);
-  border-color: rgba(238, 243, 246, 0.3);
-  padding: 7px 12px;
+  border-color: rgba(238, 243, 246, 0.35);
+  padding: 8px 14px;
+  margin-left: 6px;
+  line-height: 1;
 }
 .lv3 .hero-grid {
   position: relative;
@@ -562,7 +605,9 @@ section {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding-bottom: 8px;
+  /* room for the hover lift (translateY(-3px) + shadow) so card borders are not clipped */
+  padding: 6px 4px 14px;
+  margin: -6px -4px 0;
   scrollbar-width: none;
 }
 .lv3 .track::-webkit-scrollbar {
@@ -783,6 +828,12 @@ section {
   margin-top: 24px;
   align-items: center;
 }
+.lv3 .sources + .sources {
+  margin-top: 10px;
+}
+.lv3 .sources .lbl {
+  min-width: 92px;
+}
 .lv3 .sources .lbl {
   font-family: var(--mono);
   font-size: 0.66rem;
@@ -823,6 +874,22 @@ section {
 .lv3 .app p {
   font-size: 0.88rem;
   color: var(--muted);
+  /* registry descriptions can contain long URLs: wrap anywhere and cap at six lines */
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.lv3 .app,
+.lv3 .app b,
+.lv3 .app .who,
+.lv3 .tool,
+.lv3 .pub .body {
+  overflow-wrap: anywhere;
+}
+.lv3 .app {
+  overflow: hidden;
 }
 .lv3 .app .repo {
   font-family: var(--mono);
@@ -933,3 +1000,42 @@ html[data-hero='field'] .lv3 .stage.placeholder { display: none; }
 .lv3 .arrows .pausebtn { font-size: .7rem; letter-spacing: -.05em; }
 .lv3 .tool-item { flex: 0 0 min(260px, 78vw); scroll-snap-align: start; display: flex; }
 .lv3 .tool-item .tool { flex: 1 1 auto; }
+
+/* Mobile navigation (must come after the base .nav rules) */
+@media (max-width: 760px) {
+  .lv3 .site {
+    flex-wrap: nowrap;
+  }
+  .lv3 .menu-btn {
+    display: flex;
+  }
+  .lv3 .nav {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 6px 0 12px;
+    background: rgba(7, 19, 28, 0.96);
+    border-bottom: 1px solid var(--hero-line);
+    font-size: 1.05rem;
+  }
+  .lv3 .site.open .nav {
+    display: flex;
+  }
+  .lv3 .nav a {
+    padding: 12px max(16px, env(safe-area-inset-left, 0px));
+    opacity: 1;
+  }
+  .lv3 .nav .btn {
+    margin: 8px max(16px, env(safe-area-inset-left, 0px)) 0;
+    text-align: center;
+    border-radius: 8px;
+  }
+  .lv3 .site-band {
+    position: relative;
+  }
+}
