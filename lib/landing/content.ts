@@ -145,6 +145,8 @@ export const PREVIEW = {
 
 export const LABELS = {
   signIn: 'Sign in',
+  openMenu: 'Open menu',
+  closeMenu: 'Close menu',
   publicationsWithDois: 'publications with DOIs',
   importFrom: 'Import from',
   formats: 'Formats',
