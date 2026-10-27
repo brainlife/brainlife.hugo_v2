@@ -495,17 +495,20 @@ section {
 .lv3 .tile .img .motif,
 .lv3 .pub .thumb .motif,
 .lv3 .athumb .motif {
-  --motif-w: 96px;
+  /* the motif takes a fixed share of its box, so it scales with the card but keeps its margins */
+  --motif-w: 56%;
   position: absolute;
   left: 50%;
   top: 50%;
   width: var(--motif-w);
-  height: calc(var(--motif-w) * 9 / 16);
+  height: auto;
+  aspect-ratio: 16 / 9;
   transform: translate(-50%, -50%);
   display: block;
 }
 .lv3 .tile .img .motif {
-  --motif-w: 80px;
+  /* scale tiles are square and resize with the grid: the motif takes 78% of the tile's width */
+  --motif-w: 78%;
 }
 .lv3 .tile .t {
   font-size: 0.82rem;
