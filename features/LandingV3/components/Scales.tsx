@@ -26,7 +26,9 @@ export default function Scales() {
       </div>
       <div className="sources">
         <span className="lbl">{LABELS.importFrom}</span>{SCALES.importFrom.map(s => <span className="chip" key={s}>{s}</span>)}
-        <span className="lbl" style={{ marginLeft: 14 }}>{LABELS.formats}</span>{SCALES.formats.map(s => <span className="chip" key={s}>{s}</span>)}
+      </div>
+      <div className="sources">
+        <span className="lbl">{LABELS.formats}</span>{SCALES.formats.map(s => <span className="chip" key={s}>{s}</span>)}
       </div>
     </div></section>
   );

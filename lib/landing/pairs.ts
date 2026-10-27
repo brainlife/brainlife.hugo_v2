@@ -16,8 +16,12 @@ export const PAIRS: Pair[] = [
   { name: 'light blue · orange', left: '#3b9fd0', right: '#e57536', accentLight: '#b84f18', accentDark: '#3b9fd0', accentDarkInk: '#0b1a24' },
 ];
 
-/** The hero visuals that rotate, with their relative weights. The ruler is skipped on narrow screens. */
-export const HERO_WEIGHTS = { lens: 4, field: 1, ruler: 1 } as const;
+/**
+ * Hero visuals and their relative weights. The flow field is the fixed hero (team decision, Oct 2026);
+ * the ruler and lens stay available with #ruler / #lens and can be put back in rotation by giving them
+ * a weight. A hero with weight 0 is never picked at random. The ruler is skipped on narrow screens.
+ */
+export const HERO_WEIGHTS = { field: 1, ruler: 0, lens: 0 } as const;
 export type HeroVariant = keyof typeof HERO_WEIGHTS;
 export const HERO_VARIANTS = Object.keys(HERO_WEIGHTS) as HeroVariant[];
 
@@ -28,8 +32,8 @@ export const HERO_VARIANTS = Object.keys(HERO_WEIGHTS) as HeroVariant[];
  */
 export const PICK_SCRIPT = `(function(){try{
 var P=${JSON.stringify(PAIRS)},W=${JSON.stringify(HERO_WEIGHTS)};
-var h=(location.hash||'').slice(1),hero=W[h]?h:null;
-if(!hero){var tot=0,k;for(k in W)tot+=W[k];var r=Math.random()*tot;for(k in W){r-=W[k];if(r<=0){hero=k;break;}}}
+var h=(location.hash||'').slice(1),hero=(h in W)?h:null;
+if(!hero){var tot=0,k;for(k in W)tot+=W[k];var r=Math.random()*tot;for(k in W){if(!W[k])continue;r-=W[k];if(r<=0){hero=k;break;}}}
 if(hero==='ruler'&&window.innerWidth<760)hero='lens';
 var q=String(new URLSearchParams(location.search).get('pair')||'').replace(/[^a-z]/g,'');
 var pair=null;for(var i=0;i<P.length;i++){if(P[i].name.replace(/[^a-z]/g,'')===q)pair=P[i];}

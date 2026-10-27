@@ -45,8 +45,8 @@ export default function Hero() {
   return (
     <header className="hero">
       <div className="bgart" ref={bgRef} />
+      <div className="site-band"><div className="wrap"><SiteHeader /></div></div>
       <div className="wrap">
-        <SiteHeader />
         <div className={`hero-grid ${layout}`}>
           <div className="copy">
             <div className="ey">{HERO.eyebrow}</div>
